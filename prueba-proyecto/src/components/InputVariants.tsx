@@ -24,6 +24,9 @@ const InputVariants: React.FC <InputProps>= ({
                 id={id}
                 className='
                 block 
+                px-6
+                pt-6
+                pb-1
                 rounded-md
                 w-full
                 text-md
@@ -48,10 +51,12 @@ const InputVariants: React.FC <InputProps>= ({
                 z-10
                 origin-[0]
                 left-6
-                peer-placeholder-shown: scale-100
-                peer-placeholder-shown: translate-y-0
-                peer-focus: scale-75
-                peer-focus: -translate-y-3
+                peer-placeholder-shown:scale-100
+                peer-placeholder-shown:translate-y-0
+                peer-focus:scale-75
+                peer-focus:-translate-y-3
+                cursor-pointer
+
                 ' 
                 htmlFor={id}>
                     {label}
