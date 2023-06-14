@@ -10,11 +10,21 @@ export default function Login() {
 
   const [variant, setVariant] = useState('register')
 
+  const handleClick = () => {
+    if (variant === 'login') {
+      setVariant('register')
+    } else {
+      setVariant('login')
+    } 
+  }
+
   return (
     <>
-      <div className="w-full h-screen bg-indigo-200 flex justify-center items-center">
-          <div className="w-96 h-96 rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-violet-950 flex flex-col">
-            <h2 className="text-white h-1/5 text-4xl font-bold flex justify-center">Hola</h2>
+      <div className="w-full h-screen bg-indigo-200 flex justify-center items-start ">
+          <div className="w-96 h-[28rem] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-violet-950 flex flex-col gap-4">
+            <h2 className="text-white h-1/5 text-4xl font-bold flex justify-center">
+              {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
+            </h2>
           <div className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
             <InputVariants 
               label='Username'
@@ -40,7 +50,15 @@ export default function Login() {
               type='password'
               value={password}
             />
-
+            <button className='w-56 h-12 rounded-md bg-indigo-500'>
+              {variant === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
+            </button>
+            <p className="text-white flex flex-row gap-2 w-full">
+              {variant === 'login' ? 'No te registraste todavía??' : 'Ya tenes una cuenta?'}
+              <span className='text-white font-bold hover:underline cursor-pointer' onClick={handleClick}>
+                {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
+              </span>
+            </p>
           </div>
         </div>
       </div>
