@@ -30,7 +30,7 @@ const Header = () => {
         {DataNav.map(({ id, title }) =>
           <li key={id} className=''>
             <Link
-              className='text-xl font-medium'
+              className='text-xl font-medium text-white'
               href={"#"}
             >
               {title}

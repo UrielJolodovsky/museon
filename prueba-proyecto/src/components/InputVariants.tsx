@@ -57,7 +57,6 @@ const InputVariants: React.FC<InputProps> = ({
                 peer-focus:scale-75
                 peer-focus:-translate-y-3
                 cursor-pointer
-
                 '
         htmlFor={id}>
         {label}

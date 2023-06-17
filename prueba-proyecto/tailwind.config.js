@@ -7,6 +7,7 @@ module.exports = {
   ],
   theme: {
     colors:{
+      white: '#ffffff',
       black: '#000000',
       navColor: '#0f172a',
       dashBack: '#c9c9c9',
