@@ -20,7 +20,7 @@ const InputVariants: React.FC<InputProps> = ({
     <div className='relative'>
       <input
         onChange={onChange}
-        type="text"
+        type={type}
         id={id}
         className='
                 block 
