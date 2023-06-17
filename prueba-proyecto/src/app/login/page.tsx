@@ -20,12 +20,12 @@ export default function Login() {
 
   return (
     <>
-      <div className="w-full h-screen bg-indigo-200 flex justify-center items-start ">
-        <div className="w-96 h-[28rem] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-blue-500 flex flex-col gap-4">
+      <div className="w-full h-screen bg-dashBack flex justify-center items-start ">
+        <div className="w-96 h-[28rem] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-formBack flex flex-col gap-4">
           <h2 className="text-white h-1/5 text-4xl font-bold flex justify-center">
             {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
           </h2>
-          <div className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
+          <form className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
             <InputVariants
               label='Username'
               onChange={(e: any) => setName(e.target.value)}
@@ -50,16 +50,16 @@ export default function Login() {
               type='password'
               value={password}
             />
-            <button className='w-40 h-12 rounded-md bg-green-500 hover:bg-green-400 transition font-bold'>
+            <button className='w-40 h-12 rounded-md bg-btnForm hover:bg-opacity-80 transition font-bold'>
               {variant === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
             </button>
-            <p className="text-white flex flex-row gap-2 w-full">
+            <p className='text-white flex flex-row gap-2'>
               {variant === 'login' ? 'No te registraste todavía??' : 'Ya tenes una cuenta?'}
               <span className='text-white font-bold hover:underline cursor-pointer' onClick={handleClick}>
                 {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
               </span>
             </p>
-          </div>
+          </form>
         </div>
       </div>
 
