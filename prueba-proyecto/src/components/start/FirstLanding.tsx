@@ -1,6 +1,8 @@
+import { MuseosProps } from '@/types'
+import axios from 'axios'
 import { link } from 'fs'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const FirstLanding = () => {
   const DataNav = [
@@ -25,8 +27,19 @@ const FirstLanding = () => {
       link: '#'
     },
   ]
+  const [museos, setMuseos] = useState<MuseosProps[]>([])
+  
+  useEffect(() => {
+    viewMuseos()
+  }, [museos])
 
-
+const viewMuseos = async () => {
+  await axios.get('http://localhost:3000/api/museos')
+  .then((response) => {
+    setMuseos(response.data)
+    console.log(response.data)
+  })
+}
 
   return (
     <header className='w-full h-24 bg-navColor'>
