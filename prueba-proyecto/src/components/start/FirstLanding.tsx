@@ -1,9 +1,12 @@
+"use client"
 import { MuseosProps } from '@/types'
 import axios from 'axios'
 import { link } from 'fs'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { Image } from 'cloudinary-react'
+import { CldImage } from 'next-cloudinary'
+
+
 const FirstLanding = () => {
   const DataNav = [
     {
@@ -60,7 +63,18 @@ const viewMuseos = async () => {
       </nav>
     </header>
     {/* <Image cloudName="" /> */}
-    <img src='https://cloudi'></img>
+    
+    <div>
+      {museos.map(({id, name}) => {
+        return (
+          <div key={id}>
+            <CldImage width='600' height='600' src={id} alt=""/>
+            <h1>{name}</h1>
+          </div>
+        )
+      })
+      }
+    </div>
     </>
   )
 }
