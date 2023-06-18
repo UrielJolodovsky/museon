@@ -62,7 +62,6 @@ const viewMuseos = async () => {
         </ul>
       </nav>
     </header>
-    {/* <Image cloudName="" /> */}
     
     <div>
       {museos.map(({id, name}) => {
