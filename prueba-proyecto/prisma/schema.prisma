@@ -70,7 +70,7 @@ model Comments {
 model Museos{
   id String @id @default(cuid())
   name String
-  image String
+  image String?
   comments Comments[]
 }
 

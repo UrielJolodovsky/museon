@@ -3,7 +3,7 @@ import axios from 'axios'
 import { link } from 'fs'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-
+import { Image } from 'cloudinary-react'
 const FirstLanding = () => {
   const DataNav = [
     {
@@ -28,7 +28,7 @@ const FirstLanding = () => {
     },
   ]
   const [museos, setMuseos] = useState<MuseosProps[]>([])
-  
+
   useEffect(() => {
     viewMuseos()
   }, [museos])
@@ -42,6 +42,7 @@ const viewMuseos = async () => {
 }
 
   return (
+    <>
     <header className='w-full h-24 bg-navColor'>
       <nav className='w-full h-full flex flex-row'>
         <ul className='w-full h-full flex flex-row items-center justify-evenly gap-6'>
@@ -58,6 +59,9 @@ const viewMuseos = async () => {
         </ul>
       </nav>
     </header>
+    {/* <Image cloudName="" /> */}
+    <img src='https://cloudi'></img>
+    </>
   )
 }
 
