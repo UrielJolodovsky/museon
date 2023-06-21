@@ -56,7 +56,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: getFacebookCredentials().clientSecret
     }),
     Credentials({
-      //id: "credentials",
+      id: "credentials",
       name: "credentials",
       credentials: {
         email: {

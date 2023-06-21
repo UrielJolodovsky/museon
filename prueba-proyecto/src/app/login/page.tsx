@@ -3,8 +3,9 @@
 import InputVariants from '@/components/InputVariants'
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
-import { useState } from 'react'
+import { ChangeEvent, MouseEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import GoogleButton from './components/GoogleButton';
 
 export default function Login() {
   const [name, setName] = useState('')
@@ -23,8 +24,8 @@ export default function Login() {
 
   const router = useRouter()
 
-  async function LogInCredentials(e: any) {
-    e.preventDefault()
+  async function LogInCredentials(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
     if (variant === 'login') {
       try {
         await signIn("credentials", { 
@@ -59,14 +60,14 @@ export default function Login() {
   return (
     <>
       <div className="w-full h-screen bg-dashBack flex justify-center items-start ">
-        <div className="w-96 h-[28rem] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-formBack flex flex-col gap-4">
+        <div className="w-96 h-[30rem] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-formBack flex flex-col gap-4">
           <h2 className="text-white h-1/5 text-4xl font-bold flex justify-center">
             {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
           </h2>
           <form className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
             <InputVariants
               label='Username'
-              onChange={(e: any) => setName(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
               id='name'
               type='text'
               value={name}
@@ -74,7 +75,7 @@ export default function Login() {
             {variant === 'register' && (
               <InputVariants
                 label='Email'
-                onChange={(e: any) => setEmail(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 id='email'
                 type='text'
                 value={email}
@@ -83,7 +84,7 @@ export default function Login() {
             }
             <InputVariants
               label='Password'
-              onChange={(e: any) => setPassword(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               id='password'
               type='password'
               value={password}
@@ -92,13 +93,14 @@ export default function Login() {
               {variant === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
             </button>
           </form>
-            <div className='flex flex-col gap-2 justify-between items-center w-full'>
+            <div className='flex flex-col gap-4 justify-between items-center w-full'>
             <p className='text-white flex flex-row gap-2'>
               {variant === 'login' ? 'No te registraste?' : 'Ya tenes una cuenta?'}
               <span className='text-white font-bold hover:underline cursor-pointer' onClick={handleClick}>
                 {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
               </span>
             </p>
+            <GoogleButton />
           </div>
         </div>
       </div>

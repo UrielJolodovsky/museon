@@ -67,7 +67,7 @@ const viewMuseos = async () => {
       {museos.map(({id, name}) => {
         return (
           <div key={id}>
-            <CldImage width='600' height='600' src={id} alt=""/>
+            <CldImage className='rounded-full ' width='600' height='600' src={id} alt="Imagen Museo"/>
             <h1>{name}</h1>
           </div>
         )
