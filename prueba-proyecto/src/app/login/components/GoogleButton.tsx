@@ -8,7 +8,7 @@ const GoogleButton = () => {
 async function LogInGoogle() {
   try {
     await signIn("google", { callbackUrl: '/dashboard' }).then((res) => {
-      console.log(res?.error)
+      console.log(res)
     }).catch((err) => console.log(err))
   } catch (error) {
     console.log(error)
