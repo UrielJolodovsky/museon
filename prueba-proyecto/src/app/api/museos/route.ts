@@ -1,13 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PrismaClient } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextRequest, NextResponse } from 'next/server'
+import { db } from '../../../lib/db'
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    
-    const prisma = new PrismaClient()  
     try {
-        const getmuseos = await prisma.museos.findMany({
+        const getmuseos = await db.museos.findMany({
             select: {
                 id: true,
                 name: true,

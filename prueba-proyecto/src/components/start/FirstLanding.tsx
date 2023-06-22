@@ -29,6 +29,11 @@ const FirstLanding = () => {
       title: 'Contacto',
       link: '#'
     },
+    {
+      id: 5,
+      title: 'Iniciar Sesión',
+      link: '/login'
+    },
   ]
   const [museos, setMuseos] = useState<MuseosProps[]>([])
 
