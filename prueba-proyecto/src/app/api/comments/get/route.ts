@@ -1,22 +1,23 @@
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
+import { db } from '../../../../lib/db'
+
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    const prisma = new PrismaClient()
     try {
     const { museoId } = await req.json()
-    const session = await getServerSession()
-    if (session?.user.id === undefined) {
-        return new Response("You are not logged in", {status: 401})
-    }
-    const getmessages = await prisma.comments.findMany({
+    // const session = await getServerSession()
+    // if (session?.user.id === undefined) {
+    //     return new NextResponse("You are not logged in", {status: 401})
+    // }
+    const getmessages = await db.comments.findMany({
         where: {
-            museoId: museoId!
+            museumId: museoId
         }
     })
-    return new Response(getmessages, {status: 200})
+    return NextResponse.json(getmessages, {status: 200})
     } catch(error) {
-        return new Response("Something went wrong", {status: 400})
+        return new NextResponse("Something went wrong", {status: 400})
     }
 }
