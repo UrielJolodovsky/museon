@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import { ChangeEvent, MouseEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import GoogleButton from './components/GoogleButton';
+import toast from 'react-hot-toast';
 
 export default function Login() {
   const [name, setName] = useState('')
@@ -41,15 +42,15 @@ export default function Login() {
     }
     else if (variant === 'register') {
       try {
-        await axios.post('http://localhost:3000/api/login', {
+        await axios.post('http://localhost:3000/api/register', {
           email: email,
           name: name,
           password: password
         }).then((res) => {
           console.log(res.data)
-          router.push("/dashboard")
+          router.push("/")
         }).catch((err) => {
-          console.log(err)
+          toast.error(err.response.data)
         })
       } catch(error) {
         console.log(error)

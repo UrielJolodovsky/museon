@@ -43,6 +43,7 @@ model User {
   emailVerified DateTime?
   hashedPassword String?
   image         String?
+  tipo_usuario  String? @default("user")
   accounts      Account[]
   sessions      Session[]
   comments      Comments[]
@@ -72,6 +73,7 @@ model Museos{
   id String @id @default(cuid())
   name String
   image String?
+  categoria String?
   comments Comments[]
 }
 
