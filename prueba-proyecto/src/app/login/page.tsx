@@ -12,7 +12,7 @@ export default function Login() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  const [Loggeado, setLoggeado] = useState(false)
   const [variant, setVariant] = useState('register')
 
   const handleClick = () => {
@@ -32,10 +32,19 @@ export default function Login() {
         await signIn("credentials", { 
           email,
           password,
-          callbackUrl: '/dashboard' 
-        }).then((res) => {
-          console.log(res?.error)
-        }).catch((err) => console.log(err))
+          redirect: false,
+        }).then((callback) => {
+          if (callback?.error) {
+            toast.error(callback.error)
+          }
+          if (callback?.ok && !callback?.error) {
+            toast.success('Bienvenido!')
+            setLoggeado(true)
+          }
+        }).finally(() => {
+          if(Loggeado) {
+          router.push('/dashboard')
+        }})
       } catch (error) {
         console.log(error)
       }
@@ -66,14 +75,16 @@ export default function Login() {
             {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
           </h2>
           <form className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
-            <InputVariants
+            {variant === 'register' && (
+              <InputVariants
               label='Username'
               onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
               id='name'
               type='text'
               value={name}
             />
-            {variant === 'register' && (
+            )}
+
               <InputVariants
                 label='Email'
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
@@ -81,8 +92,7 @@ export default function Login() {
                 type='text'
                 value={email}
               />
-            )
-            }
+
             <InputVariants
               label='Password'
               onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}

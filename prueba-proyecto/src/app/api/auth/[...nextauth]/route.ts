@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { compare } from 'bcrypt';
 import NextAuth, { AuthOptions, NextAuthOptions, DefaultSession } from 'next-auth';
 import CredentialsProvider  from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
@@ -32,29 +33,30 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Email", type: "text" },
                 password: {  label: "Password", type: "password" },
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
+                console.log(credentials?.email, credentials?.password)
                 if (!credentials?.email || !credentials?.password) {
-                    throw new Error('Invalid credentials');
+                    throw new Error('Missing fields');
                 }
 
                 const user = await db.user.findUnique({
                     where: {
-                        email: credentials.email
+                        email: credentials.email,  
                     }
                 });
 
                 if (!user || !user.hashedPassword) {
-                    throw new Error('Invalid credentials');
+                    throw new Error('This email is not registered');
                 }
 
                 const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
 
                 if (!isCorrectPassword) {
-                    throw new Error('Invalid credentials');
+                    throw new Error('Wrong password');
                 }
 
                 return user;
-            }
+   }
         })
     ],
     // debug: process.env.NODE_ENV === 'development',
@@ -77,7 +79,7 @@ export const authOptions: NextAuthOptions = {
         if (user) {
             token.id = user.id;
         }
-        console.log('token', token);
+        // console.log('token', token);
         return token;
     },
 },
