@@ -40,10 +40,11 @@ export default function Login() {
           if (callback?.ok && !callback?.error) {
             toast.success('Bienvenido!')
             setLoggeado(true)
+            router.push('/dashboard')
           }
         }).finally(() => {
           if(Loggeado) {
-          router.push('/dashboard')
+          // router.push('/dashboard')
         }})
       } catch (error) {
         console.log(error)
