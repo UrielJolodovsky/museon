@@ -13,7 +13,7 @@ module.exports = {
       dashBack: '#e2e2e2',
       formBack: '#172554',
       btnForm: '#1e40af',
-      
+      footerColor: '#868686',
     }
   },
   plugins: [],

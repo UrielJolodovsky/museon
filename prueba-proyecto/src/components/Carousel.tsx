@@ -11,6 +11,7 @@ import axios from 'axios';
 const Carousel = () => {
   const [museos, setMuseos] = useState([]);
 
+
   useEffect(() => {
     viewMuseos();
   }, []);
@@ -24,8 +25,10 @@ const Carousel = () => {
     }
   };
 
+
+
   return (
-    <div className="w-full h-[800px] flex justify-center items-center flex-row gap-4">
+    <div className="w-full h-[600px] flex justify-center items-center flex-row gap-4">
       <Swiper
         effect="coverflow"
         grabCursor={true}
@@ -35,7 +38,7 @@ const Carousel = () => {
         coverflowEffect={{
           rotate: 0,
           stretch: 0,
-          depth: 10000,
+          depth: 1000,
           modifier: 2.5,
         }}
         pagination={{ clickable: true }}
