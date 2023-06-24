@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import React from 'react'
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -23,7 +24,7 @@ const Header = () => {
     }
   ]
 
-  const { data: session } = useSession()
+  const { data: SessionData } = useSession()
 
 
   return (
