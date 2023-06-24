@@ -9,6 +9,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (session?.user.id === undefined) {
         return new NextResponse("You are not logged in", {status: 401})
     }
+    if (message === undefined || message.length === 0) {
+        return new NextResponse("Message is empty", {status: 400})
+    }
     const addmessages = await db.comments.create({
         data: {
             museumId: museoId,
