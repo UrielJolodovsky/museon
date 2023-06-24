@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
 
@@ -22,24 +23,27 @@ const Header = () => {
     }
   ]
 
+  const { data: session } = useSession()
 
 
   return (
-    <nav className='w-full h-24 bg-navColor flex flex-row justify-center items-center gap-16'>
-      <ul className='w-full h-full flex flex-row gap-5 justify-evenly items-center p-16'>
-        {DataNav.map(({ id, title }) =>
-          <li key={id} className=''>
-            <Link
-              className='text-xl font-medium text-white'
-              href={"#"}
-            >
-              {title}
-            </Link>
-            <div className=''></div>
-          </li>
-        )}
-      </ul>
-    </nav>
+    <header className='w-full h-24 bg-navColor flex flex-row justify-center items-center'>
+      <nav className='w-full h-full flex flex-row justify-center items-center gap-16'>
+        <ul className='w-full h-full flex flex-row gap-5 justify-evenly items-center p-16'>
+          {DataNav.map(({ id, title }) =>
+            <li key={id} className=''>
+              <Link
+                className='text-xl font-medium text-white'
+                href={"#"}
+              >
+                {title}
+              </Link>
+              <div className=''></div>
+            </li>
+          )}
+        </ul>
+      </nav>
+    </header>
   )
 }
 

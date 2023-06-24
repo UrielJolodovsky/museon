@@ -1,10 +1,12 @@
 "use client"
-
+import '@/components/start/carousel.css'
 import Image from 'next/image'
 import Foto1 from '../../../public/assets/image15.png'
 import Foto2 from '../../../public/assets/Foto2.jpg'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import Carousel from '../Carousel'
+import { useRouter } from 'next/navigation'
 
 
 
@@ -32,6 +34,12 @@ const FirstLanding = () => {
     },
   ]
 
+  const router = useRouter()
+
+  const handleLogin = () => {
+    router.push('/login')
+  }
+
   return (
     <>
       <header className='w-full h-20 flex justify-center border-black border-b-2 '>
@@ -47,7 +55,7 @@ const FirstLanding = () => {
                 </Link>
               </li>
             )}
-            <button className='w-[170px] h-[50px] rounded-lg text-black border-2'>
+            <button onClick={handleLogin} className='w-[170px] h-[50px] rounded-lg text-black border-2'>
               <h1 className='text-2xl p-2'>Login</h1>
             </button>
           </ul>
@@ -74,6 +82,9 @@ const FirstLanding = () => {
           <div className='w-2/6 flex justify-center items-center'>
             <Image src={Foto1} alt='Tecnología' height={350} width={350}></Image>
           </div>
+        </section>
+        <section className='w-full h-max flex justify-center items-center flex-row'>
+          <Carousel />
         </section>
       </main>
 

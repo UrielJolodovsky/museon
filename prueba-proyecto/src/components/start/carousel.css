@@ -1,0 +1,31 @@
+.my-custom-carousel {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.my-custom-swiper:active {
+  opacity: 0;
+  /* Establece la opacidad deseada, por ejemplo, 0.5 para un 50% de opacidad */
+}
+
+.carousel-item {
+  width: 100%;
+  text-align: center;
+}
+
+.carousel-image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.carousel-caption {
+  margin-top: 10px;
+  font-size: 16px;
+}
