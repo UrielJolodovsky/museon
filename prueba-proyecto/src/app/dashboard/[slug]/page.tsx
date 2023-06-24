@@ -51,9 +51,8 @@ export default function Museo() {
 
           <div className='w-full h-screen flex flex-col bg-dashBack'>
         <h1>Holaaa!</h1>
-        <button onClick={addMessage}>
-            <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}/>
-        </button>
+        <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}/>
+        <button onClick={addMessage}>Add</button>
           </div>
 
       </>
