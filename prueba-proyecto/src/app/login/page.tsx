@@ -29,7 +29,7 @@ export default function Login() {
     event.preventDefault()
     if (variant === 'login') {
       try {
-        await signIn("credentials", { 
+        await signIn("credentials", {
           email,
           password,
           redirect: false,
@@ -43,9 +43,10 @@ export default function Login() {
             router.push('/dashboard')
           }
         }).finally(() => {
-          if(Loggeado) {
-          // router.push('/dashboard')
-        }})
+          if (Loggeado) {
+            // router.push('/dashboard')
+          }
+        })
       } catch (error) {
         console.log(error)
       }
@@ -58,11 +59,11 @@ export default function Login() {
           password: password
         }).then((res) => {
           console.log(res.data)
-          router.push("/")
+          toast.success('Usuario creado con exito!')
         }).catch((err) => {
           toast.error(err.response.data)
         })
-      } catch(error) {
+      } catch (error) {
         console.log(error)
       }
     }
@@ -78,21 +79,21 @@ export default function Login() {
           <form className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
             {variant === 'register' && (
               <InputVariants
-              label='Username'
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-              id='name'
-              type='text'
-              value={name}
-            />
+                label='Username'
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                id='name'
+                type='text'
+                value={name}
+              />
             )}
 
-              <InputVariants
-                label='Email'
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                id='email'
-                type='text'
-                value={email}
-              />
+            <InputVariants
+              label='Email'
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              id='email'
+              type='text'
+              value={email}
+            />
 
             <InputVariants
               label='Password'
@@ -101,11 +102,11 @@ export default function Login() {
               type='password'
               value={password}
             />
-            <button onClick={LogInCredentials} className='w-40 h-12 rounded-md bg-btnForm hover:bg-opacity-80 transition font-bold text-white'>
+            <button type='submit' onClick={LogInCredentials} className='w-40 h-12 rounded-md bg-btnForm hover:bg-opacity-80 transition font-bold text-white'>
               {variant === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
             </button>
           </form>
-            <div className='flex flex-col gap-4 justify-between items-center w-full'>
+          <div className='flex flex-col gap-4 justify-between items-center w-full'>
             <p className='text-white flex flex-row gap-2'>
               {variant === 'login' ? 'No te registraste?' : 'Ya tenes una cuenta?'}
               <span className='text-white font-bold hover:underline cursor-pointer' onClick={handleClick}>

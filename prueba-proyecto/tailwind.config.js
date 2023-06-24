@@ -10,7 +10,7 @@ module.exports = {
       white: '#ffffff',
       black: '#000000',
       navColor: '#0f172a',
-      dashBack: '#c9c9c9',
+      dashBack: '#e2e2e2',
       formBack: '#172554',
       btnForm: '#1e40af',
       
