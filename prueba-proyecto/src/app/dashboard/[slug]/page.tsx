@@ -3,13 +3,14 @@ import axios from "axios"
 import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import { MuseosProps } from '@/types'
+import { CommentsProps, MuseosProps } from '@/types'
 import NextAuthProvider from "../layout"
 
 export default function Museo() {
 
     const [message, setMessage] = useState('')
     const [museos, setMuseos] = useState<MuseosProps[]>([])
+    const [messages, setMessages] = useState<CommentsProps[]>([])
     const params = useParams()
     const [messageEnviado, setMessageEnviado] = useState(false)
 
@@ -29,6 +30,7 @@ export default function Museo() {
                 console.log(res.data)
                 toast.success(res.data)
                 setMessageEnviado(true)
+                setMessages(res.data)
             }).catch((err) => {
                 console.log(err)
                 toast.error(err.response.data)
@@ -40,7 +42,7 @@ export default function Museo() {
 
     const getMessages = async () => {
         try {
-            await axios.post('/api/comments/get', {
+            await axios.post('http://localhost:3000/api/comments/get', {
                 parametros: params.slug.toString()
             }).then((res) => {
                 console.log(res.data)
@@ -53,25 +55,9 @@ export default function Museo() {
         }
     }
 
-    /*
-    const sendSlug = async () => {
-        try {
-            await axios.post(`/api/museos/getMuseo`, {
-                parametros: params.slug.toString()
-            }).then((res) => {
-                console.log(res.data)
-            }).catch((err) => {
-                console.log(err)
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    */
-
     const getInfoMuseo = async () => {
         try {
-            await axios.get(`/api/museos/getMuseo`).then((res) => {
+            await axios.get(`http://localhost:3000/api/museos`).then((res) => {
                 setMuseos(res.data)
             }).catch((err) => {
                 console.log(err)
@@ -84,11 +70,12 @@ export default function Museo() {
     return (
         <>
             <section className="w-full h-screen flex justify-center items-center">
-                {/*museos.map(({ id, name }) => (
+
+                {museos.map(({ id, name }) => (
                     <div key={id}>
-                        <h1>{name}</h1>
-                    </div>
-                ))*/}
+                    <h1>{name}</h1>
+                </div>
+                ))}
                 <div className="bg-formBack w-96 h-96 flex justify-center items-center flex-col gap-4 rounded-lg">
                     <h1 className="text-3xl font-bold text-white">Holaaaaaa</h1>
                     <input className="bg-white border-black" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
