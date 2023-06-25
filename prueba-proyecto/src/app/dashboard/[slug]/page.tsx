@@ -9,16 +9,16 @@ export default function Museo() {
     
     const [message, setMessage] = useState('')
     const params = useParams()
-    toast.success(params.slug)
-
+    const [messageEnviado , setMessageEnviado] = useState(false)
     useEffect(() => {
         getMessages()
-    }, [])
+        setMessageEnviado(false)
+    }, [messageEnviado])
 
     const getMessages = async () => {
         try{
         await axios.post('http://localhost:3000/api/comments/get', {
-            message: params.slug.toString()
+            parametros: params.slug.toString()
         }).then((res) => {
             console.log(res.data)
         }).catch((err) => {
@@ -37,6 +37,7 @@ export default function Museo() {
             }).then((res) => {
                 console.log(res.data)
                 toast.success(res.data)
+                setMessageEnviado(true)
             }).catch((err) => {
                 console.log(err)
                 toast.error(err.response.data)
@@ -48,13 +49,11 @@ export default function Museo() {
 
     return (
         <>
-
           <div className='w-full h-screen flex flex-col bg-dashBack'>
         <h1>Holaaa!</h1>
         <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}/>
         <button onClick={addMessage}>Add</button>
           </div>
-
       </>
     )
 }
