@@ -72,9 +72,11 @@ export default function Museo() {
             <section className="w-full h-screen flex justify-center items-center">
 
                 {museos.map(({ id, name }) => (
-                    <div key={id}>
+                    id === params.slug && (
+                        <div key={id}>
                     <h1>{name}</h1>
                 </div>
+                    )
                 ))}
                 <div className="bg-formBack w-96 h-96 flex justify-center items-center flex-col gap-4 rounded-lg">
                     <h1 className="text-3xl font-bold text-white">Holaaaaaa</h1>
