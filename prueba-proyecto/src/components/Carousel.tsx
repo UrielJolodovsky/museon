@@ -11,7 +11,6 @@ import axios from 'axios';
 const Carousel = () => {
   const [museos, setMuseos] = useState([]);
 
-
   useEffect(() => {
     viewMuseos();
   }, []);

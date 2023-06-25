@@ -10,9 +10,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
                 id: true,
                 name: true,
             }
+
         })
-        return NextResponse.json(getmuseos, {status: 200})
+        return NextResponse.json(getmuseos, { status: 200 })
     } catch (error) {
-        return new Response("Something went wrong with the museums" , {status: 400})
+        return new Response("Something went wrong with the museums", { status: 400 })
     }
 }

@@ -10,7 +10,7 @@ import { VscSignIn } from 'react-icons/vsc';
 export interface IHeaderProps { }
 
 const Header = (props: IHeaderProps) => {
-  const { data: sessionData, status } = useSession()
+  const { data: sessionData } = useSession()
   const nombre = sessionData?.user ? sessionData.user.name : ''
   const router = useRouter()
 
@@ -43,9 +43,9 @@ const Header = (props: IHeaderProps) => {
       <nav className='w-full h-full flex flex-row justify-center items-center gap-16'>
         <ul className='w-full h-full flex flex-row gap-5 justify-evenly items-center p-16'>
           {sessionData?.user ? (
-            <h2 className='text-xl font-medium text-white'>Hi {nombre}</h2>
+            <h2 className='text-xl font-extrabold text-white'>Hi {nombre}</h2>
           ) : (
-            <h2 className='text-xl font-medium text-white'>Hi Guest</h2>
+            <h2 className='text-xl font-extrabold text-white'>Hi Guest</h2>
           )}
           {DataNav.map(({ id, title }) =>
             <li key={id} className=''>
