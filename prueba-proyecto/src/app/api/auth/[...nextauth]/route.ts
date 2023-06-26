@@ -8,8 +8,16 @@ import { db } from '../../../../lib/db'
 
 
 declare module "next-auth" {
-    interface Session {
-        user?: DefaultUser & { id: string; tipo_usuario: string };
+    // interface Session {
+    //     user?: DefaultUser & { id: string; tipo_usuario: string };
+    // }
+    interface Session extends DefaultSession {
+        user: {
+            id: string;
+            tipo_usuario: string;
+            // ...other properties
+        // role: UserRole;
+        } & DefaultSession["user"];
     }
   }
 
@@ -60,15 +68,15 @@ export const authOptions: NextAuthOptions = {
         strategy: 'jwt',
     },
     callbacks: {
-        session({ session, token, user }) {
+        session({ session, token }) {
           // console.log('tokenUsername', token.username);
           console.log("Session", session);
           console.log(session.user?.id);
           //chech if the user is authenticated and if the token is not null
-          if (token) {  
-            session.user!.id = token.id as string;
-            session.user!.tipo_usuario = user.tipo_usuario;
-          }  
+          if (token) {
+            session.user.id = token.id as string;
+            // session.user.tipo_usuario = token.tipo_usuario as string; 
+          }
           return session;
         },
     jwt({ token, user }) {
