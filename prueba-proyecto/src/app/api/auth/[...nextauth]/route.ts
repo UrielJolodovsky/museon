@@ -11,6 +11,7 @@ declare module "next-auth" {
     interface Session extends DefaultSession {
       user: {
         id: string;
+        tipo_usuario: string;
         // ...other properties
         // role: UserRole;
       } & DefaultSession["user"];
@@ -71,13 +72,14 @@ export const authOptions: NextAuthOptions = {
           //chech if the user is authenticated and if the token is not null
           if (token) {
             session.user.id = token.id as string;
-          }
-    
+            // session.user.tipo_usuario = token.tipo_usuario as string;
+          }  
           return session;
         },
     jwt({ token, user }) {
         if (user) {
             token.id = user.id;
+            // token.tipo_usuario = user.tipo_usuario;
         }
         // console.log('token', token);
         return token;

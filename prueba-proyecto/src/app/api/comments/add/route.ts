@@ -10,6 +10,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (session?.user.id === undefined) {
         return new NextResponse("You are not logged in", {status: 401})
     }
+    if (session?.user.tipo_usuario != "museo") {
+        return new NextResponse("You are not allowed to add messages", {status: 401})
+    }
     if (message === undefined || message.length === 0) {
         return new NextResponse("Message is empty", {status: 400})
     }
