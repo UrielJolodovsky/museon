@@ -1,5 +1,5 @@
 'use client'
-import axios from "axios"
+import axios from 'axios'
 import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
@@ -16,7 +16,9 @@ export default function Museo() {
 
     useEffect(() => {
         console.log(params.slug)
+        console.log(messages)
         getInfoMuseo()
+        addMessage()
         getMessages()
         setMessageEnviado(false)
     }, [messageEnviado])
@@ -70,18 +72,25 @@ export default function Museo() {
     return (
         <>
             <section className="w-full h-screen flex justify-center items-center">
-
-                {museos.map(({ id, name }) => (
+                {/*museos.map(({ id, name }) => (
                     id === params.slug && (
                         <div key={id}>
-                    <h1>{name}</h1>
+                    <h1>{name}</h1>     
                 </div>
                     )
-                ))}
-                <div className="bg-formBack w-96 h-96 flex justify-center items-center flex-col gap-4 rounded-lg">
+                ))*/}
+                <div className="bg-formBack w-1/2 h-96 flex justify-center items-center flex-col gap-4 rounded-lg">
                     <h1 className="text-3xl font-bold text-white">Holaaaaaa</h1>
                     <input className="bg-white border-black" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
-                    <button className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
+                    <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
+                </div>
+                <div className="bg-dashBack w-1/2 h-96 flex justify-center items-center">
+                    {messages.map(({ name, content }) => 
+                        <div>
+                            <h1>{name}</h1>
+                            <p>{content}</p>
+                        </div>
+                    )}
                 </div>
             </section>
         </>
