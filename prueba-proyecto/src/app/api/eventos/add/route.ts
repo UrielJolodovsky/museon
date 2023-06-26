@@ -8,6 +8,9 @@ export async function POST(req:NextRequest, res: NextResponse) {
     try {
         const session = await getServerSession(authOptions)
         const id = session?.user.id
+        if (id === undefined) {
+            return new NextResponse("You are not logged in", {status: 401})
+        }
         const tipo_usuario = await db.user.findUnique({
             where: {
                 id: id
@@ -22,7 +25,7 @@ export async function POST(req:NextRequest, res: NextResponse) {
         const evento = await db.eventos.create({
             data: {
                 content: "Hola",
-                authorId: session?.user.id,
+                authorId: session?.user.id!,
             },
         })
     } catch (error) {
