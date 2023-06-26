@@ -7,7 +7,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     try {
     const { message, museoId } = await req.json()
     const session = await getServerSession(authOptions)
-    if (session?.user.id === undefined) {
+    if (session?.user!.id === undefined) {
         return new NextResponse("You are not logged in", {status: 401})
     }
     /*if (session?.user.tipo_usuario != "museo") {
