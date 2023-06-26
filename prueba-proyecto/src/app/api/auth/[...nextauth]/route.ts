@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { compare } from 'bcrypt';
-import NextAuth, { AuthOptions, NextAuthOptions, DefaultSession } from 'next-auth';
+import NextAuth, { Session, AuthOptions, NextAuthOptions, DefaultSession, DefaultUser } from 'next-auth';
 import CredentialsProvider  from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
@@ -8,13 +8,8 @@ import { db } from '../../../../lib/db'
 
 
 declare module "next-auth" {
-    interface Session extends DefaultSession {
-      user: {
-        id: string;
-        tipo_usuario: string;
-        // ...other properties
-        // role: UserRole;
-      } & DefaultSession["user"];
+    interface Session {
+        user?: DefaultUser & { id: string; tipo_usuario: string };
     }
   }
 
@@ -65,21 +60,21 @@ export const authOptions: NextAuthOptions = {
         strategy: 'jwt',
     },
     callbacks: {
-        session({ session, token }) {
+        session({ session, token, user }) {
           // console.log('tokenUsername', token.username);
           console.log("Session", session);
-          console.log(session.user.id);
+          console.log(session.user?.id);
           //chech if the user is authenticated and if the token is not null
-          if (token) {
-            session.user.id = token.id as string;
-            // session.user.tipo_usuario = token.tipo_usuario as string;
+          if (token) {  
+            session.user!.id = token.id as string;
+            session.user!.tipo_usuario = user.tipo_usuario;
           }  
           return session;
         },
     jwt({ token, user }) {
         if (user) {
             token.id = user.id;
-            // token.tipo_usuario = user.tipo_usuario;
+            //token.tipo_usuario = user.tipo_usuario;
         }
         // console.log('token', token);
         return token;
