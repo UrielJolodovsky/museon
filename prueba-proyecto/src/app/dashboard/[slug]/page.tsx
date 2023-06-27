@@ -87,7 +87,7 @@ export default function Museo() {
                 <div className="bg-dashBack w-1/2 h-96 flex justify-center items-center">
                     {messages.map((museo) => 
                         <div>
-                            <h1>musep["author"]["name"]</h1>
+                            <h1>{museo["author"]["name"]}</h1>
                         </div>
                     )}
                 </div>
