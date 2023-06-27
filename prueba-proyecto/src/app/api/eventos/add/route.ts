@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 
 export async function POST(req:NextRequest, res: NextResponse) {
     try {
+        const { content } = await req.json()
         const session = await getServerSession(authOptions)
         const id = session?.user.id
         if (id === undefined) {
@@ -19,15 +20,19 @@ export async function POST(req:NextRequest, res: NextResponse) {
                 tipo_usuario: true
             }
         })
-        if (tipo_usuario!.toString() !== "museo") {
-            return new NextResponse("You are not allowed to add an event")
+        if (tipo_usuario!["tipo_usuario"] !== "museo") {
+            return new NextResponse("You are not allowed to add an event", {status: 401})
+        }
+        if (content === undefined || content === "" || content.length === 0) {
+            return new NextResponse("You must provide a content", {status: 400})
         }
         const evento = await db.eventos.create({
             data: {
-                content: "Hola",
+                content: content,
                 authorId: session?.user.id!,
             },
         })
+        return new NextResponse(evento["id"], {status: 200})
     } catch (error) {
         return new NextResponse("Something went wrong", {status: 400})
     }
