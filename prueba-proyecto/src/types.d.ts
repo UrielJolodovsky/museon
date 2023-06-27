@@ -4,8 +4,10 @@ export interface MuseosProps {
 }
 
 export interface CommentsProps {
-    name: string
-    image: string
+    author: {
+        name: string
+        image: string
+    }
     content: string
     createdAt: string
 }
