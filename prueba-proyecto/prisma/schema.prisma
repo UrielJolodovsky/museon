@@ -74,6 +74,7 @@ model Museos{
   name String
   image String?
   categoria String?
+  type String?
   comments Comments[]
 }
 
