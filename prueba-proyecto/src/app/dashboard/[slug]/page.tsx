@@ -85,10 +85,9 @@ export default function Museo() {
                     <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
                 </div>
                 <div className="bg-dashBack w-1/2 h-96 flex justify-center items-center">
-                    {messages.map(({ name, content }) => 
+                    {messages.map((museo) => 
                         <div>
-                            <h1>{name}</h1>
-                            <p>{content}</p>
+                            <h1>musep["author"]["name"]</h1>
                         </div>
                     )}
                 </div>
