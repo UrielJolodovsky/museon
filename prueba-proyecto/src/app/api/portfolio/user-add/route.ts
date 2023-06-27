@@ -1,23 +1,26 @@
+import { db } from "@/lib/db";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest, res: NextResponse) {
-    const prisma = new PrismaClient()
     try {
         const { name_portfolio } = await req.json()
         const session = await getServerSession()
         if (session?.user.id === undefined) {
-            return new Response("You must have logged in", {status: 401})
+            return new NextResponse("You must have logged in", {status: 401})
         }
-        const portfoliocreated = await prisma.portfolio.create({
+        if (name_portfolio === undefined || name_portfolio === '' || name_portfolio.length === 0) {
+            return new NextResponse("The input for the name of the portfolio can't be empty", {status: 400})
+        }
+        const portfoliocreated = await db.portfolios.create({
             data: {
-                name: name_portfolio,
-                authorId: session.user.id
+                name_portfolio: name_portfolio,
+                authorId: session?.user.id
             }
         })
-        return new Response("Portfolo added succesfully", {status: 200})
+        return new NextResponse("Portfolo added succesfully", {status: 200})
     } catch(error) {
-        return new Response("Something wet wrong creating the portfolio", {status: 400})
+        return new NextResponse("Something wet wrong creating the portfolio", {status: 400})
     }
 }
