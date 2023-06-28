@@ -7,7 +7,7 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
     const { parametros } = await req.json()
-    console.log(parametros)
+    //console.log(parametros)
     // const session = await getServerSession(authOptions)
     // console.log(session?.user)
     // const session = await getServerSession()
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             }
   
     })
-    console.log(getmessages)
+   // console.log(getmessages)
     return NextResponse.json(getmessages, {status: 200})
     } catch(error) {
         return new NextResponse("Something went wrong", {status: 400})

@@ -106,7 +106,7 @@ const FirstLanding = () => {
           <div className='w-full flex justify-center items-center flex-row'>
             <div className='w-1/2 flex justify-center items-center flex-col gap-6 pt-20'>
               <h2 className='font-normal text-center text-5xl'>¿Como funciona?</h2>
-              <h5 className='w-full text-center font-light text-lg'>La institución que asi lo desea, escanea con su celular y lo sube a la plataforma. Desde aquel momento los usuarios lo pueden disfrutar</h5>
+              <h5 className='w-full h-max text-center font-light text-lg'>La institución que asi lo desea, escanea con su celular y lo sube a la plataforma. Desde aquel momento los usuarios lo pueden disfrutar</h5>
             </div>
             <Image
               className='w-1/2'
@@ -117,9 +117,6 @@ const FirstLanding = () => {
           </div>
         </section>
       </main>
-      <footer className="w-full h-44 bg-footerColor">
-
-      </footer>
 
     </>
   )
