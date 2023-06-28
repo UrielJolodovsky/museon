@@ -18,7 +18,6 @@ export default function Museo() {
         console.log(params.slug)
         console.log(messages)
         getInfoMuseo()
-        addMessage()
         getMessages()
         setMessageEnviado(false)
     }, [messageEnviado])
@@ -48,6 +47,7 @@ export default function Museo() {
                 parametros: params.slug.toString()
             }).then((res) => {
                 console.log(res.data)
+                setMessages(res.data)
             }).catch((err) => {
                 console.log(err)
                 toast.error(err.response.data)
@@ -85,12 +85,13 @@ export default function Museo() {
                     <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
                 </div>
                 <div className="bg-dashBack w-1/2 h-96 flex justify-center items-center">
-                    {messages.map((museo) => 
+                {messages.map((museo) => 
                         <div>
                             <h1>{museo["author"]["name"]}</h1>
                         </div>
                     )}
                 </div>
+
             </section>
         </>
     )
