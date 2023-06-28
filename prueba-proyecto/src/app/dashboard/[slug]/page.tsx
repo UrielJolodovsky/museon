@@ -17,7 +17,7 @@ export default function Museo() {
     useEffect(() => {
         getMessages()
         setMessageEnviado(false)
-    }, [messages])
+    }, [messageEnviado])
 
     const addMessage = async () => {
         try {
@@ -25,7 +25,6 @@ export default function Museo() {
                 message: message,
                 museoId: params.slug.toString()
             }).then((res) => {
-                console.log(res.data)
                 toast.success(res.data)
                 setMessageEnviado(true)
                 setMessages(res.data)
@@ -43,10 +42,8 @@ export default function Museo() {
             await axios.post('http://localhost:3000/api/comments/get', {
                 parametros: params.slug.toString()
             }).then((res) => {
-                console.log(res.data)
                 setMessages(res.data)
             }).catch((err) => {
-                console.log(err)
                 toast.error(err.response.data)
             })
         } catch (err) {
@@ -59,7 +56,7 @@ export default function Museo() {
             await axios.get(`http://localhost:3000/api/museos`).then((res) => {
                 setMuseos(res.data)
             }).catch((err) => {
-                console.log(err)
+                toast.error(err.response.data)
             })
         } catch (err) {
             console.log(err)

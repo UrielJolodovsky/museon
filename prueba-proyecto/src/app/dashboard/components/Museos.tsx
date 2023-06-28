@@ -12,13 +12,12 @@ const Museos = () => {
 
   useEffect(() => {
     viewMuseos()
-  }, [museos])
+  }, [])
 
   const viewMuseos = async () => {
     await axios.get('http://localhost:3000/api/museos')
       .then((response) => {
         setMuseos(response.data)
-        console.log(response.data)
       })
   }
 
