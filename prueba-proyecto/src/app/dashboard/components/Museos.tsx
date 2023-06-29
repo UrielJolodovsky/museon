@@ -30,7 +30,7 @@ const Museos = () => {
             <CldImage className='rounded-xl flex flex-row' width='300' height='300' src={id} alt="Imagen Museo" />
             <h1>{name}</h1>
             <button onClick={() => router.push(`/dashboard/${id}`)} className='w-full h-12 bg-formBack text-white font-bold text-lg rounded-xl hover:bg-btnForm transition' >
-              Ir a museos
+              Ir al museo
             </button>
           </div>
         )

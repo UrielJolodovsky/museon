@@ -36,7 +36,12 @@ const Header = (props: IHeaderProps) => {
       title: 'Museums',
     }
   ]
+  const logOut = async () => {
+    console.log("A")
+    await signOut({redirect: false})
+    const nombre = sessionData?.user ? sessionData.user.name : ''
 
+  }
 
   return (
     <header className='w-full h-24 bg-navColor flex flex-row justify-center items-center'>
@@ -60,7 +65,7 @@ const Header = (props: IHeaderProps) => {
           )}
           {sessionData?.user ? (
             <div className='flex flex-row gap-6'>
-              <button onClick={() => signOut()}><VscSignOut className="w-12 h-12 text-white" /></button>
+              <button onClick={logOut}><VscSignOut className="w-12 h-12 text-white" /></button>
             </div>
           ) : (
             <button onClick={handleLogIn}><VscSignIn className="w-12 h-12 text-white" /></button>

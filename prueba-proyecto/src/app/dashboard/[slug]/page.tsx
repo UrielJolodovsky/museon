@@ -4,7 +4,6 @@ import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { CommentsProps, MuseosProps } from '@/types'
-import NextAuthProvider from "../layout"
 
 export default function Museo() {
 
