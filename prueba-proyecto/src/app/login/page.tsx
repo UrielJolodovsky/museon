@@ -53,7 +53,7 @@ export default function Login() {
     }
     else if (variant === 'register') {
       try {
-        await axios.post('http://museon-proyecto.vercel.app/api/register', {
+        await axios.post('https://museon-proyecto.vercel.app/api/register', {
           email: email,
           name: name,
           password: password

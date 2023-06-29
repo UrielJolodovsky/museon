@@ -11,7 +11,7 @@ const Events = () => {
 
   const GetEventos = async () => {
     try {
-      await axios.get('http://museon-proyecto.vercel.app/api/eventos/get').then((res) => {
+      await axios.get('https://museon-proyecto.vercel.app/api/eventos/get').then((res) => {
         console.log(res.data)
       }).catch((err) => {
         toast.error(err.response.data)
