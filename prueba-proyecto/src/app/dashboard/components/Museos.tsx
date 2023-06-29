@@ -15,7 +15,7 @@ const Museos = () => {
   }, [])
 
   const viewMuseos = async () => {
-    await axios.get('http://localhost:3000/api/museos')
+    await axios.get('http://museon-proyecto.vercel.app/api/museos')
       .then((response) => {
         setMuseos(response.data)
       })

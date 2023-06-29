@@ -11,7 +11,7 @@ const Events = () => {
 
   const GetEventos = async () => {
     try {
-      await axios.get('http://localhost:3000/api/eventos/get').then((res) => {
+      await axios.get('http://museon-proyecto.vercel.app/api/eventos/get').then((res) => {
         console.log(res.data)
       }).catch((err) => {
         toast.error(err.response.data)
@@ -23,7 +23,7 @@ const Events = () => {
 
   const AddEvent = async () => {
     try {
-      await axios.post('http://localhost:3000/api/eventos/add', {
+      await axios.post('http://museon-proyecto.vercel.app/api/eventos/add', {
         content: content,
       }).then((res) => {
         console.log(res.data)

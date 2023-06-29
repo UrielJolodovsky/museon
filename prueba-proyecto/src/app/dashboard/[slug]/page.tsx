@@ -20,7 +20,7 @@ export default function Museo() {
 
     const addMessage = async () => {
         try {
-            await axios.post('http://localhost:3000/api/comments/add', {
+            await axios.post('http://museon-proyecto.vercel.app/api/comments/add', {
                 message: message,
                 museoId: params.slug.toString()
             }).then((res) => {
@@ -38,7 +38,7 @@ export default function Museo() {
 
     const getMessages = async () => {
         try {
-            await axios.post('http://localhost:3000/api/comments/get', {
+            await axios.post('http://museon-proyecto.vercel.app/api/comments/get', {
                 parametros: params.slug.toString()
             }).then((res) => {
                 setMessages(res.data)
@@ -52,7 +52,7 @@ export default function Museo() {
 
     const getInfoMuseo = async () => {
         try {
-            await axios.get(`http://localhost:3000/api/museos`).then((res) => {
+            await axios.get(`http://museon-proyecto.vercel.app/api/museos`).then((res) => {
                 setMuseos(res.data)
             }).catch((err) => {
                 toast.error(err.response.data)

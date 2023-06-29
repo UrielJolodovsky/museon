@@ -17,7 +17,7 @@ const Carousel = () => {
 
   const viewMuseos = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/museos');
+      const response = await axios.get('https://museon-proyecto.vercel.app/api/museos');
       setMuseos(response.data);
     } catch (error) {
       console.error(error);
