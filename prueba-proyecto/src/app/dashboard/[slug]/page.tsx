@@ -66,18 +66,22 @@ export default function Museo() {
         <>
             <section className="w-full h-screen flex justify-center items-center">
             
-                <div className="bg-formBack w-full h-full flex justify-center items-center flex-col gap-4 rounded-lg">
-                    <h1 className="text-3xl font-bold text-white">Holaaaaaa</h1>
+                <div className="bg-formBack w-1/3 h-full flex justify-center items-center flex-col gap-4">
+                    <h1 className="text-3xl font-bold text-white">Envia un mensaje</h1>
                     <input className="bg-white border-black" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
                     <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
                 </div>
-                <div className="bg-dashBack w-full h-screen flex justify-center items-center flex-wrap gap-5">
-                {Array.isArray(messages) ? messages.map((museo, index) =>  
-                        <div className='bg-btnForm w-52 h-52  flex justify-center items-center flex-col gap-10 p-5' key={index}>
-                            <h2 className='text-center font-bold text-white'>Name: {museo["author"]["name"]}</h2>
-                            <h1 className='text-center text-white'>Contenido del mensaje: {museo["content"]}</h1>
-                        </div>
-                    ) : ""}
+                <div className='w-2/3 h-screen bg-white flex justify-center items-center '>
+                    <div className="bg-footerColor w-[600px] h-[600px] flex justify-center items-center flex-col gap-5" >
+                    {Array.isArray(messages) ? messages.map((museo, index) =>  
+                            <div className='bg-dashBack w-full h-52  flex justify-center items-center flex-row gap-10 p-5' key={index}>
+                                <h2 className='text-center font-bold text-black'>Name: {museo["author"]["name"]}</h2>
+                                <div className=''>
+                                <h1 className='text-center text-black'>Contenido del mensaje: {museo["content"]}</h1>
+                                </div>
+                            </div>
+                        ) : ""}
+                    </div>
                 </div>
 
             </section>
