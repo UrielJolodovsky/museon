@@ -108,7 +108,7 @@ export default function Login() {
           </form>
           <div className='flex flex-col gap-4 justify-between items-center w-full'>
             <p className='text-white flex flex-row gap-2'>
-              {variant === 'login' ? 'No te registraste?' : 'Ya tenes una cuenta?'}
+              {variant === 'login' ? 'No te registraste?' : 'Ya tienes una cuenta?'}
               <span className='text-white font-bold hover:underline cursor-pointer' onClick={handleClick}>
                 {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
               </span>
