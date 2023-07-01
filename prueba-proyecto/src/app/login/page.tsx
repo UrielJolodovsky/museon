@@ -73,7 +73,7 @@ export default function Login() {
   return (
     <>
       <div className="w-full h-screen bg-dashBack flex justify-center items-start ">
-        <div className="w-96 h-[30rem] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-formBack flex flex-col gap-4">
+        <div className="w-710 h-[30rem] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-formBack flex flex-col gap-4">
           <h2 className="text-white h-1/5 text-4xl font-bold flex justify-center">
             {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
           </h2>
