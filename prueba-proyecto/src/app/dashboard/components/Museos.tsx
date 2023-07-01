@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { MuseosProps } from '@/types'
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
+import dir_url from '@/lib/url';
 
 const Museos = () => {
 
@@ -15,7 +16,7 @@ const Museos = () => {
   }, [])
 
   const viewMuseos = async () => {
-    await axios.get('https://museon-proyecto.vercel.app/api/museos')
+    await axios.get(`${dir_url}/api/museos`)
       .then((response) => {
         setMuseos(response.data)
       })

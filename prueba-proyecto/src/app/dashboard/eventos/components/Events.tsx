@@ -1,5 +1,6 @@
 'use client'
 
+import dir_url from '@/lib/url'
 import axios from 'axios'
 import React, { ChangeEvent, useState } from 'react'
 import { toast } from 'react-hot-toast'
@@ -11,7 +12,7 @@ const Events = () => {
 
   const GetEventos = async () => {
     try {
-      await axios.get('https://museon-proyecto.vercel.app/api/eventos/get').then((res) => {
+      await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
         console.log(res.data)
       }).catch((err) => {
         toast.error(err.response.data)
@@ -23,7 +24,7 @@ const Events = () => {
 
   const AddEvent = async () => {
     try {
-      await axios.post('http://museon-proyecto.vercel.app/api/eventos/add', {
+      await axios.post(`${dir_url}/api/eventos/add`, {
         content: content,
       }).then((res) => {
         console.log(res.data)

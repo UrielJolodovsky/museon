@@ -4,6 +4,7 @@ import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { CommentsProps, MuseosProps } from '@/types'
+import dir_url from '@/lib/url'
 
 export default function Museo() {
 
@@ -20,7 +21,7 @@ export default function Museo() {
 
     const addMessage = async () => {
         try {
-            await axios.post('https://museon-proyecto.vercel.app/api/comments/add', {
+            await axios.post(`${dir_url}/api/comments/add`, {
                 message: message,
                 museoId: params.slug.toString()
             }).then((res) => {
@@ -38,7 +39,7 @@ export default function Museo() {
 
     const getMessages = async () => {
         try {
-            await axios.post('https://museon-proyecto.vercel.app/api/comments/get', {
+            await axios.post(`${dir_url}/api/comments/get`, {
                 parametros: params.slug.toString()
             }).then((res) => {
                 setMessages(res.data)
@@ -52,7 +53,7 @@ export default function Museo() {
 
     const getInfoMuseo = async () => {
         try {
-            await axios.get(`https://museon-proyecto.vercel.app/api/museos`).then((res) => {
+            await axios.get(`${dir_url}/api/museos`).then((res) => {
                 setMuseos(res.data)
             }).catch((err) => {
                 toast.error(err.response.data)

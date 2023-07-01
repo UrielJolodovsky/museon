@@ -7,6 +7,8 @@ import { EffectCoverflow, Pagination, Navigation } from 'swiper';
 import { CldImage } from 'next-cloudinary';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import dir_url from '@/lib/url';
+
 
 const Carousel = () => {
   const [museos, setMuseos] = useState([]);
@@ -17,7 +19,7 @@ const Carousel = () => {
 
   const viewMuseos = async () => {
     try {
-      const response = await axios.get('https://museon-proyecto.vercel.app/api/museos');
+      const response = await axios.get(`${dir_url}/api/museos`);
       setMuseos(response.data);
     } catch (error) {
       console.error(error);

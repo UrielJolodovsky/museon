@@ -7,6 +7,7 @@ import { ChangeEvent, MouseEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import GoogleButton from './components/GoogleButton';
 import toast from 'react-hot-toast';
+import dir_url from '@/lib/url';
 
 export default function Login() {
   const [name, setName] = useState('')
@@ -53,7 +54,7 @@ export default function Login() {
     }
     else if (variant === 'register') {
       try {
-        await axios.post('https://museon-proyecto.vercel.app/api/register', {
+        await axios.post(`${dir_url}/api/register`, {
           email: email,
           name: name,
           password: password
