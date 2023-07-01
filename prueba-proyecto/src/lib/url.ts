@@ -1,4 +1,4 @@
 
-const dir_url = process.env.NEXTAUTH_URL! as string
+const dir_url = 'http://localhost:3000'
 
 export default dir_url
