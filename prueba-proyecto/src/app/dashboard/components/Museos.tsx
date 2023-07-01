@@ -11,8 +11,10 @@ const Museos = () => {
   const [museos, setMuseos] = useState<MuseosProps[]>([])
   const router = useRouter()
 
+
   useEffect(() => {
     viewMuseos()
+    console.log(dir_url)
   }, [])
 
   const viewMuseos = async () => {
