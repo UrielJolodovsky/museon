@@ -31,7 +31,8 @@ const InputVariants: React.FC<InputProps> = ({
                 w-full
                 text-md
                 text-black
-                font-bold
+                border-2
+                font-medium
                 apparence-none
                 focus: outline-none
                 focus: ring-0
@@ -56,7 +57,7 @@ const InputVariants: React.FC<InputProps> = ({
                 peer-placeholder-shown:translate-y-0
                 peer-focus:scale-75
                 peer-focus:-translate-y-3
-                cursor-pointer
+                cursor-auto
                 '
         htmlFor={id}>
         {label}

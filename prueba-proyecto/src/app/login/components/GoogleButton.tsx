@@ -15,8 +15,8 @@ const GoogleButton = () => {
     }
   }
   return (
-    <button onClick={LogInGoogle} className='font-bold w-64 h-12 bg-white rounded-xl text-lg flex flex-row justify-center items-center gap-2'>
-      <FcGoogle /> Continuar con Google
+    <button onClick={LogInGoogle} className='font-semibold w-[180px] h-[50px] rounded-xl text-lg flex flex-row justify-center items-center gap-2 border-red border-2 p-5'>
+      <FcGoogle />Google
     </button>
   )
 }

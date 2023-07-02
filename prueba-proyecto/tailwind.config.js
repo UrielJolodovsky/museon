@@ -13,14 +13,16 @@ module.exports = {
       dashBack: '#e2e2e2',
       dashHover: '#c6c6c6',
       formBack: '#172554',
-      btnForm: '#1e40af',
+      btnForm: '#644D37',
+      btnFormHover: '#4D3A29',
       footerColor: '#868686',
+      red: '#ff0000',
     },
-  },
-  extend: {
-    spacing:{
-    '710': '44.375rem' 
+    screens:{
+      'sm': '364px',
+      'md': '764px',
+      'lg': '1060px',
+      'xl': '1320px',
     },
-  },
-  plugins: [],
+  }, plugins: [],
 }
