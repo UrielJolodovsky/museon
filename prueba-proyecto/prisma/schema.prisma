@@ -76,6 +76,7 @@ model Museos{
   image String?
   categoria String?
   type String?
+  role Role?
   comments Comments[]
 }
 
@@ -95,3 +96,9 @@ model Portfolios{
   author User @relation(fields: [authorId], references: [id])
 }
 
+enum Role {
+  Deporte
+  Arte
+  Historia
+  Galeria  
+}
