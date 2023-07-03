@@ -12,11 +12,7 @@
     "@auth/prisma-adapter": "^1.0.0",
     "@heroicons/react": "^2.0.18",
     "@next-auth/prisma-adapter": "^1.0.7",
-<<<<<<< HEAD
-    "@prisma/client": "^4.16.0",
-=======
     "@prisma/client": "^4.16.2",
->>>>>>> e7a9fd3821a0f262c809168651ddda824ca397b0
     "@types/bcrypt": "^5.0.0",
     "@types/node": "20.3.0",
     "@types/react-dom": "18.2.4",
