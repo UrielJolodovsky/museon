@@ -44,11 +44,14 @@ const Events = () => {
   }
   
   return (
-    <div className='flex justify-center items-start w-full h-screen pt-10'>
-       <div className='w-96 h-12 bg-white'>
+    <div className='flex justify-center items-start w-full h-screen pt-10 '>
+       <form className='w-[48rem] h-screen bg-dashBack flex flex-col p-5 gap-6'>
            <input type='file' onChange={(ev: any) => setImage(ev.target.files[0])}/>
-           <input type='text' className='bg-red' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)}/>
-           <button onClick={AddEvent}>Enviar</button>    
+           <input type='text' className=' outline-none border-b-2' onChange={(e:  ChangeEvent<HTMLInputElement>) => setContent(e.target.value)}/>
+           <button onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>    
+        </form>
+        <div className=''>
+        
         </div> 
     </div>
   )

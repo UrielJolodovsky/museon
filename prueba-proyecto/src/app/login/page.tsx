@@ -72,9 +72,9 @@ export default function Login() {
 
   return (
     <>
-      <div className='w-full h-screen bg-dashBack flex flex-row gap-2 overflow-hidden'>
+      <div className='w-full h-screen bg-dashBack flex flex-row gap-4 overflow-hidden'>
         <div className="w-1/2 h-screen flex justify-end items-center">
-          <div className="xl:w-[810px] lg:w-[510px] md:w-[510px] sm:w-[410px] xl:h-[610px] lg:h-[510px] md:h-[550px] sm:h-[400px] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-white shadow-2xl flex flex-col gap-4">
+          <div className="xl:w-[610px] lg:w-[410px] md:w-[410px] sm:w-[310px] xl:h-[510px] lg:h-[510px] md:h-[550px] sm:h-[400px] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-white shadow-2xl flex flex-col gap-4">
             <h2 className="text-black h-1/5 text-4xl font-bold flex justify-center">
               {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
             </h2>
@@ -120,7 +120,7 @@ export default function Login() {
           </div>
         </div>
         <div className='w-1/2 h-screen flex justify-center items-center'>
-          <div className='xl:h-[810px] xl:w-[824px] lg:h-[510px] lg:w-[524px] md:w-[424px] md:h-[500px] sm:w-[300px] sm:h-[350px] border-2 rounded-xl'></div>
+          <div className='xl:h-[510px] xl:w-[624px] lg:h-[510px] lg:w-[524px] md:w-[424px] md:h-[500px] sm:w-[300px] sm:h-[350px] border-2 rounded-xl'></div>
         </div>
       </div>
     </>
