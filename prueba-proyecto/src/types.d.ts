@@ -19,3 +19,13 @@ export interface EventsProps{
     content: string
     createdAt: string
 }
+
+export interface PortfolioProps {
+    author: {
+        name: string
+        image: string
+    }
+    id: number
+    name_portfolio: string
+    content: string
+}

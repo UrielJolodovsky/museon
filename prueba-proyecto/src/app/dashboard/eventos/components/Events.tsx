@@ -5,6 +5,7 @@ import axios from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { EventsProps } from '@/types'
+import Image from 'next/image'
 
 const Events = () => {
   const [image, setImage] = useState('')
@@ -56,9 +57,15 @@ const Events = () => {
     const files: FileList = (event.target as EventTarget & { files: FileList }).files;
     
     if (files && files.length > 0) {
-      const selectedFile: File = files[0];
-      // Hacer algo con el archivo seleccionado
-      setSelectedFile(selectedFile);
+      const file: File = files[0]
+      setSelectedFile(file)
+      
+      const reader = new FileReader()
+      reader.onload = () => {
+        const content: string = reader.result as string
+        console.log(content)
+      } 
+      reader.readAsText(file)
     }
   };  
   
@@ -76,6 +83,7 @@ const Events = () => {
             <h1>{evento["author"] ["name"]}</h1>
             <h2>{evento["content"]}</h2>
             <h4>{evento["createdAt"]}</h4>
+            <Image src={evento["author"] ["image"]} alt='Image'></Image>
           </div>
           ) : ''}
          </div>
