@@ -6,6 +6,14 @@ export interface MuseosProps {
 export interface CommentsProps {
     author: {
         name: string
+    }
+    content: string
+    createdAt: string
+}
+
+export interface EventsProps{
+    author: {
+        name: string
         image: string
     }
     content: string
