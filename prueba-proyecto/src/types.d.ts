@@ -1,6 +1,7 @@
 export interface MuseosProps {
     id: string
     name: string
+    role: string
 }
 
 export interface CommentsProps {
