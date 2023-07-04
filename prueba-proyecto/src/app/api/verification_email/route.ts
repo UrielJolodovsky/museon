@@ -12,10 +12,10 @@ const transporter = nodemailer.createTransport({
 export async function GET(req: NextRequest, res: NextResponse) {
     const info = await transporter.sendMail({
         from: 'museon.proyecto@gmail.com',
-        to: 'leoboro1234@gmail.com',
-        subject: 'Prueba',
+        to: 'urieljolo@gmail.com',
+        subject: 'Ganador del sorteo de una PS5',
         text: 'Prueba',
-        html: '<b>Prueba</b> <a href="http://localhost:3000">Go to page</a>',
+        html: '<b>Felicidades, has ganado una PS5</b> <a href="http://museon-proyecto.vercel.app">Ir a la página para reclamarla</a>',
     })
     return NextResponse.json(info.messageId)
 }
