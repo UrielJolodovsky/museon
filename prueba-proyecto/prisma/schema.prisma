@@ -96,6 +96,13 @@ model Portfolios{
   author User @relation(fields: [authorId], references: [id])
 }
 
+model InfoObras {
+  id String @id
+  name String
+  description String
+  image String @default(cuid())
+}
+
 enum Role {
   Deporte
   Arte

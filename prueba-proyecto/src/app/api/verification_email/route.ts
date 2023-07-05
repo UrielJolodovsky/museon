@@ -1,15 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sign } from "jsonwebtoken";
+import { Secret, sign } from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { db } from "@/lib/db";
+import jwt from 'jsonwebtoken'
 
-const token = '1'
-const refreshToken = '2'
+
+const token = jwt.sign({
+        expiresIn: '15m',
+        user: {
+            name: 'Uriel',
+            email: 'urieljolo@gmailcom',
+        },
+}, process.env.JWT_SECRET!)
+const decodedToken = jwt.decode(token)
+const refreshToken = jwt.sign({
+    expiresIn: Math.floor(Date.now() / 1000) * 60 * 60 * 24 * 30,
+    user: {
+        name: 'Uriel',
+        email: 'urieljolo@gmail.com'
+    }
+}, process.env.JWT_SECRET!)
 const access_token = db.verificationToken.create({
     data: {
-        identifier: token,
+        identifier: decodedToken?.toString()!,
         token: refreshToken,
-        expires: new Date(),
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     }
 }) 
 const transporter = nodemailer.createTransport({
