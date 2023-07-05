@@ -39,8 +39,8 @@ export default function Login() {
             toast.error(callback.error)
           }
           if (callback?.ok && !callback?.error) {
-            toast.success('Bienvenido!')
             setLoggeado(true)
+            toast.success('Bienvenido!')
             router.push('/dashboard')
           }
         }).finally(() => {

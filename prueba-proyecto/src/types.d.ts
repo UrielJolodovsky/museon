@@ -18,7 +18,6 @@ export interface EventsProps{
         image: string
     }
     content: string
-    createdAt: string
 }
 
 export interface PortfolioProps {

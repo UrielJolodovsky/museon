@@ -18,14 +18,13 @@ const Events = () => {
   const [eventoEnviado, setEventoEnviado] = useState(false)
 
   useEffect(() => {
-    GetEventos()
     setEventoEnviado(false)
   }, [eventoEnviado])
 
   const GetEventos = async () => {
     try {
       await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
-        console.log(res.data)
+        setEvents(res.data)
       }).catch((err) => {
         toast.error(err.response.data)
       })
@@ -54,6 +53,8 @@ const Events = () => {
     } catch (error) {
       toast.error("Something went wrong")
     }
+    setEventoEnviado(true)
+
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,23 +78,21 @@ const Events = () => {
   return (
     <section className='flex justify-center items-center w-full h-screen pt-10 '>
       <div className=' w-full h-screen flex justify-center items-center flex-col'>
-        <form className='w-[38rem] h-[28rem] bg-dashBack flex flex-col p-5 gap-6'>
-          <div className='w-full h-1/4 flex flex-row justify-center items-start gap-4'>
+        <form className='w-[38rem] h-[20rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
+          <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
             <input type='text' className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
             <label htmlFor="upload-input" className='relative cursor-pointer'>
               <span className=''><i ><AiOutlinePlusSquare className='w-6 h-6' /></i></span>
               <input id="upload-input" type="file" onChange={handleChange} className="hidden" />
             </label>
           </div>
-          <button onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
+          <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
         </form>
-        <div className='overflow-auto '>
+        <div className='overflow-auto bg-formBack w-[38rem] h-48'>
           {Array.isArray(events) ? events.map((evento, index) =>
             <div key={index}>
               <h1>{evento["author"]["name"]}</h1>
               <h2>{evento["content"]}</h2>
-              <h4>{evento["createdAt"]}</h4>
-              <Image src={evento["author"]["image"]} alt='Image'></Image>
             </div>
           ) : ''}
         </div>
