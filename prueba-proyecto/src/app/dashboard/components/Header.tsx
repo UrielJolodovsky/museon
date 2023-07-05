@@ -26,12 +26,12 @@ const Header = () => {
     {
       id: 2,
       title: 'About',
-      link: '/portfolio'
+      link: '/'
     },
     {
       id: 3,
-      title: 'Contact',
-      link: '/portfolio'
+      title: 'Portfolio',
+      link: '/dashboard/portfolio'
     },
     {
       id: 4,

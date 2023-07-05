@@ -17,6 +17,7 @@ export interface EventsProps{
         name: string
         image: string
     }
+    id: string
     content: string
 }
 
