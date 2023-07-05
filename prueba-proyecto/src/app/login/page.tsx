@@ -31,8 +31,8 @@ export default function Login() {
     if (variant === 'login') {
       try {
         await signIn("credentials", {
-          email,
-          password,
+          email: email,
+          password: password,
           redirect: false,
         }).then((callback) => {
           if (callback?.error) {

@@ -8,9 +8,6 @@ import { db } from '../../../../lib/db'
 
 
 declare module "next-auth" {
-    // interface Session {
-    //     user?: DefaultUser & { id: string; tipo_usuario: string };
-    // }
     interface Session extends DefaultSession {
         user: {
             id: string;
@@ -38,6 +35,7 @@ export const authOptions: NextAuthOptions = {
                 password: {  label: "Password", type: "password" },
             },
             async authorize(credentials) {
+                console.log("Entramoos")
                 console.log(credentials?.email, credentials?.password)
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error('Missing fields');
@@ -58,7 +56,6 @@ export const authOptions: NextAuthOptions = {
                 if (!isCorrectPassword) {
                     throw new Error('Wrong password');
                 }
-
                 return user;
    }
         })
@@ -84,7 +81,7 @@ export const authOptions: NextAuthOptions = {
             token.id = user.id;
             //token.tipo_usuario = user.tipo_usuario;
         }
-        // console.log('token', token);
+        console.log('token', token);
         return token;
     },
 },
