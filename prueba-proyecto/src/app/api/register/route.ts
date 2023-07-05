@@ -30,7 +30,6 @@ export async function POST(req: Request, res: Response) {
         }
     })
 
-
     const token = jwt.sign({
         expiresIn: '15m',
         user: {
@@ -56,6 +55,7 @@ export async function POST(req: Request, res: Response) {
             expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         }
     }) 
+   
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

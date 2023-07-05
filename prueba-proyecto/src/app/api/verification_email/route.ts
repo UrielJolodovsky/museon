@@ -44,3 +44,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     })
     return NextResponse.json(info.messageId)
 }
+
+export async function POST(req: NextRequest, res: NextResponse) {
+    const { token } = await req.json()
+}
