@@ -39,11 +39,11 @@ const Header = () => {
       link: '/dashboard/eventos'
     }
   ]
-  // const logOut = async () => {
-  //   console.log("A")
-  //   await signOut({ redirect: false })
+   const logOut = async () => {
+     console.log("A")
+     await signOut({ redirect: false })
 
-  // }
+   }
 
   return (
     <header className='w-full h-24 bg-navColor flex flex-row justify-center items-center'>
