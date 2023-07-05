@@ -52,17 +52,6 @@ export default function Museo() {
         }
     }
 
-    const getInfoMuseo = async () => {
-        try {
-            await axios.get(`${dir_url}/api/museos`).then((res) => {
-                setMuseos(res.data)
-            }).catch((err) => {
-                toast.error(err.response.data)
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     return (
         <>

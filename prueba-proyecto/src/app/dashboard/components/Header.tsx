@@ -25,8 +25,8 @@ const Header = () => {
     },
     {
       id: 2,
-      title: 'About',
-      link: '/'
+      title: 'Museos',
+      link: '/dashboard/museos'
     },
     {
       id: 3,

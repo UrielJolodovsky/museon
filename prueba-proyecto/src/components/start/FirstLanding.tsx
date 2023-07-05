@@ -1,5 +1,4 @@
 "use client"
-import '@/components/start/carousel.css'
 import Image from 'next/image'
 import Foto1 from '../../../public/assets/Foto1.png'
 import Foto2 from '../../../public/assets/Foto2.png'

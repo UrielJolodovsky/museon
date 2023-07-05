@@ -13,7 +13,6 @@ const InputVariants: React.FC<InputProps> = ({
   onChange,
   type,
   label,
-  value
 }) => {
 
   return (

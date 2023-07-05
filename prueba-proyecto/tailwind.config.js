@@ -17,6 +17,10 @@ module.exports = {
       btnFormHover: '#4D3A29',
       footerColor: '#868686',
       red: '#ff0000',
+
+      //Paleta de colores
+      newNavColor: '',
+
     },
     screens:{
       'sm': '364px',
