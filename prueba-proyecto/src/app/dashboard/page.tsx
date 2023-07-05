@@ -1,6 +1,6 @@
 import NextAuthProvider from './layout'
 import Header from './components/Header'
-import Museos from './components/Museos'
+import Museos from './museos/components/Colecciones'
 
 export default function Dashboard() {
 
@@ -9,7 +9,6 @@ export default function Dashboard() {
       <NextAuthProvider>
         <div className='w-full h-screen flex flex-col bg-dashBack'>
           <Header />
-          <Museos />
         </div>
       </NextAuthProvider>
     </>
