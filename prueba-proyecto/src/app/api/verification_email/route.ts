@@ -1,7 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sign } from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import { db } from "@/lib/db";
 
+const token = '1'
+const refreshToken = '2'
+const access_token = db.verificationToken.create({
+    data: {
+        identifier: token,
+        token: refreshToken,
+        expires: new Date(),
+    }
+}) 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
