@@ -52,7 +52,7 @@ model User {
 }
 
 model VerificationToken {
-  identifier String
+  identifier String   @unique // Added @unique
   token      String   @unique
   expires    DateTime
 
