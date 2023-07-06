@@ -1,5 +1,4 @@
 "use client"
-import '@/components/start/carousel.css'
 import Image from 'next/image'
 import Foto1 from '../../../public/assets/Foto1.png'
 import Foto2 from '../../../public/assets/Foto2.png'
@@ -48,16 +47,17 @@ const FirstLanding = () => {
         <nav className='w-11/12 h-full flex justify-center items-center p-6 flex-row '>
           <ul className='w-full h-full flex flex-row items-center justify-between'>
             {DataNav.map(({ id, title, link }) =>
-              <li key={id}>
+              <li className='list-none text-center' key={id}>
                 <Link
                   id='MyLink'
                   href={link}
-                  className='text-2xl text-black'>
+                  className='text-2xl text-black link'>
                   {title}
                 </Link>
+                <div className='line'></div>
               </li>
             )}
-            <button onClick={handleLogin} className='w-[170px] h-[50px] rounded-lg text-black border-2'>
+            <button onClick={handleLogin} className='w-[170px] h-[50px] rounded-lg text-black border-2 hover:bg-dashHover transition'>
               <h1 className='text-2xl p-2'>Login</h1>
             </button>
           </ul>
@@ -72,8 +72,8 @@ const FirstLanding = () => {
               <video className='rounded-lg' src="video1.mp4" height={400} width={400} controls autoPlay loop muted></video>
             </div>
           </div>
-          <div className='w-2/6 flex justify-center items-start'>
-            <Image src={Foto2} alt='' height={200} width={200}></Image>
+          <div className='w-2/6 h-full flex justify-center items-center'>
+            <Image src={Foto2} alt='logo' height={600} width={600}></Image>
           </div>
         </section>
         <section className='w-full h-[400px] flex justify-center items-center flex-row'>

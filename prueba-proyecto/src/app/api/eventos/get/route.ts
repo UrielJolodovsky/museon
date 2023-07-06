@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -8,6 +7,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const getEventos = await db.eventos.findMany({
             select: {
+                id: true,
                 content: true,
                 author: {
                     select: {

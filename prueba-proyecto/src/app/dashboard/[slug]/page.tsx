@@ -1,7 +1,7 @@
 'use client'
 import axios from 'axios'
 import { useParams } from "next/navigation"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState, MouseEvent } from "react"
 import { toast } from "react-hot-toast"
 import { CommentsProps, MuseosProps } from '@/types'
 import dir_url from '@/lib/url'
@@ -19,7 +19,8 @@ export default function Museo() {
         setMessageEnviado(false)
     }, [messageEnviado])
 
-    const addMessage = async () => {
+    const addMessage = async (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
         try {
             await axios.post(`${dir_url}/api/comments/add`, {
                 message: message,
@@ -51,17 +52,6 @@ export default function Museo() {
         }
     }
 
-    const getInfoMuseo = async () => {
-        try {
-            await axios.get(`${dir_url}/api/museos`).then((res) => {
-                setMuseos(res.data)
-            }).catch((err) => {
-                toast.error(err.response.data)
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     return (
         <>

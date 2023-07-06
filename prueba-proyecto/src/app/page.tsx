@@ -1,12 +1,10 @@
 import FirstLanding from '@/components/start/FirstLanding'
-import dir_url from '@/lib/url'
-import Image from 'next/image'
+import Landing from '@/components/start/NavLanding'
 
 export default function Home() {
-  console.log(dir_url)
   return (
     <>
-      <FirstLanding />
+    <FirstLanding/>
     </>
   )
 }

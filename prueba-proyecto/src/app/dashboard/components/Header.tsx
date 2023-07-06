@@ -7,9 +7,8 @@ import Image from 'next/image';
 import { VscSignOut } from 'react-icons/vsc';
 import { VscSignIn } from 'react-icons/vsc';
 
-export interface IHeaderProps { }
 
-const Header = (props: IHeaderProps) => {
+const Header = () => {
   const { data: sessionData } = useSession()
   const nombre = sessionData?.user ? sessionData.user.name : ''
   const router = useRouter()
@@ -22,26 +21,29 @@ const Header = (props: IHeaderProps) => {
     {
       id: 1,
       title: 'Home',
+      link: '/'
     },
     {
       id: 2,
-      title: 'About',
+      title: 'Museos',
+      link: '/dashboard/museos'
     },
     {
       id: 3,
-      title: 'Contact',
+      title: 'Portfolio',
+      link: '/dashboard/portfolio'
     },
     {
       id: 4,
-      title: 'Museums',
+      title: 'Events',
+      link: '/dashboard/eventos'
     }
   ]
-  const logOut = async () => {
-    console.log("A")
-    await signOut({redirect: false})
-    const nombre = sessionData?.user ? sessionData.user.name : ''
+   const logOut = async () => {
+     console.log("A")
+     await signOut({ redirect: false })
 
-  }
+   }
 
   return (
     <header className='w-full h-24 bg-navColor flex flex-row justify-center items-center'>
@@ -52,11 +54,11 @@ const Header = (props: IHeaderProps) => {
           ) : (
             <h2 className='text-xl font-extrabold text-white'>Hi Guest</h2>
           )}
-          {DataNav.map(({ id, title }) =>
+          {DataNav.map(({ id, title, link }) =>
             <li key={id} className=''>
               <Link
                 className='text-xl font-medium text-white'
-                href={"#"}
+                href={link}
               >
                 {title}
               </Link>
@@ -65,7 +67,7 @@ const Header = (props: IHeaderProps) => {
           )}
           {sessionData?.user ? (
             <div className='flex flex-row gap-6'>
-              <button onClick={logOut}><VscSignOut className="w-12 h-12 text-white" /></button>
+              <button onClick={() => signOut()}><VscSignOut className="w-12 h-12 text-white" /></button>
             </div>
           ) : (
             <button onClick={handleLogIn}><VscSignIn className="w-12 h-12 text-white" /></button>

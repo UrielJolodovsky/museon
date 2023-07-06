@@ -40,7 +40,7 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
-  emailVerified DateTime?
+  emailVerified Boolean? @default(false) 
   hashedPassword String?
   image         String?
   tipo_usuario  String? @default("user")
@@ -52,8 +52,8 @@ model User {
 }
 
 model VerificationToken {
-  identifier String
-  token      String   @unique
+  identifier String @db.VarChar(300)// Added @unique
+  token      String   @db.VarChar(300) @unique
   expires    DateTime
 
   @@unique([identifier, token])
@@ -76,6 +76,7 @@ model Museos{
   image String?
   categoria String?
   type String?
+  role Role?
   comments Comments[]
 }
 
@@ -95,3 +96,16 @@ model Portfolios{
   author User @relation(fields: [authorId], references: [id])
 }
 
+model InfoObras {
+  id String @id
+  name String
+  description String
+  image String @default(cuid())
+}
+
+enum Role {
+  Deporte
+  Arte
+  Historia
+  Galeria  
+}
