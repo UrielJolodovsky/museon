@@ -6,18 +6,17 @@ import jwt from 'jsonwebtoken'
 
 export async function POST(req: NextRequest, res: NextResponse) {
     const { token } = await req.json()
-    const decodeToken = jwt.decode(token)
 
     const verification_decodeToken = await db.verificationToken.findUnique({
         where: {
-            identifier: decodeToken?.toString()
+            identifier: token
         },
         select: {
-            token: true,
+            identifier: true,
         }
     })
-
-    const email_user = token['user']['email']
+    const decodeToken = jwt.decode(verification_decodeToken) as jwt.JwtPayload
+    const email_user = decodeToken.user.email
 
     const verification_emailUpdated = await db.user.update({
         where: {
@@ -27,4 +26,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
             emailVerified: email_user
         }
     })
+
+    return new NextResponse("Your email is now verified", {status: 200})
 }

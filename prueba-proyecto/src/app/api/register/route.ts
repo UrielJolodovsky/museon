@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt'
 import nodemailer from 'nodemailer'
 import jwt from 'jsonwebtoken'
+import { emailPayload, transporter } from "@/lib/config/nodemailer";
 
 
 
@@ -37,9 +38,9 @@ export async function POST(req: Request, res: Response) {
             email: email,
         },
     }, process.env.JWT_SECRET!)
-    
-    const decodedToken = jwt.decode(token)
-    
+
+    const decodeToken = jwt.decode(token)
+    console.log(decodeToken)
     const refreshToken = jwt.sign({
         expiresIn: Math.floor(Date.now() / 1000) * 60 * 60 * 24 * 30,
         user: {
@@ -50,26 +51,18 @@ export async function POST(req: Request, res: Response) {
     
     const access_token = db.verificationToken.create({
         data: {
-            identifier: decodedToken?.toString()!,
+            identifier: token,
             token: refreshToken,
             expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         }
     }) 
-   
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.email_user as string,
-            pass: process.env.email_password as string
-        }
-    })
+
 
     const info = await transporter.sendMail({
-        from: 'museon.proyecto@gmail.com',
-        to: email,
+        ...emailPayload(email),
         subject: 'Verification email',
         text: 'Prueba',
-        html: '<b>Please, click the link to verify your email</b> <a href=`http://localhost:3000/token/${token}`>Click here</a>',
+        html: `<b>Please, click the link to verify your email</b> <a href="http://localhost:3000/token/${token}">Click here</a>`,
     })
 
 
