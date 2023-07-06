@@ -5,7 +5,9 @@ import jwt from 'jsonwebtoken'
 export async function POST(req: NextRequest, res: NextResponse) {
     const { token } = await req.json()
 
-    const verification_token = await db.verificationToken.findUnique({
+    console.log(token)
+
+    const verification_token = await db.verificationToken.findFirst({
         where: {
             identifier: token
         },
@@ -17,14 +19,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
         return new NextResponse("This token does not exist", {status: 400})
     }
     const decodeToken = jwt.decode(verification_token?.identifier!) as jwt.JwtPayload
+    console.log(decodeToken)
     const email_user = decodeToken.user.email
-
+    console.log(email_user)
     const verification_emailUpdated = await db.user.update({
         where: {
             email: email_user
         },
         data: {
-            emailVerified: Date.now() as unknown as Date,
+            emailVerified: true,
         }
     })
 

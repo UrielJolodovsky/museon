@@ -1,6 +1,6 @@
 'use client'
 import { useParams } from 'next/navigation'
-import React from 'react'
+import React, { use, useEffect } from 'react'
 import jwt from 'jsonwebtoken'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
@@ -11,7 +11,11 @@ const Token = () => {
     const params = useParams()
     const token = params.slug.toString()
 
+    useEffect(() => {
+      verifytoken()
+    }, [])
     const verifytoken = async() => {
+      console.log(token)
       await axios.post(`${dir_url}/api/verification_email`, {
         token: token
       }).then((res) => {

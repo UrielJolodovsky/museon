@@ -31,6 +31,7 @@ export async function POST(req: Request, res: Response) {
         }
     })
 
+    console.log(user)
     const token = jwt.sign({
         expiresIn: '15m',
         user: {
@@ -38,6 +39,7 @@ export async function POST(req: Request, res: Response) {
             email: email,
         },
     }, process.env.JWT_SECRET!)
+
 
     const decodeToken = jwt.decode(token)
     console.log(decodeToken)
@@ -48,8 +50,11 @@ export async function POST(req: Request, res: Response) {
             email: email,
         }
     }, process.env.JWT_SECRET!)
+
+    console.log(token)
+    console.log(refreshToken)
     
-    const access_token = db.verificationToken.create({
+    const access_token = await db.verificationToken.create({
         data: {
             identifier: token,
             token: refreshToken,

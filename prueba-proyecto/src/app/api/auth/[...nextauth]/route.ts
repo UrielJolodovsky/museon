@@ -35,8 +35,6 @@ export const authOptions: NextAuthOptions = {
                 password: {  label: "Password", type: "password" },
             },
             async authorize(credentials) {
-                console.log("Entramoos")
-                console.log(credentials?.email, credentials?.password)
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error('Missing fields');
                 }
@@ -57,7 +55,7 @@ export const authOptions: NextAuthOptions = {
                     throw new Error('Wrong password');
                 }
 
-                if (user.emailVerified === null) {
+                if (user.emailVerified === false) {
                     throw new Error("You have not verified this email")
                 }
 
@@ -68,7 +66,6 @@ export const authOptions: NextAuthOptions = {
     // debug: process.env.NODE_ENV === 'development',
     session: {
         strategy: 'jwt',
-        maxAge: Date.now() * 30 * 60
     },
     callbacks: {
         session({ session, token }) {
