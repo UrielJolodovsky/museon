@@ -10,11 +10,13 @@ const Token = () => {
     const params = useParams()
     const token = params.slug.toString()
 
-    const decoded = jwt.decode(token)
-
     const verifytoken = async() => {
       await axios.post(`${dir_url}/api/verification_email`, {
-        token: decoded
+        token: token
+      }).then((res) => {
+        toast.success(res.data)
+      }).catch((err) => {
+        toast.error(err.response.data)
       })
     }
     
