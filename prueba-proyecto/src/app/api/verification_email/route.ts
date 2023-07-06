@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             email: email_user
         },
         data: {
-            emailVerified: true
+            emailVerified: Date.now() as unknown as Date,
         }
     })
 

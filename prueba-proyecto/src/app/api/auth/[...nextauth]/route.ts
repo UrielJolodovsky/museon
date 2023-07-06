@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
                     throw new Error('Wrong password');
                 }
 
-                if (user.emailVerified === false) {
+                if (user.emailVerified === null) {
                     throw new Error("You have not verified this email")
                 }
 
