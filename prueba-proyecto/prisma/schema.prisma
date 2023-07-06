@@ -40,7 +40,7 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
-  emailVerified DateTime?
+  emailVerified Boolean? 
   hashedPassword String?
   image         String?
   tipo_usuario  String? @default("user")
