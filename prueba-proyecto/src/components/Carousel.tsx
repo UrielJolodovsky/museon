@@ -51,11 +51,11 @@ const Carousel = () => {
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 700,
+            depth: 1000,
             modifier: 1,
           }}
           loop={true}
-          modules={[Autoplay, EffectCoverflow]}
+          modules={[EffectCoverflow, Pagination]}
           className="mySwiper p-12"
         >
           {dataCarousel.map(({ id, title, Image }) => {
