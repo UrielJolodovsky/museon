@@ -51,17 +51,16 @@ const Carousel = () => {
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 1000,
-            modifier: 1,
+            depth: 900,
           }}
           loop={true}
-          modules={[EffectCoverflow, Pagination]}
+          modules={[Autoplay, EffectCoverflow, Pagination]}
           className="mySwiper p-12"
         >
           {dataCarousel.map(({ id, title, Image }) => {
             return (
-              <SwiperSlide key={id}>
-                <div className='w-64 h-40 bg-red flex justify-center items-center'>
+              <SwiperSlide >
+                <div key={id} className='w-64 h-40 bg-red flex justify-center items-center'>
                   <h1>{title}</h1>
                 </div>
               </SwiperSlide>
