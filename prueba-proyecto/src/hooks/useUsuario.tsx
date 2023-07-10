@@ -14,7 +14,7 @@ const useUsuario = async () => {
     const tipoUsuario = await axios.post(`${dir_url}/api/tipo_usuario`, {
         username_email: username_email
     })
- return tipoUsuario
+    return tipoUsuario.data
 }
 
 export default useUsuario

@@ -3,10 +3,12 @@ import { db } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest, res: NextResponse) {
+    
+    try {
     const { username_email } = await req.json()
 
     if (username_email === '') {
-        return ''
+        return NextResponse.json ('')
     }
 
     const tipo_usuario = await db.user.findUnique({
@@ -17,5 +19,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
             tipo_usuario: true,
         }
     })
-    return tipo_usuario!['tipo_usuario']
+    return NextResponse.json (tipo_usuario!['tipo_usuario'])
+} catch (err) {
+    return NextResponse.json ('Error')
+}
 }

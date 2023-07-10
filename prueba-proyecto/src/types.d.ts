@@ -30,3 +30,7 @@ export interface PortfolioProps {
     name_portfolio: string
     content: string
 }
+
+export interface usuarioProps {
+    tipo_usuario: string
+}
