@@ -6,6 +6,7 @@ import React, { ChangeEvent, useEffect, useState, MouseEvent } from 'react'
 import { toast } from 'react-hot-toast'
 import { EventsProps } from '@/types'
 import { CldImage } from 'next-cloudinary'
+import useUsuario from '@/hooks/useUsuario'
 
 
 
@@ -14,6 +15,8 @@ const Events = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [events, setEvents] = useState<EventsProps[]>([])
   const [eventoEnviado, setEventoEnviado] = useState(false)
+
+  const tipo_usuario = useUsuario()
 
   useEffect(() => {
     GetEventos()
