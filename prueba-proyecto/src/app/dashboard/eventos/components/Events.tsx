@@ -18,13 +18,12 @@ const Events = () => {
   const [tipo_usuario, setTipo_usuario] = useState("")
 
   useUsuario().then((res) => {
-    setTipo_usuario(res.data)
+    setTipo_usuario(res)
   })
 
   useEffect(() => {
     GetEventos()
     setEventoEnviado(false)
-    console.log(tipo_usuario)
   }, [eventoEnviado])
 
   const GetEventos = async () => {
