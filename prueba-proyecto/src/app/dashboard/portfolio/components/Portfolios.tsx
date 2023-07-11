@@ -45,7 +45,7 @@ const Portfolios = () => {
     } catch (error) {
       toast.error("Something went wrong")
     }
-
+  }
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const files: FileList = (event.target as EventTarget & { files: FileList }).files;
 
@@ -77,6 +77,5 @@ const Portfolios = () => {
         </div>
       </div>
     )
-  }
 }
 export default Portfolios

@@ -33,11 +33,17 @@ const Carousel = () => {
     {
       id: 4,
       title: 'HolaHolaHola',
+    },
+    {
+      id: 5,
+      title: 'vato',
     }
   ]
 
 
   return (
+
+  <section className='w-full h-max flex justify-center items-center flex-row'>
     <div className='w-full h-screen flex justify-center items-center'>
       <div className='w-96 h-56 flex justify-center items-center'>
         <Swiper
@@ -69,6 +75,7 @@ const Carousel = () => {
         </Swiper>
       </div>
     </div>
+  </section>
   )
 }
 export default Carousel
