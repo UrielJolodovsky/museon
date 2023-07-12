@@ -1,4 +1,3 @@
-
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -12,12 +11,12 @@ const NavLanding = () => {
         },
         {
           id: 2,
-          title: 'Museos',
+          title: 'Colecciones',
           link: '#'
         },
         {
           id: 3,
-          title: 'Ayuda',
+          title: 'Eventos',
           link: '#'
         },
         {
@@ -41,14 +40,14 @@ const NavLanding = () => {
                 <Link
                   id='MyLink'
                   href={link}
-                  className='text-2xl text-black link'>
+                  className='text-3xl font-normal text-white link'>
                   {title}
                 </Link>
                 <div className='line'></div>
               </li>
             )}
-            <button onClick={handleLogin} className='w-[170px] h-[50px] rounded-lg text-black border-2 hover:bg-dashHover transition'>
-              <h1 className='text-2xl p-2'>Login</h1>
+            <button onClick={handleLogin} className='w-[180px] h-[70px] rounded-3xl text-black bg-white hover:bg-dashHover transition'>
+              <h1 className='text-3xl'>Log in</h1>
             </button>
           </ul>
         </nav>

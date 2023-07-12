@@ -17,13 +17,13 @@ const FirstLanding = () => {
 
   return (
     <>
-    <header className='w-full h-20 flex justify-center border-black border-b-2 '>
+    <header className='w-full h-[117px] flex justify-center bg-navColor'>
       <NavLanding/>
     </header>  
-    <main className='w-full h-max flex-col bg-dashBack px-44'>
+    <main className='w-full h-full flex justify-center items-center flex-col bg-dashBack px-44'>
       <Presentation/>
-      <Information/>
       <Carousel />
+      <Information/>
       <ScanInfo/>
       <Help/>
     </main>

@@ -4,7 +4,6 @@ import "swiper/css"
 import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import { EffectCoverflow, Pagination, Autoplay } from "swiper"
-import { identifierToKeywordKind } from "typescript"
 import Image from "next/image"
 import Foto1 from '../../public/assets/Foto1.png'
 import Foto2 from '../../public/assets/Foto2.png'
@@ -43,15 +42,15 @@ const Carousel = () => {
 
   return (
 
-  <section className='w-full h-max flex justify-center items-center flex-row'>
-    <div className='w-full h-screen flex justify-center items-center'>
-      <div className='w-96 h-56 flex justify-center items-center'>
+  <section className='w-full h-[500px] flex justify-center items-center flex-row'>
+    <div className='w-full h-full flex justify-center items-center'>
+      <div className='w-[36rem] h-56 flex justify-center items-center'>
         <Swiper
           effect={"coverflow"}
           centeredSlides={true}
           slidesPerView={1.5}
           autoplay={{
-            delay: 3000,
+            delay: 3500,
             disableOnInteraction: false,
           }}
           coverflowEffect={{
@@ -66,7 +65,7 @@ const Carousel = () => {
           {dataCarousel.map(({ id, title, Image }) => {
             return (
               <SwiperSlide >
-                <div key={id} className='w-64 h-40 bg-red flex justify-center items-center'>
+                <div key={id} className='w-96 h-72 bg-red flex justify-center items-center'>
                   <h1>{title}</h1>
                 </div>
               </SwiperSlide>
