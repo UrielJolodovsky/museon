@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import '../../app/styles/line.css'
 
 const NavLanding = () => {
     const DataNav = [
