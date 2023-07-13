@@ -11,7 +11,7 @@ const Museos = () => {
   const [museos, setMuseos] = useState<MuseosProps[]>([])
   const router = useRouter()
   const filtro = ['Deporte', 'Arte', 'Historia', 'Galerias']
-  const [filtered, setFiltered] = useState<MuseosProps[]>(museos);
+  const [filtered, setFiltered] = useState<MuseosProps[]>([]);
 
   const FilterMuseums = (search: String) => {
     if (search === '') {
@@ -32,6 +32,7 @@ const Museos = () => {
     await axios.get(`${dir_url}/api/museos`)
       .then((response) => {
         setMuseos(response.data)
+        setFiltered(response.data)
       })
   }
 
