@@ -9,17 +9,25 @@ import dir_url from '@/lib/url';
 const Museos = () => {
 
   const [museos, setMuseos] = useState<MuseosProps[]>([])
+  const [tipoMuseo, setTipoMuseo] = useState('')
+  const [nomMuseo, setNomMuseo] = useState('')
   const router = useRouter()
   const filtro = ['Deporte', 'Arte', 'Historia', 'Galerias']
   const [filtered, setFiltered] = useState<MuseosProps[]>([]);
 
-  const FilterMuseums = (search: String) => {
-    if (search === '') {
+  const FilterMuseums = (search: String, type: String) => {
+    if (search === '' || type === '') {
       setFiltered(museos)
     }
-    else {
-      setFiltered(museos.filter((museo) => {
+    // Filtrar cuando search y type no estén vacios
+    if (search !== '') {
+      setFiltered(filtered.filter((museo) => {
         return museo.name.toLowerCase().includes(search.toLowerCase())
+      }))
+    }
+    if (type !== '') {
+      setFiltered(filtered.filter((museo) => {
+        return museo.role.toLowerCase() === type.toLowerCase()
       }))
     }
   }
@@ -51,7 +59,10 @@ const Museos = () => {
         )
       })
       }
-      <input type='text' placeholder='search' onChange={(ev) => FilterMuseums(ev.target.value)} />
+      <input type='text' placeholder='search' onChange={(ev) => {
+        setNomMuseo(ev.target.value)
+        FilterMuseums(nomMuseo, tipoMuseo)
+        }} />
             {filtered.length > 0 ? filtered.map(({id, name}) => {
               return (
                 <div key={id}>
@@ -60,6 +71,16 @@ const Museos = () => {
               )
             }) : <h1>There is no match</h1>
             }
+            <select onChange={(ev) => {
+              setTipoMuseo(ev.target.value);
+              FilterMuseums(nomMuseo, tipoMuseo)
+              }}>
+                <option value={''}>All</option>
+                <option value={'Deporte'}>Deporte</option>
+                <option value={'Arte'}>Arte</option>
+                <option value={'Historia'}>Historia</option>
+                <option value={'Galerias'}>Galerias</option>
+            </select>
     </div>)
 }
 
