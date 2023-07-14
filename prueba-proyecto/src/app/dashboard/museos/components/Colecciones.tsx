@@ -61,6 +61,7 @@ const Museos = () => {
       }
       <input type='text' placeholder='search' onChange={(ev) => {
         setNomMuseo(ev.target.value)
+        console.log(nomMuseo)
         FilterMuseums(nomMuseo, tipoMuseo)
         }} />
             {filtered.length > 0 ? filtered.map(({id, name}) => {
@@ -73,6 +74,7 @@ const Museos = () => {
             }
             <select onChange={(ev) => {
               setTipoMuseo(ev.target.value);
+              console.log(tipoMuseo)
               FilterMuseums(nomMuseo, tipoMuseo)
               }}>
                 <option value={''}>All</option>
