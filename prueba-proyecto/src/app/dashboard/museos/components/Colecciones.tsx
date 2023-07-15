@@ -16,20 +16,29 @@ const Museos = () => {
   const [filtered, setFiltered] = useState<MuseosProps[]>([]);
 
   const FilterMuseums = (search: String, type: String) => {
-    if (search === '' || type === '') {
-      setFiltered(museos)
+    // if (search === '' || type === '') {
+    //   setFiltered(museos)
+    // }
+    // // Filtrar cuando search y type no estén vacios
+    // if (search !== '') {
+    //   setFiltered(filtered.filter((museo) => {
+    //     return museo.name.toLowerCase().includes(search.toLowerCase())
+    //   }))
+    // }
+    // if (type !== '') {
+    //   setFiltered(filtered.filter((museo) => {
+    //     return museo.role.toLowerCase() === type.toLowerCase()
+    //   }))
+    // }
+    if (search === '' && type === '') setFiltered(museos)
+    else if (search === '') setFiltered(museos.filter((museo) => museo.role.toLowerCase() === type.toLowerCase()))
+    else if (type === '') setFiltered(museos.filter((museo) => museo.name.toLowerCase().includes(search.toLowerCase())))
+    else {
+    setFiltered(museos.filter((museo) => {
+      return museo.name.toLowerCase().includes(search.toLowerCase()) && museo.role.toLowerCase() === type.toLowerCase()
     }
-    // Filtrar cuando search y type no estén vacios
-    if (search !== '') {
-      setFiltered(filtered.filter((museo) => {
-        return museo.name.toLowerCase().includes(search.toLowerCase())
-      }))
-    }
-    if (type !== '') {
-      setFiltered(filtered.filter((museo) => {
-        return museo.role.toLowerCase() === type.toLowerCase()
-      }))
-    }
+    ))
+  }
   }
 
   useEffect(() => {
@@ -42,6 +51,18 @@ const Museos = () => {
         setMuseos(response.data)
         setFiltered(response.data)
       })
+  }
+
+  const changeSelect = (ev: any) => {
+    FilterMuseums(tipoMuseo,ev.target.value);
+    console.log(tipoMuseo)
+    setTipoMuseo(ev.target.value)
+  }
+
+  const changeSearch = (ev: any) => {
+    FilterMuseums(ev.target.value, tipoMuseo)
+    setNomMuseo(ev.target.value)
+    console.log(nomMuseo)
   }
 
 
@@ -59,11 +80,7 @@ const Museos = () => {
         )
       })
       }
-      <input type='text' placeholder='search' onChange={(ev) => {
-        setNomMuseo(ev.target.value)
-        console.log(nomMuseo)
-        FilterMuseums(nomMuseo, tipoMuseo)
-        }} />
+      <input type='text' placeholder='search' onChange={(ev) => changeSearch(ev)} />
             {filtered.length > 0 ? filtered.map(({id, name}) => {
               return (
                 <div key={id}>
@@ -72,11 +89,7 @@ const Museos = () => {
               )
             }) : <h1>There is no match</h1>
             }
-            <select onChange={(ev) => {
-              setTipoMuseo(ev.target.value);
-              console.log(tipoMuseo)
-              FilterMuseums(nomMuseo, tipoMuseo)
-              }}>
+            <select onChange={(ev) => changeSelect(ev)}>
                 <option value={''}>All</option>
                 <option value={'Deporte'}>Deporte</option>
                 <option value={'Arte'}>Arte</option>
