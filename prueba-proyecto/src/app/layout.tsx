@@ -1,8 +1,12 @@
 import ToasterContext from '@/context/ToasterContext'
 import '../app/globals.css'
-import { Inter } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Poppins({
+  subsets: ['latin-ext'],
+  weight: '300'
+  
+})
 
 export const metadata = {
   title: 'MuseOff',

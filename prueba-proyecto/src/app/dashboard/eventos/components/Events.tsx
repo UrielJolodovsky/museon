@@ -6,7 +6,8 @@ import React, { ChangeEvent, useEffect, useState, MouseEvent } from 'react'
 import { toast } from 'react-hot-toast'
 import { EventsProps } from '@/types'
 import { CldImage } from 'next-cloudinary'
-
+import useUsuario from '@/hooks/useUsuario'
+import { usuarioProps } from '@/types'
 
 
 const Events = () => {
@@ -14,6 +15,11 @@ const Events = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [events, setEvents] = useState<EventsProps[]>([])
   const [eventoEnviado, setEventoEnviado] = useState(false)
+  const [tipo_usuario, setTipo_usuario] = useState("")
+
+  useUsuario().then((res) => {
+    setTipo_usuario(res)
+  })
 
   useEffect(() => {
     GetEventos()
@@ -77,6 +83,7 @@ const Events = () => {
   return (
     <section className='flex justify-center items-center w-full h-screen pt-10 '>
       <div className=' w-full h-screen flex justify-center items-center flex-col'>
+        { tipo_usuario === 'museo' ? (
         <form className='w-[38rem] h-[20rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
           <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
             <input type='text' className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
@@ -84,6 +91,7 @@ const Events = () => {
           </div>
           <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
         </form>
+          ) : ''}
         <div className='overflow-auto bg-formBack w-[38rem] h-56'>
           {Array.isArray(events) ? events.map((evento, index) =>
             <div key={index}>
