@@ -15,7 +15,7 @@ const Museos = () => {
   const filtro = ['Deporte', 'Arte', 'Historia', 'Galerias']
   const [filtered, setFiltered] = useState<MuseosProps[]>([]);
 
-  const FilterMuseums = (search: String, type: String) => {
+  const FilterMuseums = (search: String) => {
     // if (search === '' || type === '') {
     //   setFiltered(museos)
     // }
@@ -30,12 +30,12 @@ const Museos = () => {
     //     return museo.role.toLowerCase() === type.toLowerCase()
     //   }))
     // }
-    if (search === '' && type === '') setFiltered(museos)
-    else if (search === '') setFiltered(museos.filter((museo) => museo.role.toLowerCase() === type.toLowerCase()))
-    else if (type === '') setFiltered(museos.filter((museo) => museo.name.toLowerCase().includes(search.toLowerCase())))
+    if (search === '') setFiltered(museos)
+    // else if (search === '') setFiltered(museos.filter((museo) => museo.role.toLowerCase() === type.toLowerCase()))
+    // else if (type === '') setFiltered(museos.filter((museo) => museo.name.toLowerCase().includes(search.toLowerCase())))
     else {
     setFiltered(museos.filter((museo) => {
-      return museo.name.toLowerCase().includes(search.toLowerCase()) && museo.role.toLowerCase() === type.toLowerCase()
+      return museo.name.toLowerCase().includes(search.toLowerCase())
     }
     ))
   }
@@ -54,13 +54,11 @@ const Museos = () => {
   }
 
   const changeSelect = (ev: any) => {
-    FilterMuseums(tipoMuseo,ev.target.value);
-    console.log(tipoMuseo)
     setTipoMuseo(ev.target.value)
   }
 
   const changeSearch = (ev: any) => {
-    FilterMuseums(ev.target.value, tipoMuseo)
+    FilterMuseums(ev.target.value)
     setNomMuseo(ev.target.value)
     console.log(nomMuseo)
   }
