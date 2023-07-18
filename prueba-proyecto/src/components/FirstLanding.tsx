@@ -9,6 +9,7 @@ import Information from './start/Information'
 import ScanInfo from './start/ScanInfo'
 import Help from './start/Help'
 import Footer from './start/Footer'
+import Comp3d from './Comp3d'
 
 
 
@@ -26,6 +27,8 @@ const FirstLanding = () => {
         <Information />
         <ScanInfo />
         <Help />
+        <Comp3d />
+
       </main>
       <footer>
         <Footer />

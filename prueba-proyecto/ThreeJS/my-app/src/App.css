@@ -10,7 +10,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   margin-left: 50%;
   bottom: 50%;
   background: #FFFFFF;
@@ -45,14 +44,14 @@ body {
   cursor: pointer;
 }
 
-#popup > #UItext {
+#popup>#UItext {
   display: inline-block;
   position: absolute;
   padding-left: 20px;
   font-family: 'Times New Roman', Times, serif;
 }
 
-::selection{
+::selection {
   background: rgb(223, 213, 172);
 }
 
@@ -62,7 +61,7 @@ body {
   margin-left: 10px;
 }
 
-#creditosProyecto > p {
+#creditosProyecto>p {
   display: inline-block;
   position: relative;
   border: 2px solid black;
