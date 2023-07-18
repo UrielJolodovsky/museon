@@ -13,23 +13,23 @@ import Footer from './start/Footer'
 
 
 const FirstLanding = () => {
-  
+
 
   return (
     <>
-    <header className='w-full h-[117px] flex justify-center bg-navColor'>
-      <NavLanding/>
-    </header>  
-    <main className='w-full h-full flex justify-center items-center flex-col bg-dashBack px-44'>
-      <Presentation/>
-      <Carousel />
-      <Information/>
-      <ScanInfo/>
-      <Help/>
-    </main>
-    <footer>
-      <Footer/>
-    </footer>
+      <header className='w-full h-[117px] flex justify-center bg-navColor'>
+        <NavLanding />
+      </header>
+      <main className='w-full h-full flex justify-center items-center flex-col bg-dashBack px-44'>
+        <Presentation />
+        <Carousel />
+        <Information />
+        <ScanInfo />
+        <Help />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   )
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Swiper, SwiperSlide } from "swiper/react"
+import React, { useRef, useState } from 'react'
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
 import "swiper/css"
 import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
@@ -11,6 +11,8 @@ import Paisaje3 from '../../public/assets/Carousel/Paisaje3.png'
 import Paisaje4 from '../../public/assets/Carousel/Paisaje4.png'
 import Paisaje5 from '../../public/assets/Carousel/Paisaje5.png'
 import { MuseosProps } from '@/types'
+import SlideNext from './SlideNext'
+import SlidePrev from './SlidePrev'
 
 const Carousel = () => {
   const [museos, setMuseos] = useState<MuseosProps[]>([])
@@ -46,40 +48,45 @@ const Carousel = () => {
 
   return (
 
-  <section className='w-full h-[600px] flex justify-center items-center flex-row'>
-    <div className='w-full h-full flex justify-center items-center'>
-      <div className='w-full h-[40rem] flex justify-center items-center  rounded-3xl'>
-        <Swiper
-          effect={"coverflow"}
-          spaceBetween={150}
-          centeredSlides={true}
-          slidesPerView={1.5}
-          autoplay={{
-            delay: 3500,
-            disableOnInteraction: false,
-          }}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 900,
-          }}
-          loop={true}
-          modules={[Autoplay, EffectCoverflow, Pagination]}
-          className="mySwiper p-12"
-        >
-          {dataCarousel.map(({ id, title, image }) => {
-            return (
-              <SwiperSlide >
-                <div key={id} className='w-full h-72 flex justify-center items-center '>
-                  <Image className='w-full h-full' src={image} alt='Carousel Image'></Image>
-                </div>
-              </SwiperSlide>
-            )
-          })}
-        </Swiper>
+    <section className='w-full h-[600px] flex justify-center items-center flex-row'>
+      <div className='w-full h-full flex flex-row justify-center items-center'>
+        <div className='w-full h-[40rem] flex flex-row justify-center items-center rounded-3xl '>
+          <Swiper
+            effect={"coverflow"}
+            spaceBetween={150}
+            centeredSlides={true}
+            slidesPerView={1.5}
+            allowTouchMove={false}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 900,
+            }}
+
+            loop={true}
+            modules={[EffectCoverflow]}
+            className="flex flex-row justify-center items-center w-full"
+          >
+            <SlidePrev />
+            {dataCarousel.map(({ id, title, image }) => {
+              return (
+                <SwiperSlide >
+                  <div key={id} className='w-full h-full flex justify-center items-center '>
+                    <Image className='w-full h-full justify-center items-center' src={image} alt='Carousel Image'></Image>
+                  </div>
+                </SwiperSlide>
+              )
+            })
+            }
+            <SlideNext />
+          </Swiper>
+        </div>
       </div>
-    </div>
-  </section>
+    </section >
   )
 }
 export default Carousel
