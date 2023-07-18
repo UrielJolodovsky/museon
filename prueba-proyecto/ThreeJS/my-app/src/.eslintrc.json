@@ -1,0 +1,17 @@
+// {
+//   "plugins": ["flowtype"],
+//   "extends": ["react-app", "plugin:flowtype/recommended"]
+// }
+
+
+{
+  "plugins": ["flowtype"],
+  "extends": ["plugin:flowtype/recommended"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "rules": {
+    // tus reglas personalizadas aquí
+  }
+}
