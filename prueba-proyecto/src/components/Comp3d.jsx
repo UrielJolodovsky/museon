@@ -1,16 +1,30 @@
 "use client"
 
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import { CSS3DRenderer } from 'three/addons/renderers/CSS3DRenderer.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import axios from 'axios'
+import dir_url from "@/lib/url";
 
 let scene, camera, renderer, cube, wall, controls, popup;
 
+
 class Comp3d extends Component {
+
+
+  InfoObras() {
+
+    // const [info1, setInfo1] = useState("");
+    const [info2, setInfo2] = useState("");
+    const [info3, setInfo3] = useState("");
+    const [info4, setInfo4] = useState("");
+    const info1 = "Lorem ipsum"
+
+
+  }
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
@@ -137,21 +151,26 @@ class Comp3d extends Component {
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera); //Posiciona el raycaster en la ubicación de la cámara para interactuar de manera correcta desde la vista del usuario
 
-    const intersects = raycaster.intersectObject(popup); //Comprueba si el "rayo" generado por el raycaster, intercepta un objeto 3D en la escena.
+    const intersects = raycaster.intersectObject(scene); //Comprueba si el "rayo" generado por el raycaster, intercepta un objeto 3D en la escena.
 
     if (intersects.length > 0) { //Verifica si el mouse fue presionado encima de la posición del objeto
-      this.showPopup();
-      //var id = popup.userData.id;
-      // id = this.getObjectById();
-      // axios.post("direccion", {
-      //   id: id
-      // })
+      var id = intersects[0]['object'].userData.id;
+      if (id !== undefined) {
+        axios.post(`${dir_url}/api/infoobras`, {
+          id: id
+        }).then((response) => {
+          // Agregar la info a una variable que almanece arrays de objetos
+        })
+        this.InfoObras.info1 = "Hola";
+        this.showPopup();
+      }
+    console.log(id);
     }
   }
 
   showPopup() {
     const popup = this.popupRef.current; //Añadir popup a la escena 3D (DOM)
-    popup.style.display = "flex"; //Cambia la propiedad "display" de "popup" con el fin de mostrarlo en la escena
+    popup.style.display = "block"; //Cambia la propiedad "display" de "popup" con el fin de mostrarlo en la escena
   }
 
   
@@ -159,16 +178,14 @@ class Comp3d extends Component {
   render() {
     return (
       <div className="overflow-hidden w-full">
-        <canvas ref={this.canvasRef} className="overflow-hidden">
-        <div id="popup" className="popup" ref={this.popupRef}> 
+        <canvas ref={this.canvasRef} className="overflow-hidden" />
+        <div id="popup" className="popup" ref={this.popupRef} style={{display: "none"}}> 
         <i className="fa-solid fa-xmark" id="crossClose" onClick={this.closePopup}></i> 
 
         <video controls src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="videoDiv"></video>
 
           <p id="UItext">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-          quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-          Distinctio, labore.
+          {this.InfoObras.info1}
           </p>
           
           <audio controls src="#"></audio>
@@ -176,7 +193,7 @@ class Comp3d extends Component {
           <p className="creditosProyecto">Text</p>
 
         </div>
-        </canvas>
+        {/* </canvas> */}
       </div>
     );
   }
