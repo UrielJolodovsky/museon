@@ -4,8 +4,8 @@ import { Poppins } from 'next/font/google'
 
 const inter = Poppins({
   subsets: ['latin-ext'],
-  weight: '300'
-  
+  weight: '400',
+
 })
 
 export const metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ToasterContext />
         {children}
-        </body>
+      </body>
     </html>
   )
 }

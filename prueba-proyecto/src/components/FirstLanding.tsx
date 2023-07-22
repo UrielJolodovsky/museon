@@ -1,15 +1,12 @@
 "use client"
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Carousel from './Carousel'
 import NavLanding from './start/NavLanding'
 import Presentation from './start/Presentation'
 import Information from './start/Information'
-import ScanInfo from './start/ScanInfo'
 import Help from './start/Help'
 import Footer from './start/Footer'
-import Comp3d from './Comp3d'
+import Participants from './start/Participants'
 
 
 
@@ -21,14 +18,12 @@ const FirstLanding = () => {
       <header className='w-full h-[117px] flex justify-center bg-navColor'>
         <NavLanding />
       </header>
-      <main className='w-full h-full flex justify-center items-center flex-col bg-dashBack px-44'>
+      <main className='w-full h-full flex justify-center items-center flex-col bg-dashBack px-36'>
         <Presentation />
         <Carousel />
         <Information />
-        <ScanInfo />
+        <Participants />
         <Help />
-        <Comp3d />
-
       </main>
       <footer>
         <Footer />
