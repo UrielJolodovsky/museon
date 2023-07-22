@@ -19,8 +19,8 @@ module.exports = {
       red: '#ff0000',
 
       //Paleta de colores
-      newNavColor: '',
-
+      footer: '#353535',
+      footerTitle: '#B7B7B7'
     },
     screens:{
       'sm': '364px',
