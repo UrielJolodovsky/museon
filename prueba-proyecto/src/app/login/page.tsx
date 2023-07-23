@@ -1,6 +1,6 @@
 'use client';
 
-import InputVariants from '@/components/InputVariants'
+import InputVariants from '@/app/login/components/InputVariants'
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import { ChangeEvent, MouseEvent, useState } from 'react'

@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import Carousel from './Carousel'
+import Carousel from './carousel/Carousel'
 import NavLanding from './start/NavLanding'
 import Presentation from './start/Presentation'
 import Information from './start/Information'

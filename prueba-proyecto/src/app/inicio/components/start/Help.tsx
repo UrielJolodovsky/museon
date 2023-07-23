@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import Foto3 from '../../../public/assets/Foto3.png'
+import Foto3 from '@/../../public/assets/Foto3.png'
 
 
 const Help = () => {

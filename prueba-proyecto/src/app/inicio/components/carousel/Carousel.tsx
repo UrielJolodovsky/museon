@@ -5,11 +5,12 @@ import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import { EffectCoverflow, Pagination, Autoplay } from "swiper"
 import Image from "next/image"
-import Paisaje1 from '../../public/assets/Carousel/Paisaje1.png'
-import Paisaje2 from '../../public/assets/Carousel/Paisaje2.png'
-import Paisaje3 from '../../public/assets/Carousel/Paisaje3.png'
-import Paisaje4 from '../../public/assets/Carousel/Paisaje4.png'
-import Paisaje5 from '../../public/assets/Carousel/Paisaje5.png'
+import Paisaje1 from '@/../public/assets/Carousel/Paisaje1.png'
+import Paisaje2 from '@/../public/assets/Carousel/Paisaje2.png'
+import Paisaje3 from '@/../public/assets/Carousel/Paisaje3.png'
+import Paisaje4 from '@/../public/assets/Carousel/Paisaje4.png'
+import Paisaje5 from '@/../public/assets/Carousel/Paisaje5.png'
+
 import { MuseosProps } from '@/types'
 import SlideNext from './SlideNext'
 import SlidePrev from './SlidePrev'

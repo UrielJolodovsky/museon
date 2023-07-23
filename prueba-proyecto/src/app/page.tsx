@@ -1,6 +1,4 @@
-import Comp3d from '@/components/Comp3d'
-import FirstLanding from '@/components/FirstLanding'
-import Landing from '@/components/start/NavLanding'
+import FirstLanding from "./inicio/components/FirstLanding";
 
 export default function Home() {
   return (
