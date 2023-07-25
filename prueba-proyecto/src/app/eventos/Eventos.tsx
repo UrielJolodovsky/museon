@@ -81,8 +81,8 @@ const eventos = () => {
 
 
   return (
-    <section className='flex justify-center items-center w-full h-screen pt-10 '>
-      <div className=' w-full h-screen flex justify-center items-center flex-col'>
+    <section className='flex justify-center items-center w-full h-auto'>
+      <div className='w-full h-auto flex justify-center items-center flex-col'>
         {tipo_usuario === 'museo' ? (
           <form className='w-[38rem] h-[20rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
             <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
@@ -92,12 +92,17 @@ const eventos = () => {
             <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
           </form>
         ) : ''}
-        <div className='overflow-auto bg-formBack w-[38rem] h-56'>
+        <div className='border-2 w-2/3 h-full gap-8 mt-10 mb-10 flex justify-center flex-col p-8'>
+          <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
           {Array.isArray(events) ? events.map((evento, index) =>
-            <div key={index}>
-              <h1 className='text-white'>{evento["author"]["name"]}</h1>
-              <h2 className='text-white font-bold'>{evento["content"]}</h2>
-              <CldImage width={200} height={200} className='w-20 h-20' src={evento["id"]} alt='EventImage' />
+            <div className='h-1/3 w-full bg-dashHover p-4 rounded-md flex flex-row ' key={index}>
+              <div className='w-1/3 h-full'>
+                <CldImage width={200} height={200} className='w-32 h-32' src={evento["id"]} alt='EventImage' />
+              </div>
+              <div className='w-2/3 h-full flex flex-row'>
+                <h1 className='text-black w-1/2'>{evento["author"]["name"]}</h1>
+                <h2 className='text-black font-bold w-1/2 whitespace-normal break-words '>{evento["content"]}</h2>
+              </div>
             </div>
 
           ) : ''}

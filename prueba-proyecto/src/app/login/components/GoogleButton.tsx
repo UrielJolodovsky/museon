@@ -7,7 +7,7 @@ import { FcGoogle } from 'react-icons/fc'
 const GoogleButton = () => {
   async function LogInGoogle() {
     try {
-      await signIn("google", { callbackUrl: '/dashboard' }).then((res) => {
+      await signIn("google", { callbackUrl: '/' }).then((res) => {
         console.log(res)
       }).catch((err) => toast.error(err))
     } catch (error) {

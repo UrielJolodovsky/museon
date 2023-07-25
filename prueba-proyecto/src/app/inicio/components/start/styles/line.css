@@ -3,15 +3,15 @@
     height: 4px;
     background-color: #fff;
     border-radius: 5rem;
-    transition: 0.5s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 .link {
     text-decoration: none;
-    transition: 0.5s all ease;
+    transition: 0.3s all ease;
 }
 
 .link:hover+.line {
     width: 100%;
-    transition: 0.5s all ease;
+    transition: 0.3s all ease;
 }

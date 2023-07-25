@@ -2,8 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import '../start/styles/line.css'
-import { SessionProvider, signOut, useSession } from 'next-auth/react';
-import { VscSignOut } from 'react-icons/vsc';
+import { signOut, useSession } from 'next-auth/react';
 
 type HeaderProps = {
   onNavClick: (menuItem: string) => void;
@@ -45,13 +44,8 @@ const NavLanding: React.FC<HeaderProps> = ({ onNavClick }) => {
     router.push('/login')
   }
 
-  const handleLogout = () => {
-
-  }
-
-
   return (
-    <nav className='w-11/12 h-full flex justify-center items-center p-6 flex-row bg-navColor'>
+    <nav className='w-full h-[117px] flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
       <ul className='w-full h-full flex flex-row items-center justify-between'>
         {sessionData?.user ? (
           <h2 className='text-xl font-extrabold text-white'>Hi {nombre}</h2>
@@ -59,7 +53,7 @@ const NavLanding: React.FC<HeaderProps> = ({ onNavClick }) => {
           <h2 className='text-xl font-extrabold text-white'>Hi Guest</h2>
         )}
         {DataNav.map(({ id, title, onClick }) =>
-          <li className='list-none text-center' key={id}>
+          <li className='list-none text-center flex flex-col justify-center items-center' key={id}>
             <button
               id='MyLink'
               className='text-xl font-normal text-white link'
@@ -71,14 +65,15 @@ const NavLanding: React.FC<HeaderProps> = ({ onNavClick }) => {
           </li>
         )}
         {sessionData?.user ? (
-          <button onClick={() => signOut()} className='w-[150px] h-[40px] rounded-xl text-black bg-white hover:bg-dashHover transition'>Log Out</button>
+          <button onClick={() => signOut()} className='w-[150px] h-[40px] rounded-xl text-black bg-white hover:bg-dashHover transition'>
+            <h1 className='text-xl'>Log out</h1>
+          </button>
         ) : (
           <button onClick={handleLogin} className='w-[150px] h-[40px] rounded-xl text-black bg-white hover:bg-dashHover transition'>
             <h1 className='text-xl'>Log in</h1>
           </button>
         )
         }
-
       </ul>
     </nav>
   )

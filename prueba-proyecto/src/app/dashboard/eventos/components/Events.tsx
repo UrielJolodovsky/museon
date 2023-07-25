@@ -83,23 +83,23 @@ const Events = () => {
   return (
     <section className='flex justify-center items-center w-full h-screen pt-10 '>
       <div className=' w-full h-screen flex justify-center items-center flex-col'>
-        { tipo_usuario === 'museo' ? (
-        <form className='w-[38rem] h-[20rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
-          <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
-            <input type='text' className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
-              <input  type="file" onChange={handleChange} className=" " />
-          </div>
-          <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
-        </form>
-          ) : ''}
-        <div className='overflow-auto bg-formBack w-[38rem] h-56'>
+        {tipo_usuario === 'museo' ? (
+          <form className='w-[38rem] h-[10rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
+            <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
+              <input type='text' className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
+              <input type="file" onChange={handleChange} className=" " />
+            </div>
+            <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
+          </form>
+        ) : ''}
+        <div className=' bg-navColor w-full h-screen'>
           {Array.isArray(events) ? events.map((evento, index) =>
             <div key={index}>
               <h1 className='text-white'>{evento["author"]["name"]}</h1>
               <h2 className='text-white font-bold'>{evento["content"]}</h2>
               <CldImage width={200} height={200} className='w-20 h-20' src={evento["id"]} alt='EventImage' />
             </div>
-            
+
           ) : ''}
         </div>
       </div>
