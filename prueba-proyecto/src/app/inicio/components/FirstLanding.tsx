@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from './carousel/Carousel'
 import NavLanding from './start/NavLanding'
 import Presentation from './start/Presentation'
@@ -12,12 +12,9 @@ import Participants from './start/Participants'
 
 const FirstLanding = () => {
 
-
   return (
+
     <>
-      <header className='w-full h-[117px] flex justify-center bg-navColor'>
-        <NavLanding />
-      </header>
       <main className='w-full h-full flex justify-center items-center flex-col bg-dashBack px-36'>
         <Presentation />
         <Carousel />

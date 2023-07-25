@@ -2,7 +2,7 @@ import React from 'react'
 
 const colecciones = () => {
   return (
-    <div>page</div>
+    <div>coazdasdasdes</div>
   )
 }
 

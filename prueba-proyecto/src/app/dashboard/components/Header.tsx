@@ -20,30 +20,26 @@ const Header = () => {
   const DataNav = [
     {
       id: 1,
-      title: 'Home',
       link: '/'
     },
     {
       id: 2,
-      title: 'Museos',
-      link: '/dashboard/museos'
+      title: 'Colecciones',
     },
     {
       id: 3,
-      title: 'Portfolio',
-      link: '/dashboard/portfolio'
+      title: 'Eventos',
     },
     {
       id: 4,
-      title: 'Events',
-      link: '/dashboard/eventos'
+      title: 'Contacto',
     }
   ]
-   const logOut = async () => {
-     console.log("A")
-     await signOut({ redirect: false })
+  const logOut = async () => {
+    console.log("A")
+    await signOut({ redirect: false })
 
-   }
+  }
 
   return (
     <header className='w-full h-24 bg-navColor flex flex-row justify-center items-center'>
