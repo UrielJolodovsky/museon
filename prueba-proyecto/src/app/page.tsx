@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import FirstLanding from "./inicio/components/FirstLanding";
+import NextAuthProvider from './layout'
 import NavLanding from "./inicio/components/start/NavLanding";
 import Colecciones from "./colecciones/Colecciones";
 import Contacto from "./contacto/Contacto";
