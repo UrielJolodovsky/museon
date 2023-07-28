@@ -7,10 +7,9 @@ import Information from './start/Information'
 import Help from './start/Help'
 import Footer from './start/Footer'
 import Participants from './start/Participants'
-import Colecciones from '@/app/colecciones/Colecciones'
-import Eventos from '@/app/eventos/Eventos'
-import Contacto from '@/app/contacto/Contacto'
-
+import Colecciones from '@/colecciones/Colecciones'
+import Eventos from '@/eventos/Eventos'
+import Contacto from '@/contacto/Contacto'
 
 
 const FirstLanding = () => {

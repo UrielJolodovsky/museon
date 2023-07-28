@@ -1,10 +1,10 @@
 "use client"
 import { SessionProvider } from "next-auth/react";
 import ToasterContext from "@/context/ToasterContext";
-import "../app/globals.css";
+import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Session } from "next-auth";
-import { metadata } from "./metadata";
+import { metadata } from "../metadata";
 
 const inter = Poppins({
   subsets: ["latin-ext"],

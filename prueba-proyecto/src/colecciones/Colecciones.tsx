@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import dir_url from '@/lib/url';
 
 const Colecciones = () => {
-
   const [museos, setMuseos] = useState<MuseosProps[]>([])
   const [tipoMuseo, setTipoMuseo] = useState('')
   const [nomMuseo, setNomMuseo] = useState('')

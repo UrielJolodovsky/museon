@@ -5,7 +5,7 @@ import { ChangeEvent, useEffect, useState, MouseEvent } from "react"
 import { toast } from "react-hot-toast"
 import { CommentsProps, MuseosProps } from '@/types'
 import dir_url from '@/lib/url'
-import Comp3d from '@/app/3dComps/Comp3d'
+import Comp3d from '@/3dComps/Comp3d'
 import internet from '@../../public/assets/icons/internet.png'
 import instagram from '@/../../public/assets/FooterIcon/insta.png'
 import twitter from '@/../../public/assets/FooterIcon/twitter.png'
