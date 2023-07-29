@@ -19,6 +19,7 @@ module.exports = {
       btnFormHover: '#4D3A29',
       footerColor: '#868686',
       red: '#ff0000',
+      landingBack: '#dfdfdfe6',
 
       //Paleta de colores
       footer: '#353535',

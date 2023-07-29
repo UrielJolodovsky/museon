@@ -29,7 +29,7 @@ const FirstLanding = () => {
       </header>
       {selectedMenu === 'Inicio' &&
         <>
-          <main className='w-full h-full flex justify-center items-center flex-col bg-dashBack px-36'>
+          <main className='w-full h-full flex justify-center items-center flex-col bg-landingBack px-36'>
             <Presentation />
             <Carousel />
             <Information />
