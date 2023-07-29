@@ -10,6 +10,7 @@ import Participants from './start/Participants'
 import Colecciones from '@/colecciones/Colecciones'
 import Eventos from '@/eventos/Eventos'
 import Contacto from '@/contacto/Contacto'
+import Contact from './start/Contact'
 
 
 const FirstLanding = () => {
@@ -34,6 +35,7 @@ const FirstLanding = () => {
             <Information />
             <Participants />
             <Help />
+            <Contact />
           </main>
           <footer>
             <Footer />

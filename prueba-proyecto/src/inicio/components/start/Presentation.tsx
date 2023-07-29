@@ -25,8 +25,8 @@ const Presentation = () => {
           <h3 className='w-8/12 text-center text-2xl font-medium leading-normal'>Disfruta de la experiencia de visitar museos desde la comodidad de tu casa</h3>
         </div>
         <div className='w-full h-[60px] justify-center items-center flex flex-row gap-14'>
-          <button onClick={handleCollections} className='w-[180px] h-full rounded-full bg-black'>
-            <h1 className='text-xl text-white'>Colecciones</h1>
+          <button onClick={handleCollections} className='w-[180px] h-full rounded-full bg-black hover:bg-white transition border-4 group'>
+            <h1 className='text-xl text-white group-hover:text-black transition'>Colecciones</h1>
           </button>
           <button onClick={handleLogin} className='w-[180px] h-full border-4 rounded-full'>
             <h1 className='text-xl font-semibold'>Log in</h1>

@@ -11,6 +11,7 @@ import instagram from '@/../../public/assets/FooterIcon/insta.png'
 import twitter from '@/../../public/assets/FooterIcon/twitter.png'
 import face from '@/../../public/assets/FooterIcon/face.png'
 import Image from 'next/image'
+import Footer from '@/inicio/components/start/Footer'
 
 
 export default function Museo() {
@@ -89,10 +90,10 @@ export default function Museo() {
     return (
         <>
             <section className="w-full h-screen flex justify-center items-center flex-col">
-                <div className='w-full h-[1200px] flex justify-center items-center flex-col p-20'>
-                    <div className='w-full h-1/3 flex justify-center items-center flex-col pt-16'>
+                <div className='w-full h-full flex justify-center items-center flex-col gap-5'>
+                    <div className='w-full h-full flex justify-center items-center flex-col'>
                         <h1 className='text-4xl font-bold text-center'>Museos</h1>
-                        <div className='w-full h-1/2 flex justify-center items-center'>
+                        <div className='w-full h-1/5 flex justify-center items-center'>
                             {CompIcon.map(({ id, icon }) => {
                                 return (
                                     <Image
@@ -106,11 +107,28 @@ export default function Museo() {
                             })}
                         </div>
                     </div>
-                    <div className='w-[800px] h-2/3 flex justify-center items-center'>
+                    <div className='w-[800px] h-4/5 flex justify-center items-center flex-col gap-5'>
                         <Comp3d />
+                        <div className='w-full h-1/3 flex justify-center items-start flex-col'>
+                            <h1>0 Comentarios</h1>
+                            <div className='w-full h-full flex flex-col gap-5'>
+                                <form action="" className='flex flex-row gap-2'>
+                                    <input className="w-full border-b-2 focus:border-none" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
+                                    <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
+                                </form>
+                                <div className='w-full h-full flex flex-col gap-4 '>
+                                    {Array.isArray(messages) ? messages.map((museo, index) =>
+                                        <div className='bg-dashBack w-full h-auto flex justify-start items-center flex-row gap-10 p-10' key={index}>
+                                            <h2 className='text-center font-bold text-black'>Name: {museo["author"]["name"]}</h2>
+                                            <div className=''>
+                                                <h1 className='text-center text-black'>Contenido del mensaje: {museo["content"]}</h1>
+                                            </div>
+                                        </div>
+                                    ) : ""}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className='w-full h-[600px] flex justify-center items-center flex-col bg-black'>
                 </div>
             </section>
         </>
