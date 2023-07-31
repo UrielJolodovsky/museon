@@ -178,7 +178,7 @@ class Comp3d extends Component {
   render() {
     return (
       <div className="overflow-hidden w-full h-full">
-        <canvas ref={this.canvasRef} className="overflow-hidden w-full h-full" >
+        <canvas ref={this.canvasRef} className="overflow-hidden w-full h-full" />
         <div id="popup" className="popup" ref={this.popupRef} style={{display: "none"}}> 
         <i className="fa-solid fa-xmark" id="crossClose" onClick={this.closePopup}></i> 
 
@@ -193,7 +193,7 @@ class Comp3d extends Component {
           <p className="creditosProyecto">Text</p>
 
         </div>
-        </canvas>
+        {/* </canvas> */}
       </div>
     );
   }
