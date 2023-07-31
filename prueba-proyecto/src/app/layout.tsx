@@ -5,6 +5,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Session } from "next-auth";
 import { metadata } from "../metadata";
+import { StateProvider } from "@/context/StateContext";
 
 const inter = Poppins({
   subsets: ["latin-ext"],
@@ -20,16 +21,18 @@ export default function NextAuthProvider({ children }: Props) {
 
   return (
     <SessionProvider>
-      <html lang="en">
-        <head>
-          {<title>{metadata.title}</title>}
-          {<meta name="description" content={metadata.description} />}
-        </head>
-        <body className={inter.className}>
-          <ToasterContext />
-          {children}
-        </body>
-      </html>
+      <StateProvider>
+        <html lang="en">
+          <head>
+            {<title>{metadata.title}</title>}
+            {<meta name="description" content={metadata.description} />}
+          </head>
+          <body className={inter.className}>
+            <ToasterContext />
+            {children}
+          </body>
+        </html>
+      </StateProvider>
     </SessionProvider>
   );;
 };

@@ -1,13 +1,19 @@
 "use client";
-import FirstLanding from "@/inicio/components/FirstLanding";
+import { StateProvider } from "@/context/StateContext";
+import FirstLanding from "@/inicio/FirstLanding";
+import Loader from "@/load/Loader";
+import { statusAuth } from "@/load/status";
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 
 
 export default function Home({ }) {
+  const { status } = useSession()
+  const { LOADING } = statusAuth
 
   return (
     <>
-      <FirstLanding />
+      {status === LOADING ? (<Loader />) : (<FirstLanding />)}
     </>
   )
 }

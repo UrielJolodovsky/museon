@@ -1,19 +1,22 @@
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Foto2 from '../../../public/assets/Foto2.png'
 import { useRouter } from 'next/navigation'
+import { StateContext } from '@/context/StateContext'
 
 
 const Presentation = () => {
   const router = useRouter()
+
+  const { setSelectedMenu } = useContext(StateContext)
 
   const handleLogin = () => {
     router.push('/login')
   }
 
   const handleCollections = () => {
-
+    setSelectedMenu('Colecciones')
   }
 
 

@@ -1,40 +1,35 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useContext } from 'react'
 import '../start/styles/line.css'
 import { signOut, useSession } from 'next-auth/react';
+import { StateContext } from '@/context/StateContext';
 
-type HeaderProps = {
-  onNavClick: (menuItem: string) => void;
-};
 
-const NavLanding: React.FC<HeaderProps> = ({ onNavClick }) => {
+const NavLanding = () => {
   const { data: sessionData } = useSession()
   const nombre = sessionData?.user ? sessionData.user.name : ''
+
+  const { setSelectedMenu } = useContext(StateContext);
 
   const DataNav = [
     {
       id: 1,
       title: 'Inicio',
-      onClick: () => onNavClick('Inicio'),
     },
     {
       id: 2,
       title: 'Colecciones',
-      onClick: () => onNavClick('Colecciones'),
 
     },
     {
       id: 3,
       title: 'Eventos',
-      onClick: () => onNavClick('Eventos'),
 
     },
     {
       id: 4,
       title: 'Contacto',
-      onClick: () => onNavClick('Contacto'),
-
     },
   ]
 
@@ -52,12 +47,12 @@ const NavLanding: React.FC<HeaderProps> = ({ onNavClick }) => {
         ) : (
           <h2 className='text-xl font-extrabold text-white'>Hi Guest</h2>
         )}
-        {DataNav.map(({ id, title, onClick }) =>
+        {DataNav.map(({ id, title }) =>
           <li className='list-none text-center flex flex-col justify-center items-center' key={id}>
             <button
               id='MyLink'
               className='text-xl font-normal text-white link'
-              onClick={onClick}
+              onClick={() => setSelectedMenu(title)}
             >
               {title}
             </button>

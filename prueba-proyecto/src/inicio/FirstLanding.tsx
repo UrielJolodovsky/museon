@@ -1,31 +1,29 @@
 "use client"
-import React, { useState } from 'react'
-import Carousel from './carousel/Carousel'
-import NavLanding from './start/NavLanding'
-import Presentation from './start/Presentation'
-import Information from './start/Information'
-import Help from './start/Help'
-import Footer from './start/Footer'
-import Participants from './start/Participants'
+import React, { useContext, useState } from 'react'
 import Colecciones from '@/colecciones/Colecciones'
 import Eventos from '@/eventos/Eventos'
 import Contacto from '@/contacto/Contacto'
-import Contact from './start/Contact'
+import Footer from './components/start/Footer'
+import Contact from './components/start/Contact'
+import Help from './components/start/Help'
+import Participants from './components/start/Participants'
+import Information from './components/start/Information'
+import Carousel from './components/carousel/Carousel'
+import Presentation from './components/start/Presentation'
+import NavLanding from './components/start/NavLanding'
+import { StateContext, StateProvider } from '@/context/StateContext'
+import { useSession } from 'next-auth/react'
+import { statusAuth } from "@/load/status"
+import Loader from '@/load/Loader'
 
 
 const FirstLanding = () => {
-
-  const [selectedMenu, setSelectedMenu] = useState('Inicio');
-
-  const handleMenuItemClick = (item: React.SetStateAction<string>) => {
-    setSelectedMenu(item);
-  };
+  const { selectedMenu, setSelectedMenu } = useContext(StateContext);
 
   return (
-
     <>
       <header className='w-full h-[117px] flex justify-center bg-navColor relative'>
-        <NavLanding onNavClick={handleMenuItemClick} />
+        <NavLanding />
       </header>
       {selectedMenu === 'Inicio' &&
         <>
