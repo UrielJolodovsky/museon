@@ -4,10 +4,13 @@ import React, { useContext, useState } from 'react'
 import Foto2 from '../../../public/assets/Foto2.png'
 import { useRouter } from 'next/navigation'
 import { StateContext } from '@/context/StateContext'
+import { useSession } from 'next-auth/react'
 
 
 const Presentation = () => {
   const router = useRouter()
+  const { data: sessionData } = useSession()
+
 
   const { setSelectedMenu } = useContext(StateContext)
 
@@ -31,9 +34,12 @@ const Presentation = () => {
           <button onClick={handleCollections} className='w-[180px] h-full rounded-full bg-black hover:scale-95 transition border-4 group'>
             <h1 className='text-xl text-white transition'>Colecciones</h1>
           </button>
+        { sessionData?.user ? ("") : (
           <button onClick={handleLogin} className='w-[180px] h-full hover:scale-95 transition border-4 group rounded-full'>
             <h1 className='text-xl font-semibold '>Log in</h1>
           </button>
+        )
+        }
         </div>
       </div>
     </section>

@@ -64,26 +64,19 @@ export default function Museo() {
         {
             id: 1,
             icon: internet,
-            className: 'bg-black'
-
         },
         {
             id: 2,
             icon: instagram,
-            className: 'bg-black'
-
         },
         {
             id: 3,
             icon: twitter,
-            className: 'bg-black'
-
         },
         {
             id: 4,
             icon: face,
-            className: 'bg-black'
-        },
+        }
 
     ]
 

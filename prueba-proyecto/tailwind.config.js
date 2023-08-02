@@ -23,7 +23,8 @@ module.exports = {
 
       //Paleta de colores
       footer: '#353535',
-      footerTitle: '#B7B7B7'
+      footerTitle: '#B7B7B7',
+      transparent: 'transparent',
     },
     screens:{
       'sm': '364px',

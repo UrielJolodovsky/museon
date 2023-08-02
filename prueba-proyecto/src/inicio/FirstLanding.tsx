@@ -43,6 +43,9 @@ const FirstLanding = () => {
       {selectedMenu === 'Colecciones' && <Colecciones />}
       {selectedMenu === 'Eventos' && <Eventos />}
       {selectedMenu === 'Contacto' && <Contacto />}
+      <button className='contact-button'>
+
+      </button>
     </>
   )
 }
