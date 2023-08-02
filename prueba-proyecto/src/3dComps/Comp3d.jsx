@@ -170,7 +170,7 @@ class Comp3d extends Component {
 
   showPopup() {
     const popup = this.popupRef.current; //Añadir popup a la escena 3D (DOM)
-    popup.style.display = "block"; //Cambia la propiedad "display" de "popup" con el fin de mostrarlo en la escena
+    popup.style.display = "flex"; //Cambia la propiedad "display" de "popup" con el fin de mostrarlo en la escena
   }
 
   
@@ -178,8 +178,8 @@ class Comp3d extends Component {
   render() {
     return (
       <div className="overflow-hidden w-full h-full">
-        <canvas ref={this.canvasRef} className="overflow-hidden w-full h-full" />
-        <div id="popup" className="popup" ref={this.popupRef} style={{display: "none"}}> 
+        <canvas ref={this.canvasRef} className="overflow-hidden w-full h-full">
+        <div id="popup" className="popup" ref={this.popupRef} style={{display: "flex"}}> 
         <i className="fa-solid fa-xmark" id="crossClose" onClick={this.closePopup}></i> 
 
         <video controls src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="videoDiv"></video>
@@ -193,7 +193,7 @@ class Comp3d extends Component {
           <p className="creditosProyecto">Text</p>
 
         </div>
-        {/* </canvas> */}
+         </canvas> 
       </div>
     );
   }
