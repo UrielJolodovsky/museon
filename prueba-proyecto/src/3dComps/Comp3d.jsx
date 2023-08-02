@@ -27,6 +27,9 @@ class Comp3d extends Component {
   }
   constructor(props) {
     super(props);
+    this.setState = {
+      info1: "Lorem ipsum",
+    }
     this.canvasRef = React.createRef();
     this.popupRef = React.createRef();
     this.animate = this.animate.bind(this);
@@ -154,12 +157,17 @@ class Comp3d extends Component {
     const intersects = raycaster.intersectObject(scene); //Comprueba si el "rayo" generado por el raycaster, intercepta un objeto 3D en la escena.
 
     if (intersects.length > 0) { //Verifica si el mouse fue presionado encima de la posición del objeto
-      var id = intersects[0]['object'].userData.id;
+      var id = undefined;
+      for (var i = 0; i < intersects.length; i++) {
+        if (id === undefined) {
+          var id = intersects[i]['object'].userData.id;
+        }
+      }
       if (id !== undefined) {
         axios.post(`${dir_url}/api/infoobras`, {
-          id: id
+          id: 'idpopup',
         }).then((response) => {
-          // Agregar la info a una variable que almanece arrays de objetos
+          console.log(response.data);
         })
         this.InfoObras.info1 = "Hola";
         this.showPopup();
@@ -185,7 +193,7 @@ class Comp3d extends Component {
         <video controls src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="videoDiv"></video>
 
           <p id="UItext">
-          {this.InfoObras.info1}
+          {this.setState.info1}
           </p>
           
           <audio controls src="#"></audio>
