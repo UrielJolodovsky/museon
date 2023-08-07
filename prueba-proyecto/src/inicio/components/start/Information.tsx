@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import Foto1 from '@/../../public/assets/Foto1.png'
+import { CldImage } from 'next-cloudinary'
 
 
 const Information = () => {
@@ -11,7 +12,8 @@ const Information = () => {
         <p className=' w-3/4 text-center text-lg '>Es una plataforma web de accesibilidad universal donde usuarios van a poder visitar museos y/o galerias artisticas de todo el mundo desde la comodidad de su hogar</p>
       </div>
       <div className='w-2/6 h-1/2 flex justify-start items-center'>
-        <Image src={Foto1} alt='Tecnología' className='w-full h-full'></Image>
+        {/* <Image src={Foto1} alt='Tecnología' className='w-full h-full'></Image> */}
+        <CldImage src={'Foto1_Landing'} alt='Tecnología' className='w-full h-full'></CldImage>
       </div>
     </section>
   )

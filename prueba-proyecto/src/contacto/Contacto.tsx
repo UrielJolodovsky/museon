@@ -40,7 +40,7 @@ const {data: sessionData} = useSession()
       <h1 className='text-3xl font-bold'>Comunicate con nuestro equipo</h1>
       <form onSubmit={SendForm} action="" className='w-1/2 h-full flex justify-center items-center  bg-black p-10'>
         <textarea onChange={(ev: ChangeEvent<HTMLTextAreaElement>) => setMessage(ev.target.value)} autoComplete='off' name='message' id='message' placeholder='Mensaje' className='w-2/3 h-2/3 p-3 bg-transparent text-white border-white border-2 text-left pt-3 resize-none'></textarea>
-        <button className='w-12 h-12 text-white'>hola</button>
+        <button className='w-12 h-12 text-white'>Enviar</button>
       </form>
       </div>
     </div>
