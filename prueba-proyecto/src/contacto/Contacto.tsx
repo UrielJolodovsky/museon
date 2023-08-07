@@ -8,7 +8,8 @@ const contacto = () => {
 
 const {data: sessionData} = useSession()
   const [message, setMessage] = useState('')
-  const SendForm = async () => {
+  const SendForm = async (e: any) => {
+    e.preventDefault()
     if (sessionData?.user.id === undefined) {
       toast.error("You are not logged in")
     }
@@ -19,7 +20,8 @@ const {data: sessionData} = useSession()
       try {
       axios.post(`${dir_url}/api/contacto`, {
         message: message,
-        user: sessionData.user.name
+        user: sessionData.user.name,
+        email: sessionData.user.email
       }).then((response) => {
         toast.success(response.data)
       }).catch((err) => {
@@ -38,6 +40,7 @@ const {data: sessionData} = useSession()
       <h1 className='text-3xl font-bold'>Comunicate con nuestro equipo</h1>
       <form onSubmit={SendForm} action="" className='w-1/2 h-full flex justify-center items-center  bg-black p-10'>
         <textarea onChange={(ev: ChangeEvent<HTMLTextAreaElement>) => setMessage(ev.target.value)} autoComplete='off' name='message' id='message' placeholder='Mensaje' className='w-2/3 h-2/3 p-3 bg-transparent text-white border-white border-2 text-left pt-3 resize-none'></textarea>
+        <button className='w-12 h-12 text-white'>hola</button>
       </form>
       </div>
     </div>
