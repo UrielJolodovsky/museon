@@ -35,7 +35,7 @@ const FirstLanding = () => {
             <Help />
             <Contact />
           </main>
-          <footer>
+          <footer className='w-full h-[250px]'>
             <Footer />
           </footer>
         </>
@@ -43,9 +43,6 @@ const FirstLanding = () => {
       {selectedMenu === 'Colecciones' && <Colecciones />}
       {selectedMenu === 'Eventos' && <Eventos />}
       {selectedMenu === 'Contacto' && <Contacto />}
-      <button className='contact-button'>
-
-      </button>
     </>
   )
 }

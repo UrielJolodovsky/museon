@@ -1,16 +1,13 @@
 import Image from 'next/image'
 import React from 'react'
 import Piramid from '@/../../public/assets/Piramid.png'
+import { CldImage } from 'next-cloudinary'
 
 const Participants = () => {
   return (
     <section className='w-full h-[400px] flex justify-center items-center flex-row gap-1'>
-      <div className='w-1/3 h-2/3 relative left-20'>
-        <Image
-          src={Piramid}
-          alt='Icon 3D'
-          className='w-full h-full'
-        ></Image>
+      <div className='w-[655px] h-[492px] relative left-20'>
+        <CldImage src='PiramidIcon'  width={655} height={492} alt={"Piramid"} className='w-full h-full' />
       </div>
       <div className='w-2/3 flex justify-center items-center flex-col gap-2'>
         <h2 className='font-extrabold text-center text-4xl'>¿Quienes participan?</h2>
