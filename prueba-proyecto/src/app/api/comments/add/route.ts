@@ -5,7 +5,8 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
-    const { message, museoId } = await req.json()
+    const { message, nameMuseo } = await req.json()
+    const nombre = nameMuseo.replace( '-', /\s/g)
     const session = await getServerSession(authOptions)
     if (session?.user!.id === undefined) {
         return new NextResponse("You are not logged in", {status: 401})
@@ -16,9 +17,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (message === undefined || message.length === 0) {
         return new NextResponse("Message is empty", {status: 400})
     }
+
+    const getMuseoId = await db.museos.findFirst({
+        where: {
+            name: nombre
+        },
+        select: {
+            id: true
+        }
+    })
+
     const addmessages = await db.comments.create({
         data: {
-            museumId: museoId,
+            museumId: getMuseoId!.id,
             content: message,
             authorId: session.user.id
         }
