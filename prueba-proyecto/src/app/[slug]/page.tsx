@@ -32,7 +32,7 @@ export default function Museo() {
         try {
             await axios.post(`${dir_url}/api/comments/add`, {
                 message: message,
-                museoId: params.slug.toString()
+                nameMuseo: params.slug.toString()
             }).then((res) => {
                 toast.success(res.data)
                 setMessageEnviado(true)
