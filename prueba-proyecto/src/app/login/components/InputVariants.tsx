@@ -13,6 +13,7 @@ const InputVariants: React.FC<InputProps> = ({
   onChange,
   type,
   label,
+  value
 }) => {
 
   return (
@@ -21,6 +22,7 @@ const InputVariants: React.FC<InputProps> = ({
         onChange={onChange}
         type={type}
         id={id}
+        value={value}
         className='
                 block 
                 px-6

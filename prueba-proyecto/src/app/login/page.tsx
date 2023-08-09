@@ -37,11 +37,16 @@ export default function Login() {
         }).then((callback) => {
           if (callback?.error) {
             toast.error(callback.error)
+            if (callback.error === 'Wrong password') {
+            setPassword('')
           }
+        }
           if (callback?.ok && !callback?.error) {
             setLoggeado(true)
             toast.success('Bienvenido!')
             router.push('/')
+            setEmail('')
+            setPassword('')
           }
         }).finally(() => {
           if (Loggeado) {
@@ -61,6 +66,9 @@ export default function Login() {
         }).then((res) => {
           console.log(res.data)
           toast.success('Usuario creado con exito!')
+          setEmail('')
+          setPassword('')
+          setName('')
         }).catch((err) => {
           toast.error(err.response.data)
         })

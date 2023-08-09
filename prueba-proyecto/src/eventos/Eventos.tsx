@@ -92,7 +92,7 @@ const eventos = () => {
             <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
           </form>
         ) : ''}
-        <div className='border-2 w-2/3 h-full gap-8 mt-10 mb-10 flex justify-center flex-col p-8'>
+        <div className='border-2 w-2/3 h-full gap-8 mt-10 mb-10 flex justify-center flex-col-reverse p-8'>
           <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
           {Array.isArray(events) ? events.map((evento, index) =>
             <div className='h-1/3 w-full bg-dashHover p-4 rounded-md flex flex-row ' key={index}>

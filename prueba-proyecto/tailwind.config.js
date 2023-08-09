@@ -1,3 +1,5 @@
+const { raw } = require('@prisma/client/runtime');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -27,10 +29,10 @@ module.exports = {
       transparent: 'transparent',
     },
     screens:{
-      'sm': '364px',
-      'md': '764px',
-      'lg': '1060px',
-      'xl': '1320px',
-    },
+      'sm': {"raw": "(max-width: 364px)"},
+      'md': {"raw": "(max-width: 764px)"},
+      'lg': {"raw": "(max-width: 1060px)"},
+      'xl': {"raw": "(max-width: 1320px)"},
+    },  
   }, plugins: [],
 }
