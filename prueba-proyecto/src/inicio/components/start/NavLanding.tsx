@@ -40,18 +40,18 @@ const NavLanding = () => {
   }
 
   return (
-    <nav className='w-full h-[117px] flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
-      <ul className='w-full h-full flex flex-row items-center justify-between'>
+    <nav className='w-full h-[100px] flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
+      <ul className='w-full h-full flex flex-row items-center justify-evenly'>
         {sessionData?.user ? (
-          <h2 className='text-xl font-extrabold text-white'>Hi {nombre}</h2>
+          <h2 className='text-[25px] font-extrabold text-black '>Hi {nombre}</h2>
         ) : (
-          <h2 className='text-xl font-extrabold text-white'>Hi Guest</h2>
+          <h2 className='text-[25px] font-extrabold text-white'>Hi Guest</h2>
         )}
         {DataNav.map(({ id, title }) =>
           <li className='list-none text-center flex flex-col justify-center items-center' key={id}>
             <button
               id='MyLink'
-              className='text-xl font-normal text-white link'
+              className='text-[25px] font-normal text-black link leading-tight'
               onClick={() => setSelectedMenu(title)}
             >
               {title}
@@ -60,12 +60,12 @@ const NavLanding = () => {
           </li>
         )}
         {sessionData?.user ? (
-          <button onClick={() => signOut()} className='w-[150px] h-[40px] rounded-xl text-black bg-white hover:bg-dashHover transition'>
-            <h1 className='text-xl'>Log out</h1>
+          <button onClick={() => signOut()} className='w-[190px] h-[70px] rounded-full text-white bg-black hover:scale-110 transition'>
+            <h1 className='text-[25px]'>Log out</h1>
           </button>
         ) : (
-          <button onClick={handleLogin} className='w-[150px] h-[40px] rounded-xl text-black bg-white hover:bg-dashHover transition'>
-            <h1 className='text-xl'>Log in</h1>
+          <button onClick={handleLogin} className='w-[190px] h-[70px] rounded-full text-white bg-black hover:scale-110 transition'>
+            <h1 className='text-[25px]'>Log in</h1>
           </button>
         )
         }

@@ -1,7 +1,7 @@
 .line {
     width: 0%;
     height: 4px;
-    background-color: #fff;
+    background-color: #000;
     border-radius: 5rem;
     transition: 0.3s ease-in-out;
 }

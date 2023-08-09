@@ -57,10 +57,9 @@ const Carousel = () => {
             centeredSlides={true}
             slidesPerView={1.5}
             allowTouchMove={false}
-            pagination={true}
             autoplay={{
-              delay: 3500,
-              disableOnInteraction: false,
+              delay: 2000,
+              disableOnInteraction: true,
             }}
             coverflowEffect={{
               rotate: 0,
@@ -69,10 +68,9 @@ const Carousel = () => {
             }}
 
             loop={true}
-            modules={[EffectCoverflow, Pagination]}
+            modules={[Autoplay, EffectCoverflow]}
             className="w-full flex flex-row justify-center items-center "
           >
-            <SlidePrev />
             {dataCarousel.map(({ id, title, image }) => {
               return (
                 <SwiperSlide className=''>
@@ -83,7 +81,6 @@ const Carousel = () => {
               )
             })
             }
-            <SlideNext />
           </Swiper>
         </div>
       </div>

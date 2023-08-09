@@ -13,7 +13,7 @@ module.exports = {
     colors:{
       white: '#ffffff',
       black: '#000000',
-      navColor: '#644D37',
+      navColor: '#967F69',
       dashBack: '#e2e2e2',
       dashHover: '#c6c6c6',
       formBack: '#172554',

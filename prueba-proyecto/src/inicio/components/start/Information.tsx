@@ -13,7 +13,7 @@ const Information = () => {
       </div>
       <div className='w-2/6 h-1/2 flex justify-start items-center'>
         {/* <Image src={Foto1} alt='Tecnología' className='w-full h-full'></Image> */}
-        <CldImage src={'Foto1_Landing'} width={6} height={20} alt='Tecnología' className='w-full h-full'></CldImage>
+        <CldImage src={'Foto1_Landing'} width={1000} height={600} alt='Tecnología' className='w-full h-full'></CldImage>
       </div>
     </section>
   )

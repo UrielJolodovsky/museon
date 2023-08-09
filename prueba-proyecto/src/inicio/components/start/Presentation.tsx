@@ -5,6 +5,7 @@ import Foto2 from '../../../public/assets/Foto2.png'
 import { useRouter } from 'next/navigation'
 import { StateContext } from '@/context/StateContext'
 import { useSession } from 'next-auth/react'
+import { CldVideoPlayer } from 'next-cloudinary'
 
 
 const Presentation = () => {

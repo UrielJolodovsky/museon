@@ -22,12 +22,12 @@ const FirstLanding = () => {
 
   return (
     <>
-      <header className='w-full h-[117px] flex justify-center bg-navColor relative'>
+      <header className='w-full h-[100px] flex justify-center relative'>
         <NavLanding />
       </header>
       {selectedMenu === 'Inicio' &&
         <>
-          <main className='w-full h-full flex justify-center items-center flex-col bg-landingBack px-36'>
+          <main className='w-full h-full flex justify-center items-center flex-col bg-landingBack px-36 gap-20'>
             <Presentation />
             <Carousel />
             <Information />
