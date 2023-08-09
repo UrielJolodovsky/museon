@@ -25,6 +25,7 @@ export default function Museo() {
     useEffect(() => {
         getMessages()
         setMessageEnviado(false)
+        console.log(params.slug.toString())
     }, [messageEnviado])
 
     const addMessage = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -52,6 +53,7 @@ export default function Museo() {
                 parametros: params.slug.toString()
             }).then((res) => {
                 setMessages(res.data)
+                console.log(res.data)
             }).catch((err) => {
                 toast.error(err.response.data)
             })
