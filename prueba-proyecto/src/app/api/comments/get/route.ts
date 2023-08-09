@@ -7,8 +7,8 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
     const { parametros } = await req.json()
-    const nombre = parametros.replace( '-', /\s/g)
-    
+    const nombre = parametros.replace( '-', ' ')
+
     //console.log(parametros)
     // const session = await getServerSession(authOptions)
     // console.log(session?.user)
