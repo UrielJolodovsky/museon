@@ -23,9 +23,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         // if (tipo_usuario!["tipo_usuario"] !== "museo") {
         //     return new NextResponse("You are not allowed to add an event", { status: 401 })
         // }
-        // if (content === undefined || content === "" || content.length === 0) {
-        //     return new NextResponse("You must provide a content", { status: 400 })
-        // }
+        if (content === undefined || content === "" || content.length === 0) {
+            return new NextResponse("You must provide a content", { status: 400 })
+        }
         const evento = await db.eventos.create({
             data: {
                 content: content,
