@@ -35,6 +35,7 @@ export default function Museo() {
                 message: message,
                 nameMuseo: params.slug.toString()
             }).then((res) => {
+                setMessage('')
                 toast.success(res.data)
                 setMessageEnviado(true)
                 setMessages(res.data)
@@ -108,7 +109,7 @@ export default function Museo() {
                             <h1>0 Comentarios</h1>
                             <div className='w-full h-full flex flex-col gap-5'>
                                 <form action="" className='flex flex-row gap-2'>
-                                    <input className="w-full border-b-2 focus:border-none" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
+                                    <input value={message} className="w-full border-b-2 focus:border-none" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
                                     <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
                                 </form>
                                 <div className='w-full h-full flex flex-col gap-4 '>

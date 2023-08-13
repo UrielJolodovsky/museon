@@ -49,6 +49,7 @@ const eventos = () => {
         setEvents(res.data)
         const id_public = res.data
         toast.success('Event created succesfully')
+        setContent('')
         const formData = new FormData()
         formData.append('file', selectedFile as Blob | string)
         formData.append('upload_preset', 'museon')
@@ -86,13 +87,13 @@ const eventos = () => {
         {tipo_usuario === 'museo' ? (
           <form className='w-[38rem] h-[20rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
             <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
-              <input type='text' className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
+              <input type='text' value={content} className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
               <input type="file" onChange={handleChange} className=" " />
             </div>
             <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
           </form>
         ) : ''}
-          <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
+        <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
         <div className='border-2 w-2/3 h-full gap-8 mb-10 flex justify-center flex-col-reverse p-8'>
           {Array.isArray(events) ? events.map((evento, index) =>
             <div className='h-1/3 w-full bg-dashHover p-4 rounded-md flex flex-row ' key={index}>
