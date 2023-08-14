@@ -29,7 +29,7 @@ const NavLanding = () => {
     },
     {
       id: 4,
-      title: 'Contacto',
+      title: 'Ayuda',
     },
   ]
 

@@ -1,51 +1,53 @@
-import React from 'react'
-import UserIcon from '../../../../public/assets/FooterIcon/UserIcon.png'
-import UploadIcon from '../../../../public/assets/FooterIcon/UploadIcon.png'
-import CodeIcon from '../../../../public/assets/FooterIcon/CodeIcon.png'
-import Image from 'next/image'
-const Contact = () => {
+import dir_url from '@/lib/url'
+import axios from 'axios'
+import { useSession } from 'next-auth/react'
+import React, { ChangeEvent, useState } from 'react'
+import { toast } from 'react-hot-toast'
 
-  const dataContact = [
-    {
-      id: 1,
-      icon: UserIcon,
-      content: 'Contacto con museo para realizar un escaneo 3D'
-    },
-    {
-      id: 2,
-      icon: UploadIcon,
-      content: 'Subida de escaneo de museo a la página'
-    },
-    {
-      id: 3,
-      icon: CodeIcon,
-      content: 'Programación de escena 3D dentro de la página'
-    },
-  ]
+const Contacto = () => {
+
+  const { data: sessionData } = useSession()
+
+  const [message, setMessage] = useState('')
+
+  const SendForm = async (e: any) => {
+    e.preventDefault()
+    if (sessionData?.user.id === undefined) {
+      toast.error("You are not logged in")
+    }
+    else if (message.length === 0) {
+      toast.error("Your message is empty")
+    }
+    else {
+      try {
+        axios.post(`${dir_url}/api/contacto`, {
+          message: message,
+          user: sessionData.user.name,
+          email: sessionData.user.email
+        }).then((response) => {
+          toast.success(response.data)
+          setMessage('')
+        }).catch((err) => {
+          toast.error(err.response.data)
+        })
+      } catch (error) {
+        toast.error("Something went wrong")
+      }
+    }
+
+    setMessage('')
+  }
+
 
   return (
-
-    <div className='w-full h-80 flex justify-center items-center'>
-
-      {dataContact.map(({ id, icon, content }) => {
-        return (
-          <div key={id} className='w-1/3 h-20 flex justify-center items-center flex-col gap-16'>
-            <div className='flex items-center justify-center h-1/3 flex-col gap-4'>
-              <h1 className='text-xl font-light text-center border-x border-y rounded-full p-3 w-8 h-8 flex justify-center items-center'> {id}</h1>
-              <Image
-                src={icon}
-                alt='icon'
-                className='w-[50px] h-[50px] rounded-full'
-              ></Image>
-            </div>
-            <div className='w-2/3 h-2/3 flex justify-start items-start'>
-              <p className='text-justify '>{content}</p>
-            </div>
-          </div>
-        )
-      })}
+    <div className='flex w-1/2 h-full justify-center items-center flex-col gap-2'>
+        <h1 className='text-3xl font-bold'>Mensaje:</h1>
+        <form onSubmit={SendForm} action="" className='w-4/5 h-3/4 gap-3 flex justify-center items-center flex-col bg-black rounded-md'>
+          <textarea onChange={(ev: ChangeEvent<HTMLTextAreaElement>) => setMessage(ev.target.value)} value={message} autoComplete='off' name='message' id='message' placeholder='Mensaje' className='w-full h-3/4 p-3 bg-transparent text-white border-white border-b-2 text-left resize-none focus:outline-none'></textarea>
+          <button className='w-24 h-12 text-black bg-white font-semibold rounded-full'>Enviar</button>
+        </form>
     </div>
   )
 }
 
-export default Contact
+export default Contacto

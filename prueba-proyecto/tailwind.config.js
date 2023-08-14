@@ -29,10 +29,10 @@ module.exports = {
       transparent: 'transparent',
     },
     screens:{
-      'sm': {"raw": "(max-width: 364px)"},
-      'md': {"raw": "(max-width: 764px)"},
-      'lg': {"raw": "(max-width: 1060px)"},
-      'xl': {"raw": "(max-width: 1320px)"},
+      'sm': {"raw": "(min-width: 364px)"},
+      'md': {"raw": "(min-width: 764px)"},
+      'lg': {"raw": "(min-width: 1060px)"},
+      'xl': {"raw": "(min-width: 1320px)"},
     },  
   }, plugins: [],
 }

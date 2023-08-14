@@ -106,9 +106,9 @@ export default function Museo() {
                     <div className='w-[800px] h-4/5 flex justify-center items-center flex-col gap-5'>
                         <Comp3d />
                         <div className='w-full h-1/3 flex justify-center items-start flex-col'>
-                            <h1>0 Comentarios</h1>
+                            <h1>{messages.length} Comentarios</h1>
                             <div className='w-full h-full flex flex-col gap-5'>
-                                <form action="" className='flex flex-row gap-2'>
+                                <form className='flex flex-row gap-2'>
                                     <input value={message} className="w-full border-b-2 focus:border-none" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
                                     <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
                                 </form>

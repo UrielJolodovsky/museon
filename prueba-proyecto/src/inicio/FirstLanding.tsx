@@ -2,7 +2,6 @@
 import React, { useContext, useState } from 'react'
 import Colecciones from '@/colecciones/Colecciones'
 import Eventos from '@/eventos/Eventos'
-import Contacto from '@/contacto/Contacto'
 import Footer from './components/start/Footer'
 import Contact from './components/start/Contact'
 import Help from './components/start/Help'
@@ -15,6 +14,7 @@ import { StateContext, StateProvider } from '@/context/StateContext'
 import { useSession } from 'next-auth/react'
 import { statusAuth } from "@/load/status"
 import Loader from '@/load/Loader'
+import Ayuda from '@/ayuda/Ayuda'
 
 
 const FirstLanding = () => {
@@ -33,7 +33,12 @@ const FirstLanding = () => {
             <Information />
             <Participants />
             <Help />
+            <div className='flex w-full lg:h-[550px] md:h-[350px] justify-center items-center'>
             <Contact />
+            <div className='flex justify-center items-center w-1/2'>
+              <h1 className='text-black font-bold text-2xl text-center'>Se parte de nuestra red de museos y galerias artisticas</h1>
+            </div>
+            </div>
           </main>
           <footer className='w-full h-[250px]'>
             <Footer />
@@ -42,7 +47,7 @@ const FirstLanding = () => {
       }
       {selectedMenu === 'Colecciones' && <Colecciones />}
       {selectedMenu === 'Eventos' && <Eventos />}
-      {selectedMenu === 'Contacto' && <Contacto />}
+      {selectedMenu === 'Ayuda' && <Ayuda />}
     </>
   )
 }
