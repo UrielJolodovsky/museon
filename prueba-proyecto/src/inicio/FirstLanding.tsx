@@ -27,18 +27,13 @@ const FirstLanding = () => {
       </header>
       {selectedMenu === 'Inicio' &&
         <>
-          <main className='w-full h-full flex justify-center items-center flex-col bg-landingBack px-36 gap-20'>
+          <main className='w-full sm:w-full h-full flex justify-center items-center flex-col bg-landingBack gap-20'>
             <Presentation />
             <Carousel />
             <Information />
             <Participants />
             <Help />
-            <div className='flex w-full lg:h-[550px] md:h-[350px] justify-center items-center'>
             <Contact />
-            <div className='flex justify-center items-center w-1/2'>
-              <h1 className='text-black font-bold text-2xl text-center'>Se parte de nuestra red de museos y galerias artisticas</h1>
-            </div>
-            </div>
           </main>
           <footer className='w-full h-[250px]'>
             <Footer />

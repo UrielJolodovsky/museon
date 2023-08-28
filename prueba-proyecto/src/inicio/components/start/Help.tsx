@@ -5,7 +5,7 @@ import Foto3 from '@/../../public/assets/Foto3.png'
 
 const Help = () => {
   return (
-    <section className='w-full h-[500px] flex justify-start items-center flex-col'>
+    <section className='w-full xl:h-[500px] lg:h-[300px] flex justify-center items-center flex-col'>
       <div className='w-full flex justify-center items-center flex-row'>
         <div className='w-1/2 flex justify-center items-center flex-col gap-2 pt-20'>
           <h2 className='font-extrabold text-center text-4xl'>¿Como funciona?</h2>

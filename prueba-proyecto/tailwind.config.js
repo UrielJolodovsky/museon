@@ -29,7 +29,8 @@ module.exports = {
       transparent: 'transparent',
     },
     screens:{
-      'sm': {"raw": "(min-width: 364px)"},
+      'xs': {"raw": "(min-width: 250px)"},
+      'sm': {"raw": "(min-width: 374px)"},
       'md': {"raw": "(min-width: 764px)"},
       'lg': {"raw": "(min-width: 1060px)"},
       'xl': {"raw": "(min-width: 1320px)"},

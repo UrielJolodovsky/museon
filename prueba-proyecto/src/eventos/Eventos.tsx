@@ -100,9 +100,15 @@ const eventos = () => {
               <div className='w-1/3 h-full'>
                 <CldImage width={200} height={200} className='w-32 h-32' src={evento["id"]} alt='EventImage' />
               </div>
-              <div className='w-2/3 h-full flex flex-row'>
-                <h1 className='text-black w-1/2'>{evento["author"]["name"]}</h1>
-                <h2 className='text-black font-bold w-1/2 whitespace-normal break-words '>{evento["content"]}</h2>
+              <div className='w-2/3 h-full flex flex-col gap-5'>
+                <div className='w-1/2 h-2/3 flex flex-row justify-start items-center gap-2'>
+                  <h1 className='text-black w-1/4 border-r-2 font-bold '>{evento["author"]["name"]}</h1>
+                  <h3 className='text-black w-1/4 font-bold'>Fecha</h3>
+                </div>
+                <div className='w-1/3 h-full flex flex-row '>
+                  <h2 className='text-black font-medium w-1/2'>Message:</h2>
+                  <h4 className='text-black font-normal w-1/2 whitespace-normal break-words '>{evento["content"]}</h4>
+                </div>
               </div>
             </div>
 

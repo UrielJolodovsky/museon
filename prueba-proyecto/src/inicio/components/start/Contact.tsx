@@ -40,12 +40,20 @@ const Contacto = () => {
 
 
   return (
-    <div className='flex w-1/2 h-full justify-center items-center flex-col gap-2'>
+
+    <div className='flex flex-row xl:w-2/3 lg:w-4/5 md:w-2/3 sm:w-full lg:h-[550px] md:h-[350px] sm:h-[550px] justify-center items-center xl:flex-row lg:flex-row md:flex-row sm:flex-col sm:gap-4'>
+      <div className='flex xl:w-1/2 lg:w-1/2 md:w-3/4 sm:w-full xl:h-[400px] lg:h-[350px] md:h-[300px] sm:h-2/3 justify-center items-center flex-col gap-4'>
         <h1 className='text-3xl font-bold'>Mensaje:</h1>
-        <form onSubmit={SendForm} action="" className='w-4/5 h-3/4 gap-3 flex justify-center items-center flex-col bg-black rounded-md'>
-          <textarea onChange={(ev: ChangeEvent<HTMLTextAreaElement>) => setMessage(ev.target.value)} value={message} autoComplete='off' name='message' id='message' placeholder='Mensaje' className='w-full h-3/4 p-3 bg-transparent text-white border-white border-b-2 text-left resize-none focus:outline-none'></textarea>
-          <button className='w-24 h-12 text-black bg-white font-semibold rounded-full'>Enviar</button>
+        <form onSubmit={SendForm} action="" className='w-4/5 h-3/4 flex justify-start items-center flex-col bg-black rounded-md'>
+          <textarea onChange={(ev: ChangeEvent<HTMLTextAreaElement>) => setMessage(ev.target.value)} value={message} autoComplete='off' name='message' id='message' placeholder='Mensaje' className='w-full h-3/4 p-4 bg-transparent text-white border-white border-b-2 text-left resize-none focus:outline-none'></textarea>
+          <div className='flex justify-center items-center w-24 h-1/4'>
+            <button className='w-full h-12 text-black bg-white font-semibold rounded-full hover:scale-95 transition'>Enviar</button>
+          </div>
         </form>
+      </div>
+      <div className='flex justify-center items-center w-1/2 lg:w-1/2 sm:w-full sm:px-10'>
+        <h1 className='text-black font-bold xl:text-2xl lg:text-2xl md:text-2xl sm:text-base text-center'>Se parte de nuestra red de museos y galerias artisticas</h1>
+      </div>
     </div>
   )
 }
