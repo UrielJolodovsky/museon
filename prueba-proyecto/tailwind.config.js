@@ -13,13 +13,13 @@ module.exports = {
     colors:{
       white: '#ffffff',
       black: '#000000',
-      navColor: '#967F69',
+      navColor: '#313131',
       dashBack: '#e2e2e2',
       dashHover: '#c6c6c6',
       formBack: '#172554',
       btnForm: '#644D37',
       btnFormHover: '#4D3A29',
-      footerColor: '#868686',
+      footerColor: '#353535',
       red: '#ff0000',
       landingBack: '#dfdfdfe6',
 
@@ -29,11 +29,11 @@ module.exports = {
       transparent: 'transparent',
     },
     screens:{
-      'xs': {"raw": "(min-width: 250px)"},
-      'sm': {"raw": "(min-width: 374px)"},
-      'md': {"raw": "(min-width: 764px)"},
-      'lg': {"raw": "(min-width: 1060px)"},
-      'xl': {"raw": "(min-width: 1320px)"},
+      'xs': {"raw": "(max-width: 250px)"},
+      'sm': {"raw": "(max-width: 374px)"},
+      'md': {"raw": "(max-width: 764px)"},
+      'lg': {"raw": "(max-width: 1060px)"},
+      'xl': {"raw": "(max-width: 1320px)"},
     },  
   }, plugins: [],
 }

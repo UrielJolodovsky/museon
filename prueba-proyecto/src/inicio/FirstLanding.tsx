@@ -27,13 +27,15 @@ const FirstLanding = () => {
       </header>
       {selectedMenu === 'Inicio' &&
         <>
-          <main className='w-full sm:w-full h-full flex justify-center items-center flex-col bg-landingBack gap-20'>
+          <main className='w-full h-full flex justify-center items-center flex-col bg-landingBack gap-20 '>
             <Presentation />
             <Carousel />
+            <div className='w-full h-full flex justify-center items-center flex-col gap-10'>
             <Information />
             <Participants />
             <Help />
             <Contact />
+            </div>
           </main>
           <footer className='w-full h-[250px]'>
             <Footer />

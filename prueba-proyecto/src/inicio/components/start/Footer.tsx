@@ -79,7 +79,7 @@ const Footer = () => {
           return (
             <ul className='flex justify-center items-center w-full' key={id}>
               <li className='flex justify-center items-center w-full '>
-                <button className='text-xl font-normal text-footerTitle hover:underline transition'
+                <button className='text-2xl xl:text-xl font-normal text-footerTitle hover:underline transition'
                   onClick={() => setSelectedMenu(title)}
                 >
                   {title}

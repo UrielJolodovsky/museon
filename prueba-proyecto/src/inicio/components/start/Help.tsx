@@ -6,17 +6,19 @@ import Foto3 from '@/../../public/assets/Foto3.png'
 const Help = () => {
   return (
     <section className='w-full xl:h-[500px] lg:h-[300px] flex justify-center items-center flex-col'>
-      <div className='w-full flex justify-center items-center flex-row'>
-        <div className='w-1/2 flex justify-center items-center flex-col gap-2 pt-20'>
+      <div className='w-full flex justify-center items-center flex-row md:flex-col'>
+        <div className='w-1/3 flex justify-center items-center flex-col gap-2 pt-20'>
           <h2 className='font-extrabold text-center text-4xl'>¿Como funciona?</h2>
           <h5 className='w-5/6 h-max text-center font-light text-lg'>La institución que asi lo desea, escanea con su celular y lo sube a la plataforma. Desde aquel momento los usuarios lo pueden disfrutar</h5>
         </div>
+        <div className='w-[400px] h-[400px]'>
         <Image
-          className='w-1/2'
+          className='w-full h-full'
           src={Foto3}
           alt='Modelos 3D'
-          height={300}
-          width={300}></Image>
+          height={400}
+          width={400}></Image>
+          </div>
       </div>
     </section>
   )
