@@ -31,9 +31,9 @@ module.exports = {
     screens:{
       'xs': {"raw": "(max-width: 250px)"},
       'sm': {"raw": "(max-width: 374px)"},
-      'md': {"raw": "(max-width: 764px)"},
+      'md': {"raw": "(max-width: 760px)"},
       'lg': {"raw": "(max-width: 1060px)"},
-      'xl': {"raw": "(max-width: 1320px)"},
+      'xl': {"raw": "(max-width: 1390px)"},
     },  
   }, plugins: [],
 }

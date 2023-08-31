@@ -46,7 +46,7 @@ const Footer = () => {
     },
     {
       id: 3,
-      title: 'Contacto',
+      title: 'Ayuda',
     },
   ]
 

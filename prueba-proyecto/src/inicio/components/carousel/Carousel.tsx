@@ -48,9 +48,9 @@ const Carousel = () => {
 
   return (
 
-    <section className='w-full h-[600px] flex justify-center items-center flex-row'>
+    <section className='w-full h-[600px] xl:h-[350px] lg:h-[300px] flex justify-center items-center flex-row'>
       <div className='w-full h-full flex flex-row justify-center items-center'>
-        <div className='w-4/5 h-[20rem] flex flex-row justify-center items-center rounded-3xl '>
+        <div className='w-4/5 h-[20rem] lg:h-[15rem] flex flex-row justify-center items-center rounded-3xl '>
           <Swiper
             effect={"coverflow"}
             spaceBetween={150}
