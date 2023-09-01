@@ -32,7 +32,7 @@ module.exports = {
       'xs': {"raw": "(max-width: 250px)"},
       'sm': {"raw": "(max-width: 374px)"},
       'md': {"raw": "(max-width: 760px)"},
-      'lg': {"raw": "(max-width: 1060px)"},
+      'lg': {"raw": "(max-width: 1160px)"},
       'xl': {"raw": "(max-width: 1390px)"},
     },  
   }, plugins: [],
