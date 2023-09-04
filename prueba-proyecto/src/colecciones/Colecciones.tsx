@@ -72,19 +72,17 @@ const Colecciones = () => {
 
 
   return (
-    <div className='w-full flex flex-row gap-4 xl:flex-col justify-center items-center'>
-      <div className='w-full flex flex-row gap-4 xl:flex-col'>
+    <div className='w-full pt-8 px-8 flex flex-row gap-4  justify-center items-center'>
+      <div className='w-full flex flex-row justify-center items-center gap-10 flex-wrap'>
       {museos.map(({ id, name }) => {
         return (
-          <div className=' w-full flex flex-row justify-center items-center gap-6 xl:flex-col' key={id}>
-            <div className='w-1/3 flex flex-col '>
-            <CldImage className='rounded-xl w-full h-full' width={300} height={300} src={id} alt="Imagen Museo" />
+            <div className='w-[400px] lg:w-[300px] flex flex-col' key={id}>
+            <CldImage className='rounded-lg w-full h-2/3' width={300} height={300} src={id} alt="Imagen Museo" />
             <h1>{name}</h1>
             <button onClick={() => router.push(`/${deleteSpace(name)}`)} className='w-full h-12 bg-btnForm text-white font-bold text-lg rounded-xl hover:bg-btnFormHover transition' >
               Ir al museo
             </button>
             </div>
-          </div>
         )
       })
       }
