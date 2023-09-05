@@ -51,7 +51,7 @@ const NavLanding = () => {
           <li className='list-none text-center flex flex-col justify-center items-center mt-1' key={id}>
             <button
               id='MyLink'
-              className='xl:text-[25px] md:text-[10px] lg:text-[30px] font-normal text-white link leading-tight'
+              className='text-[25px] xl:text-[25px] md:text-[10px] lg:text-[30px] font-normal text-white link leading-tight'
               onClick={() => setSelectedMenu(title)}
             >
               {title}

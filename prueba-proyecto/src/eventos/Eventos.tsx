@@ -8,14 +8,16 @@ import { EventsProps } from '@/types'
 import { CldImage } from 'next-cloudinary'
 import useUsuario from '@/hooks/useUsuario'
 import { usuarioProps } from '@/types'
+import ModalEvent from './ModalEvent'
+import ReactDOM from 'react-dom'
 
 
 const eventos = () => {
-  const [content, setContent] = useState('')
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [events, setEvents] = useState<EventsProps[]>([])
-  const [eventoEnviado, setEventoEnviado] = useState(false)
   const [tipo_usuario, setTipo_usuario] = useState("")
+  const [buttonPressed, setButtonPressed] = useState(false)
+  const [eventoEnviado, setEventoEnviado] = useState(false)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
   useUsuario().then((res) => {
     setTipo_usuario(res)
@@ -25,6 +27,14 @@ const eventos = () => {
     GetEventos()
     setEventoEnviado(false)
   }, [eventoEnviado])
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   const GetEventos = async () => {
     try {
@@ -38,63 +48,23 @@ const eventos = () => {
     }
   }
 
-  const AddEvent = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    try {
-      await axios.post(`${dir_url}/api/eventos/add`, {
-        content: content,
-      }).then((res) => {
-        console.log(res.data)
-        setEventoEnviado(true)
-        setEvents(res.data)
-        const id_public = res.data
-        toast.success('Event created succesfully')
-        setContent('')
-        const formData = new FormData()
-        formData.append('file', selectedFile as Blob | string)
-        formData.append('upload_preset', 'museon')
-        formData.append('public_id', id_public)
-        axios.post('https://api.cloudinary.com/v1_1/dxt2lvdt3/image/upload', formData)
-      }).catch((err) => {
-        toast.error(err.response.data)
-      })
-    } catch (error) {
-      toast.error("Something went wrong")
-    }
-  }
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files: FileList = (event.target as EventTarget & { files: FileList }).files;
-
-    if (files && files.length > 0) {
-      const file: File = files[0]
-      setSelectedFile(file)
-
-      const reader = new FileReader()
-      reader.onload = () => {
-        const content: string = reader.result as string
-        console.log(content)
-      }
-      reader.readAsText(file)
-    }
-  };
-
-
-
   return (
     <section className='flex justify-center items-center w-full h-auto '>
       <div className='w-full h-auto flex justify-center items-center flex-col gap-10'>
-        {tipo_usuario === 'museo' ? (
-          <form className='w-[38rem] h-[20rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
-            <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
-              <input type='text' value={content} className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
-              <input type="file" onChange={handleChange} className=" " />
+
+        <div>
+          <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
+          {tipo_usuario === 'museo' ? (
+            <div>
+              <button onClick={openModal} className='w-16 h-12 bg-white border-2 '>Crear evento</button>
+              {modalIsOpen && ReactDOM.createPortal(
+                <ModalEvent isOpen={modalIsOpen} onClose={closeModal} />,
+                document.body
+              )}
             </div>
-            <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
-          </form>
-        ) : ''}
-        <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
-        <div className='border-2 w-2/3 h-full gap-8 mb-10 flex justify-center flex-col-reverse p-8'>
+          ) : ''}
+        </div>
+        <div className='w-2/3 xl:w-11/12 h-full gap-8 mb-10 flex justify-center flex-col-reverse p-8'>
           {Array.isArray(events) ? events.map((evento, index) =>
             <div className='h-1/3 w-full bg-dashHover p-4 rounded-md flex flex-row ' key={index}>
               <div className='w-1/3 h-full'>
