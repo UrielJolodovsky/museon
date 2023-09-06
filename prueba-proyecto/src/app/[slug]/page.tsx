@@ -20,6 +20,9 @@ export default function Museo() {
     const [museos, setMuseos] = useState<MuseosProps[]>([])
     const [messages, setMessages] = useState<CommentsProps[]>([])
     const params = useParams()
+    const MuseoName = params.slug.toString().replace( '-', ' ')
+    const [isUrl, setIsUrl] = useState<Boolean>(false)
+
     const [messageEnviado, setMessageEnviado] = useState(false)
 
     useEffect(() => {
@@ -27,6 +30,21 @@ export default function Museo() {
         setMessageEnviado(false)
         console.log(params.slug.toString())
     }, [messageEnviado])
+
+    
+    const verifyUrl = async() => {
+        try{
+            await axios.post(`${dir_url}/api/verifyMuseoName`, {
+                name_museo: MuseoName
+            }).then((res) => {
+                setIsUrl(res.data)
+            }).catch((err) => {
+                toast.error(err.response.data)
+            })
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
     const addMessage = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
