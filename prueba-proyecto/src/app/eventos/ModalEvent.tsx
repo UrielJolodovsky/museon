@@ -1,8 +1,10 @@
+import { EventContext, EventProvider } from '@/context/EventContext'
+import { StateContext } from '@/context/StateContext'
 import useUsuario from '@/hooks/useUsuario'
 import dir_url from '@/lib/url'
 import { EventsProps } from '@/types'
 import axios from 'axios'
-import React, { ChangeEvent, useEffect, useState, MouseEvent } from 'react'
+import React, { ChangeEvent, useEffect, useState, MouseEvent, useContext } from 'react'
 import toast from 'react-hot-toast'
 
 type ModalProps = {
@@ -14,8 +16,9 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [content, setContent] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [events, setEvents] = useState<EventsProps[]>([])
-  const [eventoEnviado, setEventoEnviado] = useState(false)
   const [tipo_usuario, setTipo_usuario] = useState("")
+  const { eventoEnviado, setEventoEnviado } = useContext(EventContext)
+
 
   useEffect(() => {
     setEventoEnviado(false)
@@ -32,17 +35,17 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         content: content,
       }).then((res) => {
         console.log(res.data)
-        setEventoEnviado(true)
         setEvents(res.data)
         const id_public = res.data
         toast.success('Event created succesfully')
         setContent('')
-        onClose();
         const formData = new FormData()
         formData.append('file', selectedFile as Blob | string)
         formData.append('upload_preset', 'museon')
         formData.append('public_id', id_public)
         axios.post('https://api.cloudinary.com/v1_1/dxt2lvdt3/image/upload', formData)
+        setEventoEnviado(true)
+        onClose();
       }).catch((err) => {
         toast.error(err.response.data)
       })
@@ -70,14 +73,14 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-
     <div className='w-80 h-48 fixed inset-0 flex items-center justify-center z-50 left-64 '>
-      <form className='w-[38rem] h-[5rem] bg-dashBack flex flex-col p-5 gap-6 items-end'>
+      <form className='w-[38rem] h-full bg-dashBack flex flex-col p-5 gap-6 items-end'>
         <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
           <input type='text' value={content} className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />
           <input type="file" onChange={handleChange} className=" " />
         </div>
         <button type='submit' onClick={AddEvent} className='w-16 h-12 bg-white border-2 '>Enviar</button>
+        <button className='w-12 h-12' onClick={onClose} >Cerrar</button>
       </form>
     </div >
   )

@@ -1,6 +1,6 @@
 "use client";
 import { StateProvider } from "@/context/StateContext";
-import FirstLanding from "@/inicio/FirstLanding";
+import FirstLanding from "@/app/inicio/FirstLanding";
 import Loader from "@/load/Loader";
 import { statusAuth } from "@/load/status";
 import { useSession } from "next-auth/react";
