@@ -6,6 +6,7 @@ import { Poppins } from "next/font/google";
 import { Session } from "next-auth";
 import { metadata } from "../metadata";
 import { StateProvider } from "@/context/StateContext";
+import NavLanding from "./inicio/components/start/NavLanding";
 
 const inter = Poppins({
   subsets: ["latin-ext"],
@@ -30,6 +31,9 @@ export default function NextAuthProvider({ children }: Props) {
           </head>
           <body className={inter.className}>
             <ToasterContext />
+            <header className='w-full h-[100px] flex justify-center relative'>
+              <NavLanding />
+            </header>
             {children}
           </body>
         </html>

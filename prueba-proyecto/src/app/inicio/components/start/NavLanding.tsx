@@ -52,7 +52,7 @@ const NavLanding = () => {
             <button
               id='MyLink'
               className='text-[25px] xl:text-[25px] md:text-[10px] lg:text-[30px] font-normal text-white link leading-tight'
-              onClick={() => setSelectedMenu(title)}
+              onClick={() => router.push(`/${title}`)}
             >
               {title}
             </button>
