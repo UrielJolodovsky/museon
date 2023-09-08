@@ -103,7 +103,8 @@ export default function Museo() {
 
     return (
         <>
-            <section className="w-full h-screen flex justify-center items-center flex-col">
+        {isUrl === true ? (
+        <section className="w-full h-screen flex justify-center items-center flex-col">
                 <div className='w-full h-full flex justify-center items-center flex-col gap-5'>
                     <div className='w-full h-full flex justify-center items-center flex-col'>
                         <h1 className='text-4xl font-bold text-center'>Museos</h1>
@@ -144,7 +145,8 @@ export default function Museo() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>) : '' }
+            
         </>
     )
 }
