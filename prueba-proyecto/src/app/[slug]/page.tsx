@@ -28,16 +28,17 @@ export default function Museo() {
     useEffect(() => {
         getMessages()
         setMessageEnviado(false)
-        console.log(params.slug.toString())
+        verifyUrl()
     }, [messageEnviado])
 
     
     const verifyUrl = async() => {
-        try{
+        try {
             await axios.post(`${dir_url}/api/verifyMuseoName`, {
                 name_museo: MuseoName
             }).then((res) => {
                 setIsUrl(res.data)
+                console.log(res.data)
             }).catch((err) => {
                 toast.error(err.response.data)
             })

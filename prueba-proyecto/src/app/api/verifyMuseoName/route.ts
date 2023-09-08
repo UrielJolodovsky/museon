@@ -12,9 +12,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
             }
         })
         if (isUrl === null) {
-            return false
+            return NextResponse.json(false, {status: 200})
         }
-        return true 
+        return NextResponse.json(true, {status: 200})
     } catch (error) {
         return new NextResponse("Something went wrong", {status: 400})
     }
