@@ -51,7 +51,7 @@ const NavLanding = () => {
           <li className='list-none text-center flex flex-col justify-center items-center mt-1' key={id}>
             <button
               id='MyLink'
-              className='text-[25px] xl:text-[25px] md:text-[10px] lg:text-[30px] font-normal text-white link leading-tight'
+              className='xl:text-[18px] md:text-[10px] lg:text-[30px] font-normal text-white link '
               onClick={() => router.push(`/${title}`)}
             >
               {title}
@@ -60,12 +60,12 @@ const NavLanding = () => {
           </li>
         )}
         {sessionData?.user ? (
-          <button onClick={() => signOut()} className='w-[190px] h-[70px] xl:w-[130px] xl:h-[50px] rounded-full text-white bg-black hover:scale-110 transition'>
-            <h1 className='text-[25px] xl:text-[20px] md:text-[10px]'>Log out</h1>
+          <button onClick={() => signOut()} className=' xl:w-[110px] xl:h-[50px] rounded-full text-white bg-black hover:scale-95 transition'>
+            <h1 className='text-[18px] xl:text-[20px] md:text-[10px]'>Log out</h1>
           </button>
         ) : (
-          <button onClick={handleLogin} className='w-[190px] h-[70px] xl:w-[130px] xl:h-[50px] rounded-full text-white bg-black hover:scale-110 transition'>
-            <h1 className='text-[25px] xl:text-[20px] md:text-[10px]'>Log in</h1>
+          <button onClick={handleLogin} className='w-[190px] h-[70px] xl:w-[130px] xl:h-[50px] rounded-full text-white bg-black hover:scale-95 transition'>
+            <h1 className='text-[18px] xl:text-[20px] md:text-[10px]'>Log in</h1>
           </button>
         )
         }

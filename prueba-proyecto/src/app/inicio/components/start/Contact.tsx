@@ -42,7 +42,7 @@ const Contacto = () => {
   return (
 
     <div className='flex w-full h-[400px] xl:w-full lg:w-full md:w-full sm:w-full lg:h-[450px] md:h-[450px] sm:h-[450px] justify-center items-center lg:flex-col md:flex-col sm:flex-col sm:gap-4'>
-      <div className='flex w-1/4  lg:w-2/3 md:w-full sm:w-full h-[400px] lg:h-2/3 md:h-[400px] sm:h-2/3 justify-center items-center flex-col gap-4'>
+      <div className='flex w-2/5  lg:w-2/3 md:w-full sm:w-full h-[400px] lg:h-2/3 md:h-[400px] sm:h-2/3 justify-center items-center flex-col gap-4'>
         <h1 className='text-3xl font-bold'>Mensaje:</h1>
         <form onSubmit={SendForm} action="" className='w-5/6 lg:w-3/4 h-3/4  flex justify-start items-center flex-col bg-black rounded-md'>
           <textarea onChange={(ev: ChangeEvent<HTMLTextAreaElement>) => setMessage(ev.target.value)} value={message} autoComplete='off' name='message' id='message' placeholder='Mensaje' className='w-full h-3/4 p-4 bg-transparent text-white border-white border-b-2 text-left resize-none focus:outline-none'></textarea>

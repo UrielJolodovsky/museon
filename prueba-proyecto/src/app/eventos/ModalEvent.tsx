@@ -4,6 +4,7 @@ import useUsuario from '@/hooks/useUsuario'
 import dir_url from '@/lib/url'
 import { EventsProps } from '@/types'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import React, { ChangeEvent, useEffect, useState, MouseEvent, useContext } from 'react'
 import toast from 'react-hot-toast'
 

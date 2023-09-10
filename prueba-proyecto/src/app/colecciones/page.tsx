@@ -64,9 +64,9 @@ const Colecciones = () => {
 
 
 
-  const deleteSpace = (slug : string) => {
+  const deleteSpace = (slug: string) => {
     const newSlug = slug.replace(/\s/g, '-')
-    return newSlug    
+    return newSlug
   }
 
 
@@ -74,19 +74,18 @@ const Colecciones = () => {
   return (
     <div className='w-full pt-8 px-8 flex flex-row gap-4  justify-center items-center'>
       <div className='w-full flex flex-row justify-center items-center gap-10 flex-wrap'>
-      {museos.map(({ id, name }) => {
-        return (
-            <div className='w-[400px] lg:w-[300px] flex flex-col' key={id}>
-            <CldImage className='rounded-lg w-full h-2/3' width={300} height={300} src={id} alt="Imagen Museo" />
-            <h1>{name}</h1>
-            <button onClick={() => router.push(`/${deleteSpace(name)}`)} className='w-full h-12 bg-btnForm text-white font-bold text-lg rounded-xl hover:bg-btnFormHover transition' >
-              Ir al museo
-            </button>
+        {museos.map(({ id, name }) => {
+          return (
+            <div className='w-[300px] h-[200px] lg:w-[300px] gap-3 flex flex-col' key={id}>
+              <button onClick={() => router.push(`/${deleteSpace(name)}`)} className='w-full h-full flex flex-col gap-4 rounded-xl transition' >
+                <CldImage className='rounded-lg w-full h-full' width={300} height={300} src={id} alt="Imagen Museo" />
+                <h1 className='pl-2 font-semibold text-xl'>{name}</h1>
+              </button>
             </div>
-        )
-      })
-      }
-     </div> 
+          )
+        })
+        }
+      </div>
     </div>
   )
 }

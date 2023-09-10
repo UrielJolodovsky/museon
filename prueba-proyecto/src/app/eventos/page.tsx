@@ -12,6 +12,7 @@ import ModalEvent from './ModalEvent'
 import ReactDOM from 'react-dom'
 import { EventContext, EventProvider } from '@/context/EventContext'
 import { time } from 'console'
+import { useRouter } from 'next/navigation'
 
 
 const eventos = () => {
@@ -20,6 +21,7 @@ const eventos = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const { eventoEnviado, setEventoEnviado } = useContext(EventContext)
 
+  const router = useRouter()
 
 
   useUsuario().then((res) => {
@@ -27,7 +29,7 @@ const eventos = () => {
   })
 
   useEffect(() => {
-    console.log("AAAAAAAAAAAAAAA")
+    router.push('/Eventos')
     GetEventos()
     setEventoEnviado(false)
   }, [eventoEnviado])
