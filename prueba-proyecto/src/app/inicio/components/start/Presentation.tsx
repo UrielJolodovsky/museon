@@ -1,9 +1,6 @@
 "use client"
-import Image from 'next/image'
 import React, { useContext, useState } from 'react'
-import Foto2 from '../../../public/assets/Foto2.png'
 import { useRouter } from 'next/navigation'
-import { StateContext } from '@/context/StateContext'
 import { useSession } from 'next-auth/react'
 import { CldImage, CldVideoPlayer } from 'next-cloudinary'
 
@@ -13,14 +10,13 @@ const Presentation = () => {
   const { data: sessionData } = useSession()
 
 
-  const { setSelectedMenu } = useContext(StateContext)
 
   const handleLogin = () => {
     router.push('/login')
   }
 
   const handleCollections = () => {
-    setSelectedMenu('Colecciones')
+    router.push('/Colecciones')
   }
 
 
