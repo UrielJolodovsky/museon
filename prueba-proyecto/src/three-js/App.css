@@ -1,0 +1,204 @@
+.App {
+  width: 100%;
+  height: 30%;
+  overflow: hidden;
+}
+
+.App:hover {
+  cursor: grabbing;
+}
+
+.App:not(:hover) {
+  cursor: default;
+}
+
+#container-all-popup {
+  display: flex;
+  flex-direction: row justify-content center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#popup {
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 100px;
+  padding-bottom: 250px;
+  background: rgb(235, 235, 235, 0.9);
+  border-radius: 10px;
+}
+
+#containerUI {
+  overflow-y: scroll;
+}
+
+#UItitle {
+  text-align: center;
+  margin-top: 0.75em;
+}
+
+#container-popup {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+#UItext {
+  width: 50%;
+  height: 100%;
+  overflow-y: scroll;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 5px;
+  /* Ajusta el espacio interno del texto */
+}
+
+#eyeClose {
+  color: #000000;
+  font-size: 24px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+
+#eyeClose:hover {
+  cursor: pointer;
+}
+
+#popup>#UItext {
+
+  padding-top: 20px;
+  padding-left: 20px;
+  overflow-y: scroll;
+
+  font-family: 'Times New Roman', Times, serif;
+}
+
+::selection {
+  background: rgb(223, 213, 172);
+}
+
+#videoDiv {
+  width: 50%;
+  height: 50%;
+  margin-left: 10px;
+}
+
+#creditosProyecto>p {
+  display: inline-block;
+  position: relative;
+  border: 2px solid black;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-bottom: 30px;
+}
+
+.AppMenu {
+  position: absolute;
+  top: 50%;
+  left: 3%;
+  width: 20%;
+  height: 40%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  overflow: auto;
+  /* Agregar desplazamiento vertical si es necesario */
+}
+
+.AppMenu>ol {
+
+  font-size: 36px;
+}
+
+.AppMenu>ol>li {
+  margin-bottom: 15px;
+}
+
+.AppMenu>ol>li>a {
+  text-decoration: none;
+  color: #333;
+  /* Cambiar el color del texto a un tono más oscuro */
+  font-size: 18px;
+  /* Reducir el tamaño del texto para un aspecto más elegante */
+  display: block;
+  /* Convertir en elementos de bloque para facilitar la interacción */
+  transition: color 0.3s;
+  /* Agregar una transición de color suave al hacer hover */
+}
+
+.AppMenu>ol>li>a:hover {
+  text-decoration: double;
+  color: rgb(180, 180, 180);
+}
+
+ol {
+  list-style-type: none;
+}
+
+.custom-text-1::before {
+  content: "Piso 1";
+  display: block;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.custom-text-2::before {
+  content: "Piso 2";
+  display: block;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.custom-text-3::before {
+  content: "Piso 3";
+  display: block;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+
+.classText {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btnCloseMenu {
+  position: absolute;
+  top: 20%;
+  left: 1.5%;
+  background-color: rgb(165, 165, 165);
+  border-radius: 10%;
+  padding: 5px 5px 2px 5px;
+  font-size: 34px;
+  z-index: 1;
+}
+
+.btnCloseMenu:hover {
+  background-color: rgb(231, 231, 231);
+  cursor: pointer;
+}
+
+.dark-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  transition: background-color 0.5s;
+}
+
+.dark-overlay.active {
+  background-color: rgba(0, 0, 0, 1);
+  pointer-events: auto;
+}
