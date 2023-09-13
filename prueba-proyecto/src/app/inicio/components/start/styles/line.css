@@ -1,9 +1,15 @@
 .line {
     width: 0%;
-    height: 4px;
+    height: 3px;
     background-color: #fff;
     border-radius: 5rem;
     transition: 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 554px) {
+    .line {
+        height: 2px;
+    }
 }
 
 .link {

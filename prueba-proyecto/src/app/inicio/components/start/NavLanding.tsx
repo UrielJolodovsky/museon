@@ -4,6 +4,8 @@ import React, { useContext } from 'react'
 import '../start/styles/line.css'
 import { signOut, useSession } from 'next-auth/react';
 import { StateContext } from '@/context/StateContext';
+import '@/app/globals.css'
+
 
 
 const NavLanding = () => {
@@ -40,18 +42,18 @@ const NavLanding = () => {
   }
 
   return (
-    <nav className='w-full h-[100px] flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
-      <ul className='w-full h-full flex flex-row items-center justify-evenly'>
+    <nav className='w-full h-[100px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
+      <ul className='w-full h-full flex flex-row items-center justify-between nav-ul'>
         {sessionData?.user ? (
-          <h2 className='text-[25px] xl:text-[20px] lg:text-[30px] md:text-[10px] font-extrabold text-white '>Hi {nombre}</h2>
+          <h2 className='text-[25px] navElements font-extrabold text-white '>Hi {nombre}</h2>
         ) : (
-          <h2 className='text-[25px] xl:text-[20px] lg:text-[30px] md:text-[10px] font-extrabold text-white'>Hi Guest</h2>
+          <h2 className='text-[25px] navElements font-extrabold text-white'>Hi Guest</h2>
         )}
         {DataNav.map(({ id, title }) =>
-          <li className='list-none text-center flex flex-col justify-center items-center mt-1' key={id}>
+          <li className=' list-none text-center flex flex-col justify-center items-center mt-1' key={id}>
             <button
               id='MyLink'
-              className='xl:text-[18px] md:text-[10px] lg:text-[30px] font-normal text-white link '
+              className='navElements font-normal text-white link '
               onClick={() => router.push(`/${title}`)}
             >
               {title}
@@ -60,12 +62,12 @@ const NavLanding = () => {
           </li>
         )}
         {sessionData?.user ? (
-          <button onClick={() => signOut()} className=' xl:w-[110px] xl:h-[50px] rounded-full text-white bg-black hover:scale-95 transition'>
-            <h1 className='text-[18px] xl:text-[20px] md:text-[10px]'>Log out</h1>
+          <button onClick={() => signOut()} className='w-20 h-12 border-x-2 border-white text-white hover:underline transition'>
+            <h1 className='text-[18px] font-bold navElements'>Log out</h1>
           </button>
         ) : (
-          <button onClick={handleLogin} className='w-[190px] h-[70px] xl:w-[130px] xl:h-[50px] rounded-full text-white bg-black hover:scale-95 transition'>
-            <h1 className='text-[18px] xl:text-[20px] md:text-[10px]'>Log in</h1>
+          <button onClick={handleLogin} className='w-20 h-12 border-x-2 border-white text-white hover:underline transition'>
+            <h1 className='text-[18px] font-bold navElements'>Log in</h1>
           </button>
         )
         }

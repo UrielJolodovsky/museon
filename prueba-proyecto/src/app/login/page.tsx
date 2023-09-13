@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import GoogleButton from './components/GoogleButton';
 import toast from 'react-hot-toast';
 import dir_url from '@/lib/url';
+import '@/app/globals.css'
 
 export default function Login() {
   const [name, setName] = useState('')
@@ -38,9 +39,9 @@ export default function Login() {
           if (callback?.error) {
             toast.error(callback.error)
             if (callback.error === 'Wrong password') {
-            setPassword('')
+              setPassword('')
+            }
           }
-        }
           if (callback?.ok && !callback?.error) {
             setLoggeado(true)
             toast.success('Bienvenido!')
@@ -80,22 +81,21 @@ export default function Login() {
 
   return (
     <>
-      <div className='w-full h-screen bg-dashBack flex flex-row gap-4 overflow-hidden'>
-        <div className="w-1/2 h-screen flex justify-end items-center">
-          <div className="xl:w-[610px] lg:w-[410px] md:w-[410px] sm:w-[310px] xl:h-[510px] lg:h-[510px] md:h-[550px] sm:h-[400px] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-white shadow-2xl flex flex-col gap-4">
-            <h2 className="text-black h-1/5 text-4xl font-bold flex justify-center">
-              {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
-            </h2>
-            <form className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
-              {variant === 'register' && (
-                <InputVariants
-                  label='Username'
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                  id='name'
-                  type='text'
-                  value={name}
-                />
-              )}
+      <div className='w-full h-screen bg-dashBack flex flex-row md:flex-col gap-8 overflow-hidden justify-center items-center login-container'>
+        <div className="w-1/3 rounded-lg self-center py-10 bg-black shadow-2xl flex flex-col gap-4 login-div">
+          <h2 className="text-white h-1/5 text-4xl font-bold flex justify-start px-12">
+            {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
+          </h2>
+          <div className='w-full border-b-2 flex flex-row'>
+            <p className='w-full text-white text-sm flex flex-row lg:flex-col gap-2 pl-12'>
+              {variant === 'login' ? '¿No tienes cuenta?' : '¿Ya tienes una cuenta?'}
+              <span className='text-blue font-normal hover:underline cursor-pointer text-start' onClick={handleClick}>
+                {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
+              </span>
+            </p>
+          </div>
+          <form className="w-full h-2/3 flex flex-col gap-4 justify-start items-start px-12">
+            {variant === 'register' && (
 
               <InputVariants
                 label='Email'
@@ -104,31 +104,33 @@ export default function Login() {
                 type='text'
                 value={email}
               />
+            )}
 
-              <InputVariants
-                label='Password'
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                id='password'
-                type='password'
-                value={password}
-              />
-              <button type='submit' onClick={LogInCredentials} className='w-40 h-12 rounded-md bg-btnForm hover:bg-opacity-80 transition font-bold text-white'>
-                {variant === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
-              </button>
-            </form>
-            <div className='flex flex-col gap-4 justify-between items-center w-full'>
-              <p className='text-black flex flex-row gap-2'>
-                {variant === 'login' ? 'No te registraste?' : 'Ya tienes una cuenta?'}
-                <span className='text-black font-bold hover:underline cursor-pointer' onClick={handleClick}>
-                  {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
-                </span>
-              </p>
-              <GoogleButton />
-            </div>
+            <InputVariants
+              label='Username'
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+              id='name'
+              type='text'
+              value={name}
+            />
+
+            <InputVariants
+              label='Password'
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              id='password'
+              type='password'
+              value={password}
+            />
+            <button type='submit' onClick={LogInCredentials} className='w-full h-12 rounded-md bg-white hover:bg-opacity-80 transition font-bold text-black'>
+              {variant === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
+            </button>
+          </form>
+          <div className='flex flex-col gap-4 justify-between items-center w-full'>
+            <GoogleButton />
           </div>
         </div>
-        <div className='w-1/2 h-screen flex justify-center items-center'>
-          <div className='xl:h-[510px] xl:w-[624px] lg:h-[510px] lg:w-[524px] md:w-[424px] md:h-[500px] sm:w-[300px] sm:h-[350px] border-2 rounded-xl'></div>
+        <div className='w-1/3 h-screen flex justify-center items-center login-video-div'>
+          <div className='h-[250px] w-[624px] login-video border-2 rounded-xl'></div>
         </div>
       </div>
     </>
