@@ -31,7 +31,7 @@ export default function NextAuthProvider({ children }: Props) {
           </head>
           <body className={inter.className}>
             <ToasterContext />
-            <header className='w-full h-[100px] overflow-hidden flex justify-center relative header-layout '>
+            <header className='w-full overflow-hidden flex justify-center relative header-layout '>
               <NavLanding />
             </header>
             {children}

@@ -65,24 +65,7 @@
     margin: 0;
   }
 
-  .container-participants {
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  .part-texts {
-    order: 2;
-    width: 70%;
-
-  }
-
-  .part-texts h4 {
-    width: 100%;
-
-  }
+  
 
   .cont-pres-image {
     margin: 0;
@@ -104,6 +87,24 @@
 
   .navElements {
     font-size: 12px;
+  }
+  .container-participants {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .part-texts {
+    order: 2;
+    width: 70%;
+
+  }
+
+  .part-texts h4 {
+    width: 100%;
+
   }
 }
 
