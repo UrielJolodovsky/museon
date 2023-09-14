@@ -12,8 +12,8 @@ const Information = () => {
           <h1 className='w-full text-center lg:text-2xl text-4xl font-extrabold'>¿De que se trata?</h1>
           <p className='w-11/12 text-center lg:text-base lg:w-3/4 text-xl '>Es una plataforma web de accesibilidad universal donde usuarios van a poder visitar museos y/o galerias artisticas de todo el mundo desde la comodidad de su hogar</p>
         </div>
-        <div className='w-1/3 h-full lg:w-full lg:h-2/3 lg:justify-center flex justify-center items-center'>
-          <CldImage src={'Foto1_Landing'} width={0} height={0} alt='Tecnología' className='w-[400px] h-[300px] lg:w-[300px] lg:h-[250px] lg:ml-6'></CldImage>
+        <div className='w-1/3 h-full flex justify-center items-center info-image-cont'>
+          <CldImage src={'Foto1_Landing'} width={0} height={0} alt='Tecnología' className='w-[400px] h-[300px] '></CldImage>
         </div>
       </div>
     </section>

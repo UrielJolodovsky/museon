@@ -22,7 +22,7 @@ const FirstLanding = () => {
         <Help />
         <Contact />
       </main>
-      <footer className='w-full h-[250px]'>
+      <footer className='w-full h-[250px] md:hidden'>
         <Footer />
       </footer>
     </>

@@ -18,10 +18,11 @@ export default function Login() {
   const [variant, setVariant] = useState('register')
 
   const handleClick = () => {
-    if (variant === 'login') {
-      setVariant('register')
-    } else {
+    if (variant === 'register') {
       setVariant('login')
+    }
+    else if (variant === 'login') {
+      setVariant('register')
     }
   }
 
@@ -46,7 +47,7 @@ export default function Login() {
             setLoggeado(true)
             toast.success('Bienvenido!')
             router.push('/')
-            setEmail('')
+            setName('')
             setPassword('')
           }
         }).finally(() => {
@@ -86,8 +87,8 @@ export default function Login() {
           <h2 className="text-white h-1/5 text-4xl font-bold flex justify-start px-12">
             {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
           </h2>
-          <div className='w-full border-b-2 flex flex-row'>
-            <p className='w-full text-white text-sm flex flex-row lg:flex-col gap-2 pl-12'>
+          <div className='w-full border-b-[1px] border-white flex flex-row'>
+            <p className='w-full text-white text-sm flex flex-row lg:flex-col gap-2 pl-12 pb-2'>
               {variant === 'login' ? '¿No tienes cuenta?' : '¿Ya tienes una cuenta?'}
               <span className='text-blue font-normal hover:underline cursor-pointer text-start' onClick={handleClick}>
                 {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
@@ -98,20 +99,21 @@ export default function Login() {
             {variant === 'register' && (
 
               <InputVariants
-                label='Email'
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                id='email'
+                label='Username'
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                id='name'
                 type='text'
-                value={email}
+                value={name}
               />
+
             )}
 
             <InputVariants
-              label='Username'
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-              id='name'
+              label='Email'
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              id='email'
               type='text'
-              value={name}
+              value={email}
             />
 
             <InputVariants
@@ -132,7 +134,7 @@ export default function Login() {
         <div className='w-1/3 h-screen flex justify-center items-center login-video-div'>
           <div className='h-[250px] w-[624px] login-video border-2 rounded-xl'></div>
         </div>
-      </div>
+      </div >
     </>
   )
 }

@@ -5,6 +5,9 @@ import '../start/styles/line.css'
 import { signOut, useSession } from 'next-auth/react';
 import { StateContext } from '@/context/StateContext';
 import '@/app/globals.css'
+import { CldImage } from 'next-cloudinary';
+import Image from 'next/image'
+import LogOut from '../../../../../public/assets/icons/LogOut.png'
 
 
 
@@ -42,13 +45,11 @@ const NavLanding = () => {
   }
 
   return (
-    <nav className='w-full h-[100px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
-      <ul className='w-full h-full flex flex-row items-center justify-between nav-ul'>
-        {sessionData?.user ? (
-          <h2 className='text-[25px] navElements font-extrabold text-white '>Hi {nombre}</h2>
-        ) : (
-          <h2 className='text-[25px] navElements font-extrabold text-white'>Hi Guest</h2>
-        )}
+    <nav className=' w-full h-[60px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
+      <ul className='w-full h-full flex flex-row items-center justify-between nav-ul '>
+        <div>
+          <CldImage src={'Logo_Blanco'} width={50} height={50} alt='logo'></CldImage>
+        </div>
         {DataNav.map(({ id, title }) =>
           <li className=' list-none text-center flex flex-col justify-center items-center mt-1' key={id}>
             <button
@@ -62,11 +63,16 @@ const NavLanding = () => {
           </li>
         )}
         {sessionData?.user ? (
-          <button onClick={() => signOut()} className='w-20 h-12 border-x-2 border-white text-white hover:underline transition'>
-            <h1 className='text-[18px] font-bold navElements'>Log out</h1>
+          <button onClick={() => signOut()} className=''>
+            <Image
+              className='w-7 h-8'
+              src={LogOut}
+              alt='LogOut'
+              height={400}
+              width={400}></Image>
           </button>
         ) : (
-          <button onClick={handleLogin} className='w-20 h-12 border-x-2 border-white text-white hover:underline transition'>
+          <button onClick={handleLogin} className='w-24 h-12 rounded-full text-black hover:scale-95 bg-white  transition'>
             <h1 className='text-[18px] font-bold navElements'>Log in</h1>
           </button>
         )
