@@ -74,7 +74,7 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className='w-80 h-48 fixed inset-0 flex items-center justify-center z-50 left-64 '>
+    <div id='popup' className='w-80 h-48 flex items-center justify-center '>
       <form className='w-[38rem] h-full bg-dashBack flex flex-col p-5 gap-6 items-end'>
         <div className='w-full h-10 flex flex-row justify-center items-start gap-4'>
           <input type='text' value={content} className='outline-none border-b-2 w-64 h-5' onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)} />

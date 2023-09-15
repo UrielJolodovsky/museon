@@ -35,6 +35,12 @@ const eventos = () => {
   }, [eventoEnviado])
 
   const openModal = () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('events-container') as HTMLElement;
+      const popup = document.getElementById('popup') as HTMLElement;
+      console.log(popup)
+      container.appendChild(popup);
+    });
     setModalIsOpen(true);
   };
 
@@ -56,21 +62,22 @@ const eventos = () => {
 
   return (
     <EventProvider>
-      <section className='flex justify-center items-center w-full h-auto '>
+      <section className='flex justify-center items-center w-full h-auto pt-32'>
         <div className='w-full h-auto flex justify-center items-center flex-col gap-10'>
           <div>
-            <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
             {tipo_usuario === 'museo' ? (
-              <div>
-                <button onClick={openModal} className='w-16 h-12 bg-white border-2 '>Crear evento</button>
+              <div className='w-full h-24 flex justify-center items-center gap-10'>
+                <h1 className='text-2xl font-semibold text-center'>Eventos:</h1>
+                <button onClick={openModal} className='w-12 h-12 rounded-xl bg-dashBack text-4xl '>+</button>
                 {modalIsOpen && ReactDOM.createPortal(
                   <ModalEvent isOpen={modalIsOpen} onClose={closeModal} />,
                   document.body
                 )}
               </div>
-            ) : ''}
+            ) : 
+            <h1 className='text-2xl font-semibold text-center'>Eventos:</h1> }
           </div>
-          <div className='w-2/3 xl:w-11/12 h-full gap-8 mb-10 flex justify-center flex-col-reverse p-8'>
+          <div id='events-container' className='w-2/3 xl:w-11/12 h-full gap-8 mb-10 flex justify-center flex-col-reverse p-8'>
             {Array.isArray(events) ? events.map((evento, index) =>
               <div className='h-1/3 w-full bg-dashHover p-4 rounded-md flex flex-row ' key={index}>
                 <div className='w-1/3 h-full'>

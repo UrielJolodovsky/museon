@@ -21,7 +21,7 @@ const Presentation = () => {
 
 
   return (
-    <section className='w-full h-[500px] flex justify-center items-center flex-row md:flex-col'>
+    <section className='w-full h-[600px] flex justify-center items-center flex-row md:flex-col pt-32 pl-24'>
       <div className='w-3/5 h-[400px] flex flex-col justify-center items-center gap-6 ml-10 container-pres'>
         <div className='w-full h-[100px] justify-center items-center flex flex-col gap-3'>
           <h1 className=' w-full text-center font-semibold text-5xl lg:text-4xl title-pres'>¡Bienvenido a Museon!</h1>
@@ -38,6 +38,7 @@ const Presentation = () => {
       </div>
       <div className='w-2/5 h-full flex justify-center items-center mr-16 cont-pres-image'>
         <CldImage src={'Logo_Negro'} width={0} height={0} alt='Tecnología' className='pres-image w-[275px] h-[300px]'></CldImage>
+        <video src=''/>
       </div>
     </section>
   )

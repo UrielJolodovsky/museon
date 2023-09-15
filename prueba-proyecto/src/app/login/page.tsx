@@ -15,9 +15,10 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [Loggeado, setLoggeado] = useState(false)
-  const [variant, setVariant] = useState('register')
+  const [variant, setVariant] = useState('login')
 
   const handleClick = () => {
+    setFields()
     if (variant === 'register') {
       setVariant('login')
     }
@@ -28,8 +29,15 @@ export default function Login() {
 
   const router = useRouter()
 
+  const setFields = () => {
+    setName('')
+    setEmail('')
+    setPassword('')
+  }
+
   async function LogInCredentials(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
+    document.addEventListener('submit', setFields)
     if (variant === 'login') {
       try {
         await signIn("credentials", {

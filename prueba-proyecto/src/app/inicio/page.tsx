@@ -7,6 +7,7 @@ import Participants from '@/app/Inicio/components/start/Participants'
 import Information from '@/app/Inicio/components/start/Information'
 import Carousel from '@/app/Inicio/components/carousel/Carousel'
 import Presentation from '@/app/Inicio/components/start/Presentation'
+import NavLanding from './components/start/NavLanding'
 
 
 

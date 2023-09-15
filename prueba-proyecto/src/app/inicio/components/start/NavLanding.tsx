@@ -15,7 +15,6 @@ const NavLanding = () => {
   const { data: sessionData } = useSession()
   const nombre = sessionData?.user ? sessionData.user.name : ''
 
-  const { setSelectedMenu } = useContext(StateContext);
 
   const DataNav = [
     {
@@ -45,7 +44,7 @@ const NavLanding = () => {
   }
 
   return (
-    <nav className=' w-full h-[60px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
+    <nav className=' w-full h-[80px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
       <ul className='w-full h-full flex flex-row items-center justify-between nav-ul '>
         <div>
           <CldImage src={'Logo_Blanco'} width={50} height={50} alt='logo'></CldImage>
