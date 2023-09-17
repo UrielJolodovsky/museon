@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./App.css";
 import * as THREE from "three";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
@@ -91,9 +92,9 @@ class Scene extends Component {
 
     // Instanciar popups
     // this.createPopup(X, Y, Z, "TEXTO");
-    this.createPopup(-14, 3.75, 7, "Popup 1");
+    this.createPopup(-14, 3.75, 7, "Messi");
     this.createPopup(15, 5, 3, "Popup 2");
-    this.createPopup(0, 0, -2, "Popup 3");
+    this.createPopup(0, 0, -3, "Popup 3");
   }
   
   componentWillUnmount() {
@@ -147,14 +148,13 @@ class Scene extends Component {
 
     // Screen renderer    
     renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.current });
-     renderer.setSize(1000, 500);
-    //renderer.setSize(window.innerWidth, window.innerHeight);
-    // window.addEventListener("resize", function () {
-    //   camera.aspect = window.innerWidth / window.innerHeight;
-    //   camera.updateProjectionMatrix();
-    //   renderer.setSize(window.innerWidth, window.innerHeight);
-    //   renderer.setPixelRatio(window.devicePixelRatio)
-    // });
+    renderer.setSize(1000, 400);
+    window.addEventListener("resize", function () {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio)
+    });
 
     // Añadir Grid
     var grid = new THREE.GridHelper(100, 50);
@@ -192,7 +192,7 @@ class Scene extends Component {
     previousMousePosition = { x: 0, y: 0 };
 
 // Agregar un listener de eventos para el ratón
-document.addEventListener("mousedown", function (event) {
+document.addEventListener("mousedown", (event) => {
   isDragging = true;
   previousMousePosition = {
     x: event.clientX,
@@ -200,36 +200,52 @@ document.addEventListener("mousedown", function (event) {
   };
 });
 
-document.addEventListener("mouseup", function () {
+document.addEventListener("mouseup", () => {
   isDragging = false;
 });
 
-document.addEventListener("mousemove", function (event) {
-  if (!isDragging) return;
-
-  const deltaMove = {
-    x: event.clientX - previousMousePosition.x,
-    y: event.clientY - previousMousePosition.y,
+if (this.canvasRef.current) {
+document.addEventListener("mousemove", (event) => {
+  const rect = this.canvasRef.current.getBoundingClientRect();
+  const mouse = {
+    x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
+    y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
   };
+
+  // Verifica si el ratón está dentro de la escena antes de actualizar la cámara
+  if (mouse.x >= -1 && mouse.x <= 1 && mouse.y >= -1 && mouse.y <= 1) {
+    if (!isDragging) return;
+
+    const deltaMove = {
+      x: event.clientX - previousMousePosition.x,
+      y: event.clientY - previousMousePosition.y,
+    };
 
   // Ajustar la rotación de la cámara basada en el movimiento del mouse
   camera.rotation.order = "YXZ";
   const sensitivity = 0.002;
-  camera.rotation.y += deltaMove.x * sensitivity;
-  camera.rotation.x += deltaMove.y * sensitivity;
 
   // Limitar la rotación vertical
-  const maxVerticalAngle = Math.PI / 2;
+  const newRotationX = camera.rotation.x + deltaMove.y * sensitivity;
   camera.rotation.x = Math.max(
-    -maxVerticalAngle,
-    Math.min(maxVerticalAngle, camera.rotation.x)
+    this.minRotationX,
+    Math.min(this.maxRotationX, newRotationX)
   );
+
+  const newRotationY = camera.rotation.y + deltaMove.x * sensitivity;
+  camera.rotation.y = Math.max(
+    this.minRotationY,
+    Math.min(this.maxRotationY, newRotationY)
+  );
+
 
   previousMousePosition = {
     x: event.clientX,
     y: event.clientY,
   };
+}
 });
+}
 
     // Añadir pared (test)
     var wallgeometry = new THREE.BoxGeometry(10, 5, 0.1);
@@ -241,19 +257,19 @@ document.addEventListener("mousemove", function (event) {
   }
   
   // Añadir los popups
-  createPopup(x, y, z, content) {
+  createPopup(x, y, z, id) {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshPhongMaterial({ color: 0xff0000, wireframe: true });
     popup = new THREE.Mesh(geometry, material);
     popup.position.set(x, y, z);
     scene.add(popup);
-    popups.push({ mesh: popup, content });
+    popups.push({ mesh: popup, id });
   }
 
 
 createInteractiveTorus(x, y, z) {
   const torusGeometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
-  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff, shininess: 100, });
+  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff });
   const torus = new THREE.Mesh(torusGeometry, torusMaterial);
   torus.rotation.x = Math.PI / 2;
 
@@ -285,10 +301,11 @@ createInteractiveTorus(x, y, z) {
 
   // Detectar si se clickeó el canvas para mostrar el popup con la información de una obra
   onCanvasClick(event) {
-    const rect = this.canvasRef.current.getBoundingClientRect();
-  const mouse = {
+    const rect = this.canvasRef.current.getBoundingClientRect() !== null ;
+
+    const mouse = {
     x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
-    y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
+    y: -((event.clientY - rect.top) / rect.height) * 2 + 1  ,
   };
 
   const raycaster = new THREE.Raycaster();
@@ -298,13 +315,14 @@ createInteractiveTorus(x, y, z) {
   const intersects = raycaster.intersectObjects(popups.map((popup) => popup.mesh));
 
   if (intersects.length > 0) {
-    // Hiciste clic en un popup, muestra el contenido del popup
+    // Detectar si se hizo click en un popu y mostrar el contenido del popup
     const popup = popups.find((p) => p.mesh === intersects[0].object);
     if (popup) {
-      this.showPopup(popup.content);
+      console.log("ID del popup clickeado:", popup.id);
+      this.showPopup(popup.id);
     }
   } else {
-    // Hiciste clic en otro lugar de la escena, cierra el popup si está abierto
+    // Detectar si se hizo clic en otro lugar de la escena y cierra el popup si está abierto
     if (this.state.isPopupVisible) {
       this.closePopup();
     }
@@ -368,8 +386,6 @@ createInteractiveTorus(x, y, z) {
     camera.lookAt(position);
   }
 
-  
-
   // Mostrar el popup
   showPopup() {
     const popup = this.popupRef.current; //Añadir popup a la escena 3D (DOM)
@@ -405,13 +421,6 @@ createInteractiveTorus(x, y, z) {
       }, 500);
     }
   }
-  
-     // id = this.getObjectById();
-      // axios.post("direccion", {
-      //   id: id
-      // })
-
-
 
   render() {
     return (
@@ -470,7 +479,8 @@ createInteractiveTorus(x, y, z) {
 
           <div className="w-full h-full flex justify-center items-center">
             <div id="darkOverlay" className={this.state.isTeleporting ? 'w-full h-full flex items-center justify-center bg-black pointer-events-auto cursor-grabbing' : 'w-full h-full flex items-center justify-center bg-transparent pointer-events-none'}>
-              <canvas ref={this.canvasRef} className="" />
+              <canvas ref={this.canvasRef} className=" " />
+              <div ref={this.popupRef} id="popup" className="hidden absolute mt-50vh pt-1 pb-[250px] ml-[30%] bg-white opacity-5"></div>
             </div>    
           </div>
     );
