@@ -74,6 +74,7 @@ model Museos{
   id String @id @default(cuid())
   name String
   subimage String? @default(cuid())
+  subname String?
   categoria String?
   type String?
   role Role?

@@ -1,6 +1,7 @@
 export interface MuseosProps {
     id: string
     subimage: string
+    subname: string
     name: string
     role: string
 }

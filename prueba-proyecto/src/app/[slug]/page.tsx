@@ -38,7 +38,7 @@ export default function Museo() {
                 name_museo: MuseoName
             }).then((res) => {
                 setIsUrl(res.data)
-                console.log(res.data)
+                console.log(res.data, 'res')
             }).catch((err) => {
                 toast.error(err.response.data)
             })

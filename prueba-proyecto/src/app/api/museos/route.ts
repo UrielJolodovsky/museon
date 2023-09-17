@@ -9,6 +9,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
             select: {
                 id: true,
                 subimage: true,
+                subname: true,
                 name: true,
                 role: true,
             }
