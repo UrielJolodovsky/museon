@@ -73,7 +73,7 @@ model Comments {
 model Museos{
   id String @id @default(cuid())
   name String
-  image String?
+  subimage String? @default(cuid())
   categoria String?
   type String?
   role Role?

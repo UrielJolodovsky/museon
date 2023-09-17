@@ -8,6 +8,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const getmuseos = await db.museos.findMany({
             select: {
                 id: true,
+                subimage: true,
                 name: true,
                 role: true,
             }

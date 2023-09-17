@@ -52,7 +52,7 @@ const NavLanding = () => {
 
   return (
     <header className='w-full h-[60px] overflow-hidden flex justify-center relative header-layout '>
-      <nav className=' w-full h-full navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
+      <nav className=' w-full h-[80px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
         <ul className='w-full h-full flex flex-row items-center justify-evenly nav-ul '>
           <div>
             <CldImage src={'Logo_Blanco'} width={50} height={50} alt='logo'></CldImage>
@@ -101,7 +101,7 @@ const NavLanding = () => {
                   animate={{ opacity: 1 }}
                   id='logOut-button'
                   onClick={() => signOut()}
-                  className='w-36 h-10 rounded-lg cursor-pointer bg-gray absolute top-24 right-20 text-center flex items-center justify-center text-white font-medium'>
+                  className='w-36 h-10 rounded-lg cursor-pointer bg-gray absolute top-24 right-44 text-center flex items-center justify-center text-white font-medium'>
                   Cerrar sesión
                 </motion.span>
               )}
