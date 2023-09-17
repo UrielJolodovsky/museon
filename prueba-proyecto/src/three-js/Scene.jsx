@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import './App.css';
 
 
 // import axios from 'axios'
 
-let scene, camera, renderer, wall, popup;
-const cubes = [];
+let scene, camera, renderer, wall, popup, raycaster;
+const popups = [];
+const objectsWithTeleportID = [];
 const target = new THREE.Vector2();
 let isDragging
 let previousMousePosition
 
-class App extends Component {
+class Scene extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
@@ -43,6 +43,7 @@ class App extends Component {
       zoom: 1,
       isMenuVisible: true,
       isPopupVisible: false,
+      isCloseMenuButtonVisible: false,
     };
 
     this.cube = null;
@@ -53,61 +54,50 @@ class App extends Component {
 
 
   openMenu = () => {
-  this.setState({ isMenuVisible: true });
+    this.setState({ isMenuVisible: true, isCloseMenuButtonVisible: false });
 }
 
   closeMenu = () => {
-  this.setState({ isMenuVisible: false });
+    this.setState({ isMenuVisible: false, isCloseMenuButtonVisible: true });
 }
 
-  
+  // loader.load('/models/poly.gltf',
 
-  componentDidMount() {
-    this.init();
-    this.animate();
-    this.canvasRef.current.addEventListener("click", this.onCanvasClick);
-
-    this.canvasRef.current.addEventListener("wheel", this.onMouseWheel); // Zoom en la cámara
-
-
-    
+  loadModel(modelPath, position, scale, rotation) {
     const loader = new GLTFLoader();
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('/examples/jsm/libs/draco/');
     loader.setDRACOLoader(dracoLoader);
+  
+    loader.load(modelPath, function (gltf) {
+      const model = gltf.scene;
+      model.scale.set(scale.x, scale.y, scale.z);
+      model.position.set(position.x, position.y, position.z);
+      model.rotation.set(rotation.x, rotation.y, rotation.z); // Aplica la rotación aquí
+      scene.add(model);
+    });
+  }
+  
+  componentDidMount() {
+    this.init();
+    this.animate();
+    this.canvasRef.current.addEventListener("click", this.onCanvasClick);
+    this.canvasRef.current.addEventListener("wheel", this.onMouseWheel);
+  
+    // Forma de añadir: UBICACIÓN ARCHIVO - UBICACIÓN EN ESCENA - TAMAÑO - ROTACIÓN
+    this.loadModel('/models/poly.gltf', new THREE.Vector3(0, 7.5, 0), new THREE.Vector3(10, 10, 10), new THREE.Vector3(0, 0, 0));
+    this.loadModel('/models/ortDesk.gltf', new THREE.Vector3(-15, 0, 8), new THREE.Vector3(2, 2, 2), new THREE.Vector3(0, Math.PI / 2, 0));
 
-    loader.load('/models/poly.gltf',
-      function (gltf) {
-        const model = gltf.scene;
 
-
-        model.scale.set(10, 10, 10);
-        model.position.set(0, 7.5, 0);
-
-
-        console.log(gltf)
-        scene.add(gltf.scene);
-
-        // gltf.animations; // Array<THREE.AnimationClip>
-        // gltf.scene = loader; // THREE.Group
-        // gltf.scenes; // Array<THREE.Group>
-        // gltf.cameras; // Array<THREE.Camera>
-        // gltf.asset; // Object
-
-      },
-      // called while loading is progressing
-      function (xhr) {
-
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-
-      },
-      // called when loading has errors
-      function (error) {
-
-        console.log(error);
-
-      }
-    );
+    // Instanciar popups
+    // this.createPopup(X, Y, Z, "TEXTO");
+    this.createPopup(-14, 3.75, 7, "Popup 1");
+    this.createPopup(15, 5, 3, "Popup 2");
+    this.createPopup(0, 0, -2, "Popup 3");
+  }
+  
+  componentWillUnmount() {
+    this.canvasRef.current.removeEventListener("click", this.onCanvasClick);
   }
 
   // Hacer zoom
@@ -115,7 +105,7 @@ class App extends Component {
     event.preventDefault();
     // Límite del zoom (Cuanto zoom se puede hacer en la escena)
     const minZoom = 0.75;
-    const maxZoom = 20;
+    const maxZoom = 2;
 
     const delta = event.deltaY * 0.001;
 
@@ -133,9 +123,6 @@ class App extends Component {
 
 
 
-  componentWillUnmount() {
-    this.canvasRef.current.removeEventListener("click", this.onCanvasClick);
-  }
 
   // Mover la vista de la cámra hacia el centro al cerrar el popup
   moveToCenter() {
@@ -160,14 +147,14 @@ class App extends Component {
 
     // Screen renderer    
     renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.current });
-    // renderer.setSize(854, 480);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    window.addEventListener("resize", function () {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(window.devicePixelRatio)
-    });
+     renderer.setSize(1000, 500);
+    //renderer.setSize(window.innerWidth, window.innerHeight);
+    // window.addEventListener("resize", function () {
+    //   camera.aspect = window.innerWidth / window.innerHeight;
+    //   camera.updateProjectionMatrix();
+    //   renderer.setSize(window.innerWidth, window.innerHeight);
+    //   renderer.setPixelRatio(window.devicePixelRatio)
+    // });
 
     // Añadir Grid
     var grid = new THREE.GridHelper(100, 50);
@@ -180,18 +167,25 @@ class App extends Component {
 
 
     // Crear y agregar cubos adicionales con diferentes posiciones
-    this.cube1 = this.createCube(4.5, 0.5, 7.5);
+    this.cube1 = this.createInteractiveTorus(4.5, 0.5, 7.5);
     this.cube1.name = "teleport";
     scene.add(this.cube1);
-    const cube2 = this.createCube(5, 0.5, 2);
-    cube2.name = "teleport";
-    scene.add(cube2);
-    const cube3 = this.createCube(10, 0.5, -2);
-    cube3.name = "teleport";
-    scene.add(cube3);
-    const cube4 = this.createCube(0, 0.5, 4);
-    cube4.name = "teleport";
-    scene.add(cube4);
+
+    this.cube2 = this.createInteractiveTorus(5, 0.5, 2);
+    this.cube2.name = "teleport";
+    scene.add(this.cube2);
+    
+    this.cube3 = this.createInteractiveTorus(10, 0.5, -2);
+    this.cube3.name = "teleport";
+    scene.add(this.cube3);
+
+    this.cube4 = this.createInteractiveTorus(0, 0.5, 4);
+    this.cube4.name = "teleport";
+    scene.add(this.cube4);
+
+    this.cube5 = this.createInteractiveTorus(-11, 0, 5);
+    this.cube5.name = "teleport";
+    scene.add(this.cube5);
 
     // Mover la cámara hacia el objeto presionado
     isDragging = false;
@@ -219,6 +213,7 @@ document.addEventListener("mousemove", function (event) {
   };
 
   // Ajustar la rotación de la cámara basada en el movimiento del mouse
+  camera.rotation.order = "YXZ";
   const sensitivity = 0.002;
   camera.rotation.y += deltaMove.x * sensitivity;
   camera.rotation.x += deltaMove.y * sensitivity;
@@ -243,35 +238,37 @@ document.addEventListener("mousemove", function (event) {
     scene.add(wall);
     wall.position.z = -5;
     wall.position.y = 2.5;
-
-
-
-    // Añadir la geometría del popup
-    var geometrypopup = new THREE.BoxGeometry(1, 1, 1);
-    var materialpopup = new THREE.MeshPhongMaterial({ wireframe: true, emissive: 0xffffff });
-    popup = new THREE.Mesh(geometrypopup, materialpopup);
-    popup.castShadow = false;
+  }
+  
+  // Añadir los popups
+  createPopup(x, y, z, content) {
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshPhongMaterial({ color: 0xff0000, wireframe: true });
+    popup = new THREE.Mesh(geometry, material);
+    popup.position.set(x, y, z);
     scene.add(popup);
-    popup.position.y = 5;
-    popup.position.x = 12;
-    popup.position.z = 5.5;
-
+    popups.push({ mesh: popup, content });
   }
 
 
-  createCube(x, y, z) {
-    const geometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0xfffff,
-      wireframe: false,
-      emissive: 0xffffff,
-      shininess: 100,
-    });
-    const cube = new THREE.Mesh(geometry, material);
-    cube.rotation.x = Math.PI / 2;
-    cube.position.set(x, y, z);
-    return cube;
-  }
+createInteractiveTorus(x, y, z) {
+  const torusGeometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
+  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff, shininess: 100, });
+  const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+  torus.rotation.x = Math.PI / 2;
+
+  // Collider encima de la geometría del TP para poder tener un mayor radio para clickear y teletransportarse
+  const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+  const boxMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
+  const interactiveMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+
+  const interactiveTorus = new THREE.Group();
+  interactiveTorus.add(torus);
+  interactiveTorus.add(interactiveMesh);
+
+  interactiveTorus.position.set(x, y, z);
+  return interactiveTorus;
+}
 
   animate() {
     if (!this.state.isPopupVisible) {
@@ -289,20 +286,28 @@ document.addEventListener("mousemove", function (event) {
   // Detectar si se clickeó el canvas para mostrar el popup con la información de una obra
   onCanvasClick(event) {
     const rect = this.canvasRef.current.getBoundingClientRect();
-    const mouse = {
-      x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
-      y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
-    };
-  
-    const raycaster = new THREE.Raycaster();
-    raycaster.setFromCamera(mouse, camera);
-  
-    const intersects = raycaster.intersectObject(popup);
-  
-    if (intersects.length > 0) {
-      this.showPopup();
-    } else {
-      const objectsWithTeleportID = [];
+  const mouse = {
+    x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
+    y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
+  };
+
+  const raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(mouse, camera);
+
+  // Verificar si el rayo intersecta con algún popup
+  const intersects = raycaster.intersectObjects(popups.map((popup) => popup.mesh));
+
+  if (intersects.length > 0) {
+    // Hiciste clic en un popup, muestra el contenido del popup
+    const popup = popups.find((p) => p.mesh === intersects[0].object);
+    if (popup) {
+      this.showPopup(popup.content);
+    }
+  } else {
+    // Hiciste clic en otro lugar de la escena, cierra el popup si está abierto
+    if (this.state.isPopupVisible) {
+      this.closePopup();
+    }
   
       // Recorre todos los objetos en la escena y encuentra los que tienen el ID "teleport"
       scene.traverse((obj) => {
@@ -363,6 +368,7 @@ document.addEventListener("mousemove", function (event) {
     camera.lookAt(position);
   }
 
+  
 
   // Mostrar el popup
   showPopup() {
@@ -409,74 +415,66 @@ document.addEventListener("mousemove", function (event) {
 
   render() {
     return (
-      <div id="container-all-popup">
-        <div id="darkOverlay" className={this.state.isTeleporting ? 'dark-overlay active' : 'dark-overlay'}></div>
+//       <div>
+//         <div id="darkOverlay" className={this.state.isTeleporting ? 'dark-overlay active' : 'dark-overlay'}></div>
 
-        <canvas ref={this.canvasRef} className="App">
-        <button className="btnCloseMenu" onClick={this.openMenu}><i class="fa-solid fa-question"></i></button>
-        {this.state.isMenuVisible && (
-  <div className="AppMenu" ref={this.menuRef}>
-    <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closeMenu}></i>
-    <h1>Menu de pisos</h1>
-    <ol>
-      <li>
-        <a href="#" class="custom-text-1"> ... </a>
-        <p class="classText">Texto</p>
-      </li>
-      <li>
-        <a href="#" class="custom-text-2" id="linkTP" onClick={this.onLinkClick}>Teletransportarse</a>
-        <p class="classText">Texto</p>
-      </li>
-      <li>
-        <a href="#" class="custom-text-3"> ... </a>
-        <p class="classText">Texto</p>
-      </li>
-    </ol>
-  </div>
-)}
-
-
-        <div id="popup" className="popup" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
-          <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closePopup}></i> {/* Cerrar video mediante la referencia "this.closePopup" */}
-
+//         <canvas ref={this.canvasRef} className="App" />
+//     <canvas ref={this.canvasRef} className="App" />
+//       {this.state.isCloseMenuButtonVisible && (
+//         <button className="btnCloseMenu" onClick={this.openMenu}><i className="fa-solid fa-question"></i></button>
+//       )}
+//       {this.state.isMenuVisible && (
+//         <div className="AppMenu" ref={this.menuRef}>
+//     <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closeMenu}></i>
+//     <h1>Menu de pisos</h1>
+//     <ol>
+//       <li>
+//         <a href="#" class="custom-text-1"> ... </a>
+//         <p class="classText">Texto</p>
+//       </li>
+//       <li>
+//         <a href="#" class="custom-text-2" id="linkTP" onClick={this.onLinkClick}>Teletransportarse</a>
+//         <p class="classText">Texto</p>
+//       </li>
+//       <li>
+//         <a href="#" class="custom-text-3"> ... </a>
+//         <p class="classText">Texto</p>
+//       </li>
+//     </ol>
+//   </div>
+// )}
 
 
-          <h1 id="UItitle">Title</h1>
-          {/* <video controls src="Humpty Dumpty _ Kids Songs _ Super Simple Songs.mp4" id="videoDiv"></video> */}
-          <div id="container-popup">
-          <video controls src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="videoDiv"></video>
+//         <div id="popup" className="popup" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
+//           <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closePopup}></i> {/* Cerrar video mediante la referencia "this.closePopup" */}
 
-          <p id="UItext">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-            quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-            Distinctio, labore.
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-            quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-            Distinctio, labore.
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-            quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-            Distinctio, labore.
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-            quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-            Distinctio, labore.
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-            quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-            Distinctio, labore.
-          </p>
+
+
+//           <h1 id="UItitle">Title</h1>
+//           {/* <video controls src="Humpty Dumpty _ Kids Songs _ Super Simple Songs.mp4" id="videoDiv"></video> */}
+//           <video controls src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="videoDiv"></video>
+
+//           <p id="UItext">
+//             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
+//             quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
+//             Distinctio, labore.
+//             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
+//             quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
+//             Distinctio, labore.
+            
+//           </p>
+//         </div>
+
+
+//       </div>
+
+          <div className="w-full h-full flex justify-center items-center">
+            <div id="darkOverlay" className={this.state.isTeleporting ? 'w-full h-full flex items-center justify-center bg-black pointer-events-auto cursor-grabbing' : 'w-full h-full flex items-center justify-center bg-transparent pointer-events-none'}>
+              <canvas ref={this.canvasRef} className="" />
+            </div>    
           </div>
-          {/* </div> */}
-
-          {/* <audio controls src="#"></audio> */}
-
-          {/* <p className="creditosProyecto">Text</p> */}
-
-        </div>
-          
-        </canvas>
-
-      </div>
     );
   }
 }
 
-export default App;
+export default Scene;

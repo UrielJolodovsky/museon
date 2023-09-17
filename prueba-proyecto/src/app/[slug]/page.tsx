@@ -105,48 +105,70 @@ export default function Museo() {
     return (
         <>
             {isUrl === true ? (
-                <section className="w-full h-screen flex justify-center items-center flex-col">
-                    <div className='w-full h-full flex justify-center items-center flex-col gap-5'>
-                        <div className='w-full h-full flex justify-center items-center flex-col'>
-                            <h1 className='text-4xl font-bold text-center'>Museos</h1>
-                            <div className='w-full h-1/5 flex justify-center items-center'>
-                                {CompIcon.map(({ id, icon }) => {
-                                    return (
-                                        <Image
-                                            key={id}
-                                            src={icon}
-                                            alt='icon'
-                                            className='w-[30px] h-[30px]'
-                                        >
-                                        </Image>
-                                    )
-                                })}
-                            </div>
+                // <section className="w-full h-screen flex justify-center items-center flex-col">
+                //     <div className='w-full h-full flex flex-col gap-10'>
+                //         <div className='order-1 w-full h-1/6 flex justify-center items-center flex-col'>
+                //             <h1 className='text-4xl font-bold text-center'>Museos</h1>
+                //             <div className='w-full h-1/5 flex justify-center items-center'>
+                //                 {CompIcon.map(({ id, icon }) => {
+                //                     return (
+                //                         <Image
+                //                             key={id}
+                //                             src={icon}
+                //                             alt='icon'
+                //                             className='w-[30px] h-[30px]'
+                //                         >
+                //                         </Image>
+                //                     )
+                //                 })}
+                //             </div>
+                //         </div>
+                //         <div className=' order-2 w-4/5 h-5/6 flex  flex-col gap-5'>
+                //             <div className='order-1 w-2/3 h-[400px] flex justify-center items-center'>
+                //                 <Scene />
+                //             </div>
+                //             <div className='order-2 w-full h-1/2 flex justify-center items-center flex-col'>
+                //                 <h1>{messages.length} Comentarios</h1>
+                //                 <div className='w-full h-full flex flex-col gap-5'>
+                //                     <form className='flex flex-row gap-2'>
+                //                         <input value={message} className="w-full border-b-2 focus:border-none " type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
+                //                         <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
+                //                     </form>
+                //                     <div className='w-full h-full flex justify-center items-center flex-col gap-4 '>
+                //                         {Array.isArray(messages) ? messages.map((museo, index) =>
+                //                             <div className='bg-dashBack w-full h-auto flex justify-start items-center flex-row gap-10 p-10' key={index}>
+                //                                 <h2 className='text-center font-bold text-black'>Name: {museo["author"]["name"]}</h2>
+                //                                 <div className=''>
+                //                                     <h1 className='text-center text-black'>Contenido del mensaje: {museo["content"]}</h1>
+                //                                 </div>
+                //                             </div>
+                //                         ) : ""}
+                //                     </div>
+                //                 </div>
+                //             </div>
+                //         </div>
+                //     </div>
+                // </section>
+                <section className='w-full h-[1200px] flex flex-col gap-10'>
+                    <div className='w-full h-1/2 flex flex-col gap-6'>
+                        <div className='h-1/6 flex justify-center items-center'>
+                            <h1 className=' text-4xl font-bold text-center'>Museos</h1>
                         </div>
-                        <Scene />
-                        <div className='w-[800px] h-4/5 flex justify-center items-center flex-col gap-5'>
-                            <div className='w-full h-1/3 flex justify-center items-start flex-col'>
-                                <h1>{messages.length} Comentarios</h1>
-                                <div className='w-full h-full flex flex-col gap-5'>
-                                    <form className='flex flex-row gap-2'>
-                                        <input value={message} className="w-full border-b-2 focus:border-none" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
-                                        <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
-                                    </form>
-                                    <div className='w-full h-full flex flex-col gap-4 '>
-                                        {Array.isArray(messages) ? messages.map((museo, index) =>
-                                            <div className='bg-dashBack w-full h-auto flex justify-start items-center flex-row gap-10 p-10' key={index}>
-                                                <h2 className='text-center font-bold text-black'>Name: {museo["author"]["name"]}</h2>
-                                                <div className=''>
-                                                    <h1 className='text-center text-black'>Contenido del mensaje: {museo["content"]}</h1>
-                                                </div>
-                                            </div>
-                                        ) : ""}
-                                    </div>
-                                </div>
-                            </div>
+                        <div className='w-full h-[500px] flex justify-center items-center'>
+                            <Scene />
                         </div>
                     </div>
-                </section>) : ''}
+                    <div className='flex justify-center items-center flex-col h-1/3'>
+                        <h1 className='h-1/6 text-black font-medium '>{messages.length} Comentarios</h1>
+                        <div className=' w-[1000px] h-5/6'>
+                            <form className='flex w-full flex-row gap-5'>
+                                <input value={message} className="w-11/12 border-b-2 focus:border-0" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
+                                <button type='submit' className="bg-dashHover w-1/12 h-12 rounded-lg font-bold" onClick={addMessage}>Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            ) : ''}
 
         </>
     )

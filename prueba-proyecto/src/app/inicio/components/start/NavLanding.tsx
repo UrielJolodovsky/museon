@@ -51,7 +51,7 @@ const NavLanding = () => {
   }
 
   return (
-    <header className='w-full h-[60px] overflow-hidden flex justify-center relative header-layout '>
+    <header className='w-full h-[80px] overflow-hidden flex justify-center relative header-layout '>
       <nav className=' w-full h-[80px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
         <ul className='w-full h-full flex flex-row items-center justify-evenly nav-ul '>
           <div>
