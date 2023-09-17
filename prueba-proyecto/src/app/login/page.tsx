@@ -2,7 +2,7 @@
 
 import InputVariants from '@/app/login/components/InputVariants'
 import axios from 'axios';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { ChangeEvent, MouseEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import GoogleButton from './components/GoogleButton';
@@ -16,6 +16,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [Loggeado, setLoggeado] = useState(false)
   const [variant, setVariant] = useState('register')
+  const { data: sessionData } = useSession()
 
   const handleClick = () => {
     if (variant === 'register') {
@@ -83,7 +84,10 @@ export default function Login() {
 
   return (
     <>
-      <div className='w-full h-screen bg-dashBack flex flex-row md:flex-col gap-8 overflow-hidden justify-center items-center login-container'>
+    {sessionData?.user.name ? 
+    (router.push(`${dir_url}`)) 
+    : 
+    (<div className='w-full h-screen bg-dashBack flex flex-row md:flex-col gap-8 overflow-hidden justify-center items-center login-container'>
         <div className="w-1/3 rounded-lg self-center py-10 bg-black shadow-2xl flex flex-col gap-4 login-div">
           <h2 className="text-white h-1/5 text-4xl font-bold flex justify-start px-12">
             {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
@@ -136,6 +140,7 @@ export default function Login() {
           <div className='h-[250px] w-[624px] login-video border-2 rounded-xl'></div>
         </div>
       </div >
+      )}
     </>
   )
 }
