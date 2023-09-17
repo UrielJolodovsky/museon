@@ -21,6 +21,7 @@ export interface EventsProps {
     }
     id: string
     content: string
+    description: string
     fecha: string
 }
 

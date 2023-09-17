@@ -43,8 +43,7 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     try {
       await axios.post(`${dir_url}/api/eventos/add`, {
         content: content
-        //Hay que agregar el campo de fecha
-        // fecha: fecha
+        //description: description
       }).then((res) => {
         console.log(res.data)
         setEvents(res.data)
