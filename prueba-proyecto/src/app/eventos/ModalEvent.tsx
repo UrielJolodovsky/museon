@@ -16,6 +16,7 @@ type ModalProps = {
 
 const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [content, setContent] = useState('')
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [events, setEvents] = useState<EventsProps[]>([])
   const [tipo_usuario, setTipo_usuario] = useState("")
@@ -43,6 +44,7 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     try {
       await axios.post(`${dir_url}/api/eventos/add`, {
         content: content
+
         //Hay que agregar el campo de fecha
         // fecha: fecha
       }).then((res) => {

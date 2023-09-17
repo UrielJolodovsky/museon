@@ -21,7 +21,7 @@ export interface EventsProps {
     }
     id: string
     content: string
-    fecha: string
+    createdAt: string
 }
 
 export interface PortfolioProps {
