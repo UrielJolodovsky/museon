@@ -7,7 +7,6 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
     const { parametros } = await req.json()
-    const nombre = parametros.replace( '-', ' ')
 
     //console.log(parametros)
     // const session = await getServerSession(authOptions)
@@ -20,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const getmessages = await db.comments.findMany({
         where: {
             museos: {
-                name: nombre
+                subname: parametros
             }
             },
             select: {
