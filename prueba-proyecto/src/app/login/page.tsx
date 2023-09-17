@@ -49,6 +49,7 @@ export default function Login() {
             router.push('/')
             setName('')
             setPassword('')
+            setEmail('')
           }
         }).finally(() => {
           if (Loggeado) {

@@ -12,13 +12,14 @@ export interface CommentsProps {
     createdAt: string
 }
 
-export interface EventsProps{
+export interface EventsProps {
     author: {
         name: string
         image: string
     }
     id: string
     content: string
+    fecha: string
 }
 
 export interface PortfolioProps {

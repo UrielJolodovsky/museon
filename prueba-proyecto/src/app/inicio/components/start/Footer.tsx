@@ -4,8 +4,8 @@ import Insta from '@/../../public/assets/FooterIcon/insta.png'
 import Twitter from '@/../../public/assets/FooterIcon/twitter.png'
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
-import { StateContext } from '@/context/StateContext'
 import { link } from 'fs'
+import { useRouter } from 'next/navigation'
 
 type Icon = {
   id: number;
@@ -14,7 +14,8 @@ type Icon = {
 }
 
 const Footer = () => {
-  const { setSelectedMenu } = useContext(StateContext)
+  const router = useRouter()
+
   const dataIcon = [
     {
       id: 1,
@@ -80,7 +81,7 @@ const Footer = () => {
             <ul className='flex justify-center items-center w-full' key={id}>
               <li className='flex justify-center items-center w-full '>
                 <button className='text-2xl xl:text-xl font-normal text-footerTitle hover:underline transition'
-                  onClick={() => setSelectedMenu(title)}
+                  onClick={() => router.push(`/${title}`)}
                 >
                   {title}
                 </button>

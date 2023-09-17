@@ -30,6 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             data: {
                 content: content,
                 authorId: session?.user.id!,
+                // fecha: new Date()
             },
         })
         return new NextResponse(evento["id"], { status: 200 })
