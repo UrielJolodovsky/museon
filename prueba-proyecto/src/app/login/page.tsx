@@ -136,7 +136,7 @@ export default function Login() {
         (router.push(`${dir_url}`))
         :
         (<div className='w-full h-screen bg-dashBack flex flex-row md:flex-col gap-8 overflow-hidden justify-center items-center login-container'>
-          <div className="w-1/3 rounded-lg self-center py-10 bg-black shadow-2xl flex flex-col gap-4 login-div">
+          <div className="w-1/4 rounded-lg self-center py-10 bg-black shadow-2xl flex flex-col gap-4 login-div">
             <h2 className="text-white h-1/5 text-4xl font-bold flex justify-start px-12">
               {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
             </h2>
@@ -184,9 +184,9 @@ export default function Login() {
             </div>
           </div>
           <div className='w-1/3 h-screen flex justify-center items-center login-video-div'>
-            <div className='h-[246px] w-[610px] border-2 rounded-2xl'>
+            <div className='h-[246px] w-[610px] rounded-2xl'>
               <video
-                className='h-full w-full rounded-xl border-0'
+                className='h-full w-[610px] rounded-xl border-0'
                 src="https://res.cloudinary.com/dxt2lvdt3/video/upload/v1691413761/videolanding.mp4"
                 autoPlay // Esto inicia la reproducción automáticamente
                 muted   // Esto desactiva el sonido del video
