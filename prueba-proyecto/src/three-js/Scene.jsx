@@ -473,8 +473,6 @@ createInteractiveTorus(x, y, z) {
             )}
             {this.state.isMenuVisible && (
             <div className="w-[300px] h-[500px] scroll-smooth" ref={this.menuRef}>
-            <button className="w-12 h-12" onClick={this.closeMenu}>Close</button>
-            <h1>Menu de pisos</h1>
             <div className="w-[250px] h-[300px] absolute top-1/2 bg-white appMenu opacity-75">
                 <div className="w-full h-full flex items-center justify-center flex-col gap-5">
                   <li className="list-none w-full h-14 text-black hover:scale-95 transition flex justify-center items-center">
