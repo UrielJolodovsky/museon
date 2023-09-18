@@ -1,5 +1,5 @@
 "use client";
-import FirstLanding from "@/app/Inicio/page";
+import FirstLanding from "@/app/inicio/page";
 import Loader from "@/load/Loader";
 import { statusAuth } from "@/load/status";
 import { useSession } from "next-auth/react";
