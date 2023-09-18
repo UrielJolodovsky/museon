@@ -438,7 +438,7 @@ createInteractiveTorus(x, y, z) {
             )}
             
             
-            <div id="popup" className="popup flex justify-center items-center flex-col bg-opacity-5" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
+            <div id="popup" className="popup flex justify-center items-center flex-col bg-opacity-5 gap-5" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
 
 
             
