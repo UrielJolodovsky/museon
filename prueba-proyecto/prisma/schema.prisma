@@ -73,7 +73,8 @@ model Comments {
 model Museos{
   id String @id @default(cuid())
   name String
-  image String?
+  subimage String? @default(cuid())
+  subname String?
   categoria String?
   type String?
   role Role?
@@ -83,6 +84,7 @@ model Museos{
 model Eventos{
   id String @id @default(cuid())
   content String
+  description String?
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
   authorId String
@@ -101,6 +103,7 @@ model InfoObras {
   name String
   description String
   image String @default(cuid())
+  video String?
 }
 
 enum Role {

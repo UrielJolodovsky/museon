@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { compare } from 'bcrypt';
 import NextAuth, { Session, AuthOptions, NextAuthOptions, DefaultSession, DefaultUser, User } from 'next-auth';
-import CredentialsProvider  from 'next-auth/providers/credentials';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { db } from '../../../../lib/db'
@@ -13,10 +13,10 @@ declare module "next-auth" {
             id: string;
             tipo_usuario: string;
             // ...other properties
-        // role: UserRole;
+            // role: UserRole;
         } & DefaultSession["user"];
     }
-  }
+}
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(db),
@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
             name: 'credentials',
             credentials: {
                 email: { label: "Email", type: "text" },
-                password: {  label: "Password", type: "password" },
+                password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
 
                 const user = await db.user.findUnique({
                     where: {
-                        email: credentials.email,  
+                        email: credentials.email,
                     }
                 });
 
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 return user;
-   }
+            }
         })
     ],
     // debug: process.env.NODE_ENV === 'development',
@@ -69,25 +69,25 @@ export const authOptions: NextAuthOptions = {
     },
     callbacks: {
         session({ session, token }) {
-          // console.log('tokenUsername', token.username);
-          console.log("Session", session);
-          console.log(session.user?.id);
-          //chech if the user is authenticated and if the token is not null
-          if (token) {
-            session.user.id = token.id as string;
-            // session.user.tipo_usuario = token.tipo_usuario as string; 
-          }
-          return session;
+            // console.log('tokenUsername', token.username);
+            console.log("Session", session);
+            console.log(session.user?.id);
+            //chech if the user is authenticated and if the token is not null
+            if (token) {
+                session.user.id = token.id as string;
+                // session.user.tipo_usuario = token.tipo_usuario as string; 
+            }
+            return session;
         },
-    jwt({ token, user }) {
-        if (user) {
-            token.id = user.id;
-            //token.tipo_usuario = user.tipo_usuario;
-        }
-        console.log('token', token);
-        return token;
+        jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                //token.tipo_usuario = user.tipo_usuario;
+            }
+            console.log('token', token);
+            return token;
+        },
     },
-},
     secret: process.env.NEXTAUTH_SECRET,
 }
 

@@ -7,16 +7,19 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
     const { parametros } = await req.json()
-    //console.log(parametros)
+
     // const session = await getServerSession(authOptions)
     // console.log(session?.user)
     // const session = await getServerSession()
     // if (session?.user.id === undefined) {
     //     return new NextResponse("You are not logged in", {status: 401})
     // }
+    
     const getmessages = await db.comments.findMany({
         where: {
-            museumId: parametros
+            museos: {
+                subname: parametros
+            }
             },
             select: {
                 author: {

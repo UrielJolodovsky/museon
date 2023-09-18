@@ -7,6 +7,160 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
+.piramid-image {
+  width: 400px;
+  height: 300px;
+}
+
+.part-texts {
+  margin-right: 30px;
+}
+
+@media screen and (max-width: 924px) {
+  .login-container {
+    width: 100%;
+    height: 900px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-div {
+    width: 90%;
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .login-video-div {
+    width: 90%;
+    height: 100%;
+    order: 1;
+  }
+
+  .login-video {
+    height: 200px;
+
+  }
+
+}
+
+@media screen and (max-width: 1464px) {
+  .navbar {
+    height: 80px;
+  }
+
+  .navElements {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 1064px) {
+  .navbar {
+    height: 60px;
+  }
+
+  .info-image-cont {
+    width: 300px;
+    height: 250px;
+    margin: 0;
+  }
+
+  .container-participants {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .part-texts {
+    order: 2;
+    width: 70%;
+
+  }
+
+  .part-texts h4 {
+    width: 100%;
+
+  }
+
+  .cont-pres-image {
+    margin: 0;
+  }
+
+  .cont-buttons-pres {
+    margin-right: 16px;
+  }
+
+  .navElements {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 864px) {
+  .navbar {
+    height: 60px;
+  }
+
+  .navElements {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 554px) {
+
+
+
+  .container-pres {
+    width: 100%;
+    height: 400px;
+    margin: 0;
+  }
+
+  .cont-pres-image {
+    width: 100%;
+    height: 50%;
+    margin: 0;
+  }
+
+  .pres-image {
+    width: 250px;
+    height: 250px;
+  }
+
+  .container-pres h1 {
+    font-size: 26px;
+  }
+
+  .container-pres h3 {
+    width: 80%;
+    font-size: 16px;
+  }
+
+  .cont-buttons-pres {
+    gap: 10px;
+    margin: 0;
+  }
+
+  .cont-buttons-pres button {
+    width: 150px;
+    height: 50px;
+  }
+
+  .cont-buttons-pres button h1 {
+    font-size: 15px;
+  }
+
+  .navElements {
+    font-size: 10px;
+  }
+}

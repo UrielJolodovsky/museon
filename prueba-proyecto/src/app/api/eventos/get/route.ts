@@ -8,7 +8,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const getEventos = await db.eventos.findMany({
             select: {
                 id: true,
+                createdAt: true,
                 content: true,
+                description: true,
                 author: {
                     select: {
                         name: true,

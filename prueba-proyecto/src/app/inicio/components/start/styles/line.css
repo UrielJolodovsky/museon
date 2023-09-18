@@ -1,0 +1,23 @@
+.line {
+    width: 0%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5rem;
+    transition: 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 554px) {
+    .line {
+        height: 2px;
+    }
+}
+
+.link {
+    text-decoration: none;
+    transition: 0.3s all ease;
+}
+
+.link:hover+.line {
+    width: 100%;
+    transition: 0.3s all ease;
+}

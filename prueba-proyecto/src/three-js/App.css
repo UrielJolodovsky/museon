@@ -1,0 +1,174 @@
+.App:hover {
+  cursor: grabbing;
+}
+
+.App:not(:hover) {
+  cursor: default;
+}
+
+.App {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+}
+
+#popup {
+  position: absolute;
+  margin-top: 50vh;
+  margin-left: 30%;
+  padding: 25px;
+  padding-bottom: 250px;
+  background: rgb(235, 235, 235, 0.9);
+  border-radius: 10px;
+  max-width: 60%;
+  width: 40%;
+  height: 375px;
+}
+
+#containerUI {
+  overflow-y: scroll;
+}
+
+#UItitle {
+  text-align: center;
+  margin-top: 0.75em;
+}
+
+#UItext {
+  font-family: Arial;
+  font-weight: 500;
+  font-size: 1em;
+  padding: 5px;
+  text-align: justify;
+}
+
+#eyeClose {
+  color: #000000;
+  font-size: 24px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+
+#eyeClose:hover {
+  cursor: pointer;
+}
+
+#popup>#UItext {
+  display: inline-block;
+  position: absolute;
+  padding-left: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+::selection {
+  background: rgb(223, 213, 172);
+}
+
+
+
+#creditosProyecto>p {
+  display: inline-block;
+  position: relative;
+  border: 2px solid black;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-bottom: 30px;
+}
+
+.appMenu {
+  border-radius: 10px;
+  z-index: 1;
+  left: 3%;
+  position: absolute;
+  overflow: auto;
+  background-color: #838383;
+}
+
+.AppMenu>h1 {
+  margin-left: 5%;
+}
+
+.AppMenu>ol {
+
+  font-size: 36px;
+}
+
+.AppMenu>ol>li {
+  margin-bottom: 15px;
+}
+
+.AppMenu>ol>li>a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  display: block;
+  transition: color 0.3s;
+}
+
+.AppMenu>ol>li>a:hover {
+  text-decoration: double;
+  color: rgb(180, 180, 180);
+}
+
+ol {
+  list-style-type: none;
+}
+
+.custom-text-1::before {
+  content: "Piso 1";
+  display: block;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.custom-text-2::before {
+  content: "Piso 2";
+  display: block;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.custom-text-3::before {
+  content: "Piso 3";
+  display: block;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+
+.classText {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btnCloseMenu {
+  position: absolute;
+  top: 20%;
+  left: 1.5%;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 24px;
+  color: #838383;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnCloseMenu:hover {
+  background-color: #c2c2c2;
+}
+
+
+.dark-overlay {
+  width: 100%;
+  height: 400px;
+  pointer-events: none;
+  transition: background-color 0.5s;
+}
+
+.dark-overlay.active {
+  width: 100%;
+  height: 400px;
+  pointer-events: auto;
+}

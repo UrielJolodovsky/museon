@@ -7,7 +7,7 @@ import { FcGoogle } from 'react-icons/fc'
 const GoogleButton = () => {
   async function LogInGoogle() {
     try {
-      await signIn("google", { callbackUrl: '/dashboard' }).then((res) => {
+      await signIn("google", { callbackUrl: '/' }).then((res) => {
         console.log(res)
       }).catch((err) => toast.error(err))
     } catch (error) {
@@ -15,8 +15,8 @@ const GoogleButton = () => {
     }
   }
   return (
-    <button onClick={LogInGoogle} className='font-semibold w-[180px] h-[50px] rounded-xl text-lg flex flex-row justify-center items-center gap-2 border-red border-2 p-5'>
-      <FcGoogle />Google
+    <button onClick={LogInGoogle} className='font-medium text-red w-[180px] h-[50px] rounded-xl text-lg flex flex-row justify-start items-center gap-5 border-red border-2 p-5'>
+      <FcGoogle className='text-2xl' />Google
     </button>
   )
 }

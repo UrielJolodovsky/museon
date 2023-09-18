@@ -1,10 +1,18 @@
-import FirstLanding from '@/components/FirstLanding'
-import Landing from '@/components/start/NavLanding'
+"use client";
+import FirstLanding from "@/app/Inicio/page";
+import Loader from "@/load/Loader";
+import { statusAuth } from "@/load/status";
+import { useSession } from "next-auth/react";
+import React from "react";
 
-export default function Home() {
+
+export default function Home({ }) {
+  const { status } = useSession()
+  const { LOADING } = statusAuth
+
   return (
     <>
-    <FirstLanding/>
+      {status === LOADING ? (<Loader />) : (<FirstLanding />)}
     </>
   )
 }

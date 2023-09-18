@@ -1,27 +1,78 @@
 'use client';
 
-import InputVariants from '@/components/InputVariants'
+import InputVariants from '@/app/login/components/InputVariants'
 import axios from 'axios';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { ChangeEvent, MouseEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import GoogleButton from './components/GoogleButton';
 import toast from 'react-hot-toast';
 import dir_url from '@/lib/url';
+import '@/app/globals.css'
 
 export default function Login() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [Loggeado, setLoggeado] = useState(false)
-  const [variant, setVariant] = useState('register')
+  const [variant, setVariant] = useState('login')
+  const { data: sessionData } = useSession()
 
   const handleClick = () => {
-    if (variant === 'login') {
-      setVariant('register')
-    } else {
+    setEmail('')
+    setPassword('')
+    setName('')
+    if (variant === 'register') {
       setVariant('login')
     }
+    else if (variant === 'login') {
+      setVariant('register')
+    }
+  }
+
+  const toastRegister = () => {
+    toast('Usuario creado correctamente, verifícate en tu mail!', {
+      icon: "✔️",
+      style: {
+        background: 'white', // Cambia el color de fondo
+        color: 'black',
+        fontWeight: '600',
+        padding: '10px'// Cambia el color del texto
+      },
+      duration: 2000, // Establece la duración en milisegundos
+      position: 'bottom-right', // Cambia la posición de la notificación
+      // Puedes agregar más opciones según tus necesidades
+    });
+  }
+
+  const toastLogin = () => {
+    toast('Bienvenido a MuseOn!', {
+      icon: "✔️",
+      style: {
+        background: 'white', // Cambia el color de fondo
+        color: 'black',
+        fontWeight: '600',
+        padding: '10px'// Cambia el color del texto
+      },
+      duration: 2000, // Establece la duración en milisegundos
+      position: 'bottom-right', // Cambia la posición de la notificación
+      // Puedes agregar más opciones según tus necesidades
+    });
+  }
+
+  const toastIncorrect = () => {
+    toast('Usuario o contraseña incorrectos', {
+      icon: "❌",
+      style: {
+        background: 'white', // Cambia el color de fondo
+        color: 'black',
+        fontWeight: '600',
+        padding: '10px'// Cambia el color del texto
+      },
+      duration: 2000, // Establece la duración en milisegundos
+      position: 'bottom-right', // Cambia la posición de la notificación
+      // Puedes agregar más opciones según tus necesidades
+    });
   }
 
   const router = useRouter()
@@ -36,12 +87,18 @@ export default function Login() {
           redirect: false,
         }).then((callback) => {
           if (callback?.error) {
-            toast.error(callback.error)
+            toastIncorrect()
+            if (callback.error === 'Wrong password') {
+              setPassword('')
+            }
           }
           if (callback?.ok && !callback?.error) {
             setLoggeado(true)
-            toast.success('Bienvenido!')
-            router.push('/dashboard')
+            router.push('/')
+            toastLogin()
+            setName('')
+            setPassword('')
+            setEmail('')
           }
         }).finally(() => {
           if (Loggeado) {
@@ -60,7 +117,10 @@ export default function Login() {
           password: password
         }).then((res) => {
           console.log(res.data)
-          toast.success('Usuario creado con exito!')
+          toastRegister()
+          setEmail('')
+          setPassword('')
+          setName('')
         }).catch((err) => {
           toast.error(err.response.data)
         })
@@ -72,13 +132,23 @@ export default function Login() {
 
   return (
     <>
-      <div className='w-full h-screen bg-dashBack flex flex-row gap-4 overflow-hidden'>
-        <div className="w-1/2 h-screen flex justify-end items-center">
-          <div className="xl:w-[610px] lg:w-[410px] md:w-[410px] sm:w-[310px] xl:h-[510px] lg:h-[510px] md:h-[550px] sm:h-[400px] rounded-lg lg:2/5 lg:w-max-md self-center px-12 py-12 bg-white shadow-2xl flex flex-col gap-4">
-            <h2 className="text-black h-1/5 text-4xl font-bold flex justify-center">
+      {sessionData?.user.name ?
+        (router.push(`${dir_url}`))
+        :
+        (<div className='w-full h-screen bg-dashBack flex flex-row md:flex-col gap-8 overflow-hidden justify-center items-center login-container'>
+          <div className="w-1/4 rounded-lg self-center py-10 bg-black shadow-2xl flex flex-col gap-4 login-div">
+            <h2 className="text-white h-1/5 text-4xl font-bold flex justify-start px-12">
               {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
             </h2>
-            <form className="w-full h-4/5 flex flex-col gap-4 justify-start items-center">
+            <div className='w-full border-b-[1px] border-white flex flex-row'>
+              <p className='w-full text-white text-sm flex flex-row lg:flex-col gap-2 pl-12 pb-2'>
+                {variant === 'login' ? '¿No tienes cuenta?' : '¿Ya tienes una cuenta?'}
+                <span className='text-blue font-normal hover:underline cursor-pointer text-start' onClick={handleClick}>
+                  {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
+                </span>
+              </p>
+            </div>
+            <form className="w-full h-2/3 flex flex-col gap-4 justify-start items-start px-12">
               {variant === 'register' && (
                 <InputVariants
                   label='Username'
@@ -87,6 +157,7 @@ export default function Login() {
                   type='text'
                   value={name}
                 />
+
               )}
 
               <InputVariants
@@ -104,25 +175,26 @@ export default function Login() {
                 type='password'
                 value={password}
               />
-              <button type='submit' onClick={LogInCredentials} className='w-40 h-12 rounded-md bg-btnForm hover:bg-opacity-80 transition font-bold text-white'>
+              <button type='submit' onClick={LogInCredentials} className='w-full h-12 rounded-md bg-white hover:bg-opacity-80 transition font-bold text-black'>
                 {variant === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
               </button>
             </form>
             <div className='flex flex-col gap-4 justify-between items-center w-full'>
-              <p className='text-black flex flex-row gap-2'>
-                {variant === 'login' ? 'No te registraste?' : 'Ya tienes una cuenta?'}
-                <span className='text-black font-bold hover:underline cursor-pointer' onClick={handleClick}>
-                  {variant === 'login' ? 'Registrarse' : 'Inicia Sesión'}
-                </span>
-              </p>
               <GoogleButton />
             </div>
           </div>
-        </div>
-        <div className='w-1/2 h-screen flex justify-center items-center'>
-          <div className='xl:h-[510px] xl:w-[624px] lg:h-[510px] lg:w-[524px] md:w-[424px] md:h-[500px] sm:w-[300px] sm:h-[350px] border-2 rounded-xl'></div>
-        </div>
-      </div>
+          <div className='w-1/3 h-screen flex justify-center items-center login-video-div'>
+            <div className='h-[246px] w-[610px] rounded-2xl'>
+              <video
+                className='h-full w-[610px] rounded-xl border-0'
+                src="https://res.cloudinary.com/dxt2lvdt3/video/upload/v1691413761/videolanding.mp4"
+                autoPlay // Esto inicia la reproducción automáticamente
+                muted   // Esto desactiva el sonido del video
+                loop />
+            </div>
+          </div>
+        </div >
+        )}
     </>
   )
 }
