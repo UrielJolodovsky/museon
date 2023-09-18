@@ -438,14 +438,14 @@ createInteractiveTorus(x, y, z) {
             )}
             
             
-            <div id="popup" className="popup flex justify-center items-center flex-col bg-opacity-5" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
+            <div id="popup" className="popup flex justify-center items-center flex-col bg-opacity-5 gap-10" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
 
 
             
-            <h1 className="text-3xl font-semibold w-full text-center">Impacto Social</h1>
+            <h1 className="text-3xl font-semibold w-full text-center p-4">Impacto Social</h1>
             
             <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closePopup}></i>
-            <div className="flex w-full justify-center items-center flex-col gap-4">
+            <div className="flex w-full justify-center items-center flex-col gap-10">
               <div className="flex w-full justify-center items-center flex-row gap-4">
               <iframe
                 width="300"
@@ -460,8 +460,8 @@ createInteractiveTorus(x, y, z) {
   
               <p id="UItext">Cuadro en el pasillo de TIC sobre Impacto Social</p>
               </div>
-              <div className="w-12 h-12">
-                <button onClick={this.closePopup} className="w-full h-full">Cerrar</button>
+              <div className="w-full h-full flex justify-center items-center mb-15 pb-10 ">
+                <button onClick={this.closePopup} className="w-20 h-12 text-white bg-black rounded-full hover:scale-95">Cerrar</button>
               </div>
             </div>
           </div>

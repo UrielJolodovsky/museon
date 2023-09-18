@@ -136,7 +136,7 @@ export default function Museo() {
             {isUrl === true ? (
                 <section className='w-full h-[1200px] flex flex-col gap-20'>
                     <div className='w-full h-4/6 flex flex-col gap-6 pt-10'>
-                        <div className='h-4/6 flex justify-center items-center'>
+                        <div className='h-4/6 flex justify-center items-center pb-20'>
                             <h1 className=' text-4xl font-bold text-center'>Museos</h1>
                         </div>
                         <div className='w-full h-[500px] flex justify-center items-center'>
