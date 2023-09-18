@@ -442,7 +442,7 @@ createInteractiveTorus(x, y, z) {
 
 
             
-            <h1 className="text-3xl font-semibold w-full text-center">Title</h1>
+            <h1 className="text-3xl font-semibold w-full text-center">Impacto Social</h1>
             
             <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closePopup}></i>
             <div className="flex w-full justify-center items-center flex-col gap-4">
@@ -458,11 +458,7 @@ createInteractiveTorus(x, y, z) {
                 allowfullscreen
               ></iframe>
   
-              <p id="UItext">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-                quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-                Distinctio, labore.
-              </p>
+              <p id="UItext">Cuadro en el pasillo de TIC sobre Impacto Social</p>
               </div>
               <div className="w-12 h-12">
                 <button onClick={this.closePopup} className="w-full h-full">Cerrar</button>

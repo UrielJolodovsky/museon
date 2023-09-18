@@ -23,6 +23,37 @@ export default function Museo() {
     const MuseoName = params.slug.toString().replace('-', ' ')
     const [isUrl, setIsUrl] = useState<Boolean>(false)
 
+    const toastComentarioError = () => {
+        toast('Ha ocurrido un error', {
+            icon: "❌",
+            style: {
+                background: 'white', // Cambia el color de fondo
+                color: 'black',
+                fontWeight: '600',
+                padding: '10px'// Cambia el color del texto
+            },
+            duration: 2000, // Establece la duración en milisegundos
+            position: 'bottom-right', // Cambia la posición de la notificación
+            // Puedes agregar más opciones según tus necesidades
+        });
+    }
+
+    const toastComentarioEnviado = () => {
+        toast('Comentario enviado con éxito', {
+            icon: "✔️",
+            style: {
+                background: 'white', // Cambia el color de fondo
+                color: 'black',
+                fontWeight: '600',
+                padding: '10px'// Cambia el color del texto
+            },
+            duration: 2000, // Establece la duración en milisegundos
+            position: 'bottom-right', // Cambia la posición de la notificación
+            // Puedes agregar más opciones según tus necesidades
+        });
+    }
+
+
     const [messageEnviado, setMessageEnviado] = useState(false)
 
     useEffect(() => {
@@ -55,15 +86,14 @@ export default function Museo() {
                 nameMuseo: params.slug.toString()
             }).then((res) => {
                 setMessage('')
-                toast.success(res.data)
+                toastComentarioEnviado()
                 setMessageEnviado(true)
                 setMessages(res.data)
             }).catch((err) => {
-                console.log(err)
-                toast.error(err.response.data)
+                toastComentarioError()
             })
         } catch (err) {
-            console.log(err)
+            toastComentarioError()
         }
     }
 
@@ -73,12 +103,11 @@ export default function Museo() {
                 parametros: params.slug.toString()
             }).then((res) => {
                 setMessages(res.data)
-                console.log(res.data)
             }).catch((err) => {
-                toast.error(err.response.data)
+                toastComentarioError()
             })
         } catch (err) {
-            console.log(err)
+            toastComentarioError()
         }
     }
 
@@ -105,50 +134,6 @@ export default function Museo() {
     return (
         <>
             {isUrl === true ? (
-                // <section className="w-full h-screen flex justify-center items-center flex-col">
-                //     <div className='w-full h-full flex flex-col gap-10'>
-                //         <div className='order-1 w-full h-1/6 flex justify-center items-center flex-col'>
-                //             <h1 className='text-4xl font-bold text-center'>Museos</h1>
-                //             <div className='w-full h-1/5 flex justify-center items-center'>
-                //                 {CompIcon.map(({ id, icon }) => {
-                //                     return (
-                //                         <Image
-                //                             key={id}
-                //                             src={icon}
-                //                             alt='icon'
-                //                             className='w-[30px] h-[30px]'
-                //                         >
-                //                         </Image>
-                //                     )
-                //                 })}
-                //             </div>
-                //         </div>
-                //         <div className=' order-2 w-4/5 h-5/6 flex  flex-col gap-5'>
-                //             <div className='order-1 w-2/3 h-[400px] flex justify-center items-center'>
-                //                 <Scene />
-                //             </div>
-                //             <div className='order-2 w-full h-1/2 flex justify-center items-center flex-col'>
-                //                 <h1>{messages.length} Comentarios</h1>
-                //                 <div className='w-full h-full flex flex-col gap-5'>
-                //                     <form className='flex flex-row gap-2'>
-                //                         <input value={message} className="w-full border-b-2 focus:border-none " type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
-                //                         <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
-                //                     </form>
-                //                     <div className='w-full h-full flex justify-center items-center flex-col gap-4 '>
-                //                         {Array.isArray(messages) ? messages.map((museo, index) =>
-                //                             <div className='bg-dashBack w-full h-auto flex justify-start items-center flex-row gap-10 p-10' key={index}>
-                //                                 <h2 className='text-center font-bold text-black'>Name: {museo["author"]["name"]}</h2>
-                //                                 <div className=''>
-                //                                     <h1 className='text-center text-black'>Contenido del mensaje: {museo["content"]}</h1>
-                //                                 </div>
-                //                             </div>
-                //                         ) : ""}
-                //                     </div>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     </div>
-                // </section>
                 <section className='w-full h-[1200px] flex flex-col gap-20'>
                     <div className='w-full h-4/6 flex flex-col gap-6 pt-10'>
                         <div className='h-4/6 flex justify-center items-center'>

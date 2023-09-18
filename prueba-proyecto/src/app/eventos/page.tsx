@@ -22,7 +22,20 @@ const eventos = () => {
   const { eventoEnviado, setEventoEnviado } = useContext(EventContext)
   const router = useRouter()
 
-
+  const toastEventoError = () => {
+    toast('Ha ocurrido un error', {
+      icon: "❌",
+      style: {
+        background: 'white', // Cambia el color de fondo
+        color: 'black',
+        fontWeight: '600',
+        padding: '10px'// Cambia el color del texto
+      },
+      duration: 2000, // Establece la duración en milisegundos
+      position: 'bottom-right', // Cambia la posición de la notificación
+      // Puedes agregar más opciones según tus necesidades
+    });
+  }
 
   useUsuario().then((res) => {
     setTipo_usuario(res)
@@ -49,10 +62,10 @@ const eventos = () => {
       await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
         setEvents(res.data)
       }).catch((err) => {
-        toast.error(err.response.data)
+        toastEventoError()
       })
     } catch (error) {
-      toast.error("Something went wrong")
+      toastEventoError()
     }
   }
 

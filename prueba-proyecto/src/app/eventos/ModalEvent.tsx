@@ -38,6 +38,21 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     }, 500);
   }
 
+  const toastEventoSuccess = () => {
+    toast('Evento enviado', {
+      icon: "✔️",
+      style: {
+        background: 'white', // Cambia el color de fondo
+        color: 'black',
+        fontWeight: '600',
+        padding: '10px'// Cambia el color del texto
+      },
+      duration: 2000, // Establece la duración en milisegundos
+      position: 'bottom-right', // Cambia la posición de la notificación
+      // Puedes agregar más opciones según tus necesidades
+    });
+  }
+
   const AddEvent = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     try {
@@ -50,7 +65,7 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         console.log(res.data)
         setEvents(res.data)
         const id_public = res.data
-        toast.success('Event created succesfully')
+        toastEventoSuccess()
         setContent('')
         setDescription('')
         const formData = new FormData()
