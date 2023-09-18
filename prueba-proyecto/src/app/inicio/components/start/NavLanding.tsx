@@ -62,7 +62,7 @@ const NavLanding = () => {
               <button
                 id='MyLink'
                 className='navElements font-normal text-white link '
-                onClick={() => router.push(`/${title}`)}
+                onClick={() => { id === 4 ? router.push(`/${title}`) : router.push(`/${title.toLowerCase()}`) }}
               >
                 {title}
               </button>
