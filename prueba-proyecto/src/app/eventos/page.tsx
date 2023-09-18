@@ -44,8 +44,7 @@ const eventos = () => {
   useEffect(() => {
     router.push('/eventos')
     GetEventos()
-    setEventoEnviado(false)
-  }, [eventoEnviado])
+  }, [])
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -61,6 +60,7 @@ const eventos = () => {
     try {
       await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
         setEvents(res.data)
+        console.log(res.data)
       }).catch((err) => {
         toastEventoError()
       })
