@@ -81,7 +81,7 @@ const Footer = () => {
             <ul className='flex justify-center items-center w-full' key={id}>
               <li className='flex justify-center items-center w-full '>
                 <button className='text-2xl xl:text-xl font-normal text-footerTitle hover:underline transition'
-                  onClick={() => router.push(`/${title}`)}
+                  onClick={() => { id === 3 ? router.push(`/${title}`) : router.push(`/${title.toLowerCase()}`) }}
                 >
                   {title}
                 </button>
