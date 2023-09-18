@@ -21,8 +21,8 @@
   background: rgb(235, 235, 235, 0.9);
   border-radius: 10px;
   max-width: 60%;
-  width: 55%;
-  height: 50%;
+  width: 40%;
+  height: 375px;
 }
 
 #containerUI {
@@ -82,6 +82,7 @@
   left: 3%;
   position: absolute;
   overflow: auto;
+  background-color: #838383;
 }
 
 .AppMenu>h1 {
@@ -162,7 +163,6 @@ ol {
 .dark-overlay {
   width: 100%;
   height: 400px;
-  background-color: rgba(0, 0, 0, 0);
   pointer-events: none;
   transition: background-color 0.5s;
 }
@@ -170,6 +170,5 @@ ol {
 .dark-overlay.active {
   width: 100%;
   height: 400px;
-  background-color: rgba(0, 0, 0, 1);
   pointer-events: auto;
 }

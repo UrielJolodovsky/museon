@@ -191,7 +191,7 @@ class Scene extends Component {
 
     // Screen renderer    
     renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.current });
-    renderer.setSize(1200, 500);
+    renderer.setSize(1200, 600);
     window.addEventListener("resize", function () {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -411,58 +411,6 @@ createInteractiveTorus(x, y, z) {
 
   render() {
     return (
-//       <div>
-//         <div id="darkOverlay" className={this.state.isTeleporting ? 'dark-overlay active' : 'dark-overlay'}></div>
-
-//         <canvas ref={this.canvasRef} className="App" />
-//     <canvas ref={this.canvasRef} className="App" />
-//       {this.state.isCloseMenuButtonVisible && (
-//         <button className="btnCloseMenu" onClick={this.openMenu}><i className="fa-solid fa-question"></i></button>
-//       )}
-//       {this.state.isMenuVisible && (
-//         <div className="AppMenu" ref={this.menuRef}>
-//     <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closeMenu}></i>
-//     <h1>Menu de pisos</h1>
-//     <ol>
-//       <li>
-//         <a href="#" class="custom-text-1"> ... </a>
-//         <p class="classText">Texto</p>
-//       </li>
-//       <li>
-//         <a href="#" class="custom-text-2" id="linkTP" onClick={this.onLinkClick}>Teletransportarse</a>
-//         <p class="classText">Texto</p>
-//       </li>
-//       <li>
-//         <a href="#" class="custom-text-3"> ... </a>
-//         <p class="classText">Texto</p>
-//       </li>
-//     </ol>
-//   </div>
-// )}
-
-
-//         <div id="popup" className="popup" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
-//           <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closePopup}></i> {/* Cerrar video mediante la referencia "this.closePopup" */}
-
-
-
-//           <h1 id="UItitle">Title</h1>
-//           {/* <video controls src="Humpty Dumpty _ Kids Songs _ Super Simple Songs.mp4" id="videoDiv"></video> */}
-//           <video controls src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="videoDiv"></video>
-
-//           <p id="UItext">
-//             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-//             quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-//             Distinctio, labore.
-//             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
-//             quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
-//             Distinctio, labore.
-            
-//           </p>
-//         </div>
-
-
-//       </div>
 
           <div  className="w-full h-full flex justify-center items-center">
            <div id="darkOverlay" className={this.state.isTeleporting ? 'dark-overlay active' : 'dark-overlay'}></div>

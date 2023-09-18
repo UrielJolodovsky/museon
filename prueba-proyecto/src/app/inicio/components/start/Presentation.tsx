@@ -21,7 +21,7 @@ const Presentation = () => {
 
 
   return (
-    <section className='w-full h-[500px] flex justify-center items-center flex-row md:flex-col'>
+    <section className='w-2/3 h-[500px] flex justify-center items-center flex-row md:flex-col'>
       <div className='w-1/2 h-[400px] flex flex-col justify-center items-center gap-6 ml-10 container-pres'>
         <div className='w-full h-[100px] justify-center items-center flex flex-col gap-3'>
           <h1 className=' w-full text-center font-semibold text-5xl lg:text-4xl title-pres'>¡Bienvenido a Museon!</h1>

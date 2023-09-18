@@ -149,7 +149,7 @@ export default function Museo() {
                 //         </div>
                 //     </div>
                 // </section>
-                <section className='w-full h-[1200px] flex flex-col gap-10'>
+                <section className='w-full h-[1200px] flex flex-col gap-20'>
                     <div className='w-full h-4/6 flex flex-col gap-6 pt-10'>
                         <div className='h-4/6 flex justify-center items-center'>
                             <h1 className=' text-4xl font-bold text-center'>Museos</h1>

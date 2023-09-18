@@ -107,7 +107,7 @@ const NavLanding = () => {
               )}
             </div>
           ) : (
-            <button onClick={handleLogin} className='w-36 p-4 h-12 flex justify-center items-center rounded-full text-black hover:scale-95 bg-white  transition'>
+            <button onClick={handleLogin} className='w-40 p-4 h-12 flex justify-center items-center rounded-full text-black hover:scale-95 bg-white  transition'>
               <h1 className='text-[18px] font-bold navElements'>Iniciar sesión</h1>
             </button>
           )
