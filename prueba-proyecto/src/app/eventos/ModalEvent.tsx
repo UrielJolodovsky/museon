@@ -16,12 +16,11 @@ type ModalProps = {
 
 const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [content, setContent] = useState('')
-
+  const [description, setDescription] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [events, setEvents] = useState<EventsProps[]>([])
   const [tipo_usuario, setTipo_usuario] = useState("")
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const [fecha, setFecha] = useState('')
   const { eventoEnviado, setEventoEnviado } = useContext(EventContext)
 
 
@@ -43,14 +42,17 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     event.preventDefault()
     try {
       await axios.post(`${dir_url}/api/eventos/add`, {
-        content: content
-        //description: description
+        content: content,
+        description: description
+        //Hay que agregar el campo de fecha
+        // fecha: fecha
       }).then((res) => {
         console.log(res.data)
         setEvents(res.data)
         const id_public = res.data
         toast.success('Event created succesfully')
         setContent('')
+        setDescription('')
         const formData = new FormData()
         formData.append('file', selectedFile as Blob | string)
         formData.append('upload_preset', 'museon')
@@ -104,14 +106,14 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             )}
           </label>
           <div className='w-2/3 h-1/3 flex justify-center items-start flex-col gap-4'>
-            <motion.input
+            {/* <motion.input
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
               type="date"
               onChange={(e: ChangeEvent<HTMLInputElement>) => setFecha(e.target.value)}
               value={fecha}
               className='outline-none h-8 cursor-pointer p-4 rounded-lg border-[1px]'
-            />
+            /> */}
             <motion.input
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
@@ -126,7 +128,7 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               type='text'
               className='outline-none w-full h-10 border-b-[1px] bg-transparent'
               placeholder='Descripción...'
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
             />
             <div className='w-full h-16 flex flex-row gap-10 pt-8'>
               <motion.button animate={{ opacity: 1 }} initial={{ opacity: 0 }} type='submit' onClick={AddEvent} className='w-24 h-12 bg-black rounded-full text-white'>Publicar</motion.button>

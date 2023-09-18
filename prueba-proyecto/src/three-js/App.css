@@ -16,13 +16,13 @@
   position: absolute;
   margin-top: 50vh;
   margin-left: 30%;
-  padding-top: 5px;
+  padding: 25px;
   padding-bottom: 250px;
   background: rgb(235, 235, 235, 0.9);
   border-radius: 10px;
-
   max-width: 60%;
-  width: 45%;
+  width: 55%;
+  height: 50%;
 }
 
 #containerUI {
@@ -36,9 +36,10 @@
 
 #UItext {
   font-family: Arial;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 1em;
   padding: 5px;
+  text-align: justify;
 }
 
 #eyeClose {
@@ -65,11 +66,7 @@
   background: rgb(223, 213, 172);
 }
 
-#videoDiv {
-  display: inline-block;
-  position: relative;
-  margin-left: 10px;
-}
+
 
 #creditosProyecto>p {
   display: inline-block;
@@ -79,16 +76,11 @@
   margin-bottom: 30px;
 }
 
-.AppMenu {
-  position: absolute;
-  top: 50%;
-  left: 3%;
-  width: 20%;
-  height: 40%;
-  background-color: rgba(255, 255, 255, 0.9);
+.appMenu {
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  left: 3%;
+  position: absolute;
   overflow: auto;
 }
 

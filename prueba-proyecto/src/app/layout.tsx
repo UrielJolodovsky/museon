@@ -17,7 +17,6 @@ type Props = {
 };
 
 export default function NextAuthProvider({ children }: Props) {
-  console.log('NextAuthProvider se está ejecutando'); //Confirmo que ande
 
   return (
     <SessionProvider>

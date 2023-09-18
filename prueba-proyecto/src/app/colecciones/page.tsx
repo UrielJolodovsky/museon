@@ -72,11 +72,12 @@ const Colecciones = () => {
 
 
   return (
-    <div className='w-full h-screen pt-[100px] px-8 flex flex-row justify-center items-center'>
+    <div className='w-full h-screen pt-[300px] px-8 flex flex-col justify-center items-center  '>
+      <h1 className='text-center text-2xl font-medium'>Colecciones</h1>
       <div className='w-full flex flex-row justify-center items-center gap-10 flex-wrap'>
         {museos.map(({ id, subimage, name, subname }) => {
           return (
-            <div className='w-[300px] h-[400px] lg:w-[300px] flex flex-col ' key={id}>
+            <div className='w-[300px] h-[375px] lg:w-[300px] flex flex-col ' key={id}>
               <button onClick={() => router.push(`/${deleteSpace(subname)}`)} className='w-full h-full flex flex-col gap-6 justify-center items-center rounded-xl transition' >
                 <CldImage className='h-3/6 rounded-lg w-full' width={300} height={300} src={id} alt="Imagen Museo" />
                 <div className='w-full h-1/6 flex justify-center items-center flex-col gap-2'>

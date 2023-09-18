@@ -45,6 +45,7 @@ class Scene extends Component {
       isMenuVisible: true,
       isPopupVisible: false,
       isCloseMenuButtonVisible: false,
+      isDragging: false,
     };
 
     this.cube = null;
@@ -83,6 +84,12 @@ class Scene extends Component {
     this.init();
     this.animate();
     this.canvasRef.current.addEventListener("click", this.onCanvasClick);
+
+    // Agrega los event listeners solo cuando estás dentro del canvas
+    this.canvasRef.current.addEventListener("mousedown", this.onMouseDown);
+    this.canvasRef.current.addEventListener("mouseup", this.onMouseUp);
+    this.canvasRef.current.addEventListener("mousemove", this.onMouseMove);
+
     this.canvasRef.current.addEventListener("wheel", this.onMouseWheel);
   
     // Forma de añadir: UBICACIÓN ARCHIVO - UBICACIÓN EN ESCENA - TAMAÑO - ROTACIÓN
@@ -92,14 +99,19 @@ class Scene extends Component {
 
     // Instanciar popups
     // this.createPopup(X, Y, Z, "TEXTO");
-    this.createPopup(-14, 3.75, 7, "Messi");
+    this.createPopup(-14, 3.75, 7, "Popup 1");
     this.createPopup(15, 5, 3, "Popup 2");
-    this.createPopup(0, 0, -3, "Popup 3");
+    this.createPopup(0, 0, -2, "Popup 3");
   }
   
   componentWillUnmount() {
     this.canvasRef.current.removeEventListener("click", this.onCanvasClick);
+    this.canvasRef.current.removeEventListener("mousedown", this.onMouseDown);
+    this.canvasRef.current.removeEventListener("mouseup", this.onMouseUp);
+    this.canvasRef.current.removeEventListener("mousemove", this.onMouseMove);
   }
+
+  
 
   // Hacer zoom
   onMouseWheel(event) {
@@ -133,7 +145,38 @@ class Scene extends Component {
     target.y = ((centerY / window.innerHeight) * 2 - 1) * 0.5;
   }
 
+  onMouseDown = () => {
+    this.setState({ isDragging: true });
+  };
 
+  // Nuevo evento para indicar que se ha soltado el mouse
+  onMouseUp = () => {
+    this.setState({ isDragging: false });
+  };
+
+  // Nuevo evento para mover la cámara solo cuando se está arrastrando el mouse
+  onMouseMove = (event) => {
+    const { isDragging } = this.state;
+    if (isDragging) {
+      const deltaMove = {
+        x: event.movementX,
+        y: event.movementY,
+      };
+
+      // Ajusta la rotación de la cámara basada en el movimiento del mouse
+      camera.rotation.order = "YXZ";
+      const sensitivity = 0.002;
+      camera.rotation.y += deltaMove.x * sensitivity;
+      camera.rotation.x += deltaMove.y * sensitivity;
+
+      // Limita la rotación vertical
+      const maxVerticalAngle = Math.PI / 2;
+      camera.rotation.x = Math.max(
+        -maxVerticalAngle,
+        Math.min(maxVerticalAngle, camera.rotation.x)
+      );
+    }
+  };
 
   init() {
     // Crear escena
@@ -148,7 +191,7 @@ class Scene extends Component {
 
     // Screen renderer    
     renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.current });
-    renderer.setSize(1000, 400);
+    renderer.setSize(1200, 500);
     window.addEventListener("resize", function () {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -191,61 +234,6 @@ class Scene extends Component {
     isDragging = false;
     previousMousePosition = { x: 0, y: 0 };
 
-// Agregar un listener de eventos para el ratón
-document.addEventListener("mousedown", (event) => {
-  isDragging = true;
-  previousMousePosition = {
-    x: event.clientX,
-    y: event.clientY,
-  };
-});
-
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-});
-
-if (this.canvasRef.current) {
-document.addEventListener("mousemove", (event) => {
-  const rect = this.canvasRef.current.getBoundingClientRect();
-  const mouse = {
-    x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
-    y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
-  };
-
-  // Verifica si el ratón está dentro de la escena antes de actualizar la cámara
-  if (mouse.x >= -1 && mouse.x <= 1 && mouse.y >= -1 && mouse.y <= 1) {
-    if (!isDragging) return;
-
-    const deltaMove = {
-      x: event.clientX - previousMousePosition.x,
-      y: event.clientY - previousMousePosition.y,
-    };
-
-  // Ajustar la rotación de la cámara basada en el movimiento del mouse
-  camera.rotation.order = "YXZ";
-  const sensitivity = 0.002;
-
-  // Limitar la rotación vertical
-  const newRotationX = camera.rotation.x + deltaMove.y * sensitivity;
-  camera.rotation.x = Math.max(
-    this.minRotationX,
-    Math.min(this.maxRotationX, newRotationX)
-  );
-
-  const newRotationY = camera.rotation.y + deltaMove.x * sensitivity;
-  camera.rotation.y = Math.max(
-    this.minRotationY,
-    Math.min(this.maxRotationY, newRotationY)
-  );
-
-
-  previousMousePosition = {
-    x: event.clientX,
-    y: event.clientY,
-  };
-}
-});
-}
 
     // Añadir pared (test)
     var wallgeometry = new THREE.BoxGeometry(10, 5, 0.1);
@@ -269,7 +257,7 @@ document.addEventListener("mousemove", (event) => {
 
 createInteractiveTorus(x, y, z) {
   const torusGeometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
-  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff });
+  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff, shininess: 100, });
   const torus = new THREE.Mesh(torusGeometry, torusMaterial);
   torus.rotation.x = Math.PI / 2;
 
@@ -301,11 +289,10 @@ createInteractiveTorus(x, y, z) {
 
   // Detectar si se clickeó el canvas para mostrar el popup con la información de una obra
   onCanvasClick(event) {
-    const rect = this.canvasRef.current.getBoundingClientRect() !== null ;
-
-    const mouse = {
+    const rect = this.canvasRef.current.getBoundingClientRect();
+  const mouse = {
     x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
-    y: -((event.clientY - rect.top) / rect.height) * 2 + 1  ,
+    y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
   };
 
   const raycaster = new THREE.Raycaster();
@@ -315,14 +302,13 @@ createInteractiveTorus(x, y, z) {
   const intersects = raycaster.intersectObjects(popups.map((popup) => popup.mesh));
 
   if (intersects.length > 0) {
-    // Detectar si se hizo click en un popu y mostrar el contenido del popup
+    // Hiciste clic en un popup, muestra el contenido del popup
     const popup = popups.find((p) => p.mesh === intersects[0].object);
     if (popup) {
-      console.log("ID del popup clickeado:", popup.id);
       this.showPopup(popup.id);
     }
   } else {
-    // Detectar si se hizo clic en otro lugar de la escena y cierra el popup si está abierto
+    // Hiciste clic en otro lugar de la escena, cierra el popup si está abierto
     if (this.state.isPopupVisible) {
       this.closePopup();
     }
@@ -422,6 +408,7 @@ createInteractiveTorus(x, y, z) {
     }
   }
 
+
   render() {
     return (
 //       <div>
@@ -477,11 +464,70 @@ createInteractiveTorus(x, y, z) {
 
 //       </div>
 
-          <div className="w-full h-full flex justify-center items-center">
-            <div id="darkOverlay" className={this.state.isTeleporting ? 'w-full h-full flex items-center justify-center bg-black pointer-events-auto cursor-grabbing' : 'w-full h-full flex items-center justify-center bg-transparent pointer-events-none'}>
-              <canvas ref={this.canvasRef} className=" " />
-              <div ref={this.popupRef} id="popup" className="hidden absolute mt-50vh pt-1 pb-[250px] ml-[30%] bg-white opacity-5"></div>
-            </div>    
+          <div  className="w-full h-full flex justify-center items-center">
+           <div id="darkOverlay" className={this.state.isTeleporting ? 'dark-overlay active' : 'dark-overlay'}></div>
+
+            <canvas ref={this.canvasRef} className="App" />
+            {this.state.isCloseMenuButtonVisible && (
+            <button className="btnCloseMenu" onClick={this.openMenu}><i className="fa-solid fa-question"></i></button>
+            )}
+            {this.state.isMenuVisible && (
+            <div className="w-[300px] h-[500px] scroll-smooth" ref={this.menuRef}>
+            <button className="w-12 h-12" onClick={this.closeMenu}>Close</button>
+            <h1>Menu de pisos</h1>
+            <div className="w-[250px] h-[300px] absolute top-1/2 bg-white appMenu opacity-75">
+                <div className="w-full h-full flex items-center justify-center flex-col gap-5">
+                  <li className="list-none w-full h-14 text-black hover:scale-95 transition flex justify-center items-center">
+                    <span  id="linkTP" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 1</span>
+                  </li>
+                  <li className="list-none w-full h-14 text-black hover:scale-95 transition flex justify-center items-center">
+                    <span  id="linkTP" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 2</span>
+                  </li>
+                  <li className="list-none w-full h-14 text-black hover:scale-95 transition flex justify-center items-center">
+                    <span  id="linkTP" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 3</span>
+                  </li>
+                </div>
+              </div>
+            </div>
+            )}
+            
+            
+            <div id="popup" className="popup flex justify-center items-center flex-col bg-opacity-5" ref={this.popupRef} style={{ display: "none", position: "absolute", top: 0, left: 0 }}>  {/* Hace referencia al elemento "popup" para mostrarlo en el HTML */}
+
+
+            
+            <h1 className="text-3xl font-semibold w-full text-center">Title</h1>
+            
+            <i className="fa-regular fa-eye-slash" id="eyeClose" onClick={this.closePopup}></i>
+            <div className="flex w-full justify-center items-center flex-col gap-4">
+              <div className="flex w-full justify-center items-center flex-row gap-4">
+              <iframe
+                width="300"
+                height="200"
+                className=""
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+  
+              <p id="UItext">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptas,
+                quisquam nam deleniti voluptatem explicabo exercitationem quas laudantium fuga accusamus officia architecto eligendi optio repellat labore hic inventore.
+                Distinctio, labore.
+              </p>
+              </div>
+              <div className="w-12 h-12">
+                <button onClick={this.closePopup} className="w-full h-full">Cerrar</button>
+              </div>
+            </div>
+
+  {/* <audio controls src="#"></audio> */}
+
+  {/* <p className="creditosProyecto">Text</p> */}
+
+          </div>
           </div>
     );
   }
