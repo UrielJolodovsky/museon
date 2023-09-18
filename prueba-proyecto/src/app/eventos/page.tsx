@@ -42,7 +42,6 @@ const eventos = () => {
   })
 
   useEffect(() => {
-    router.push('/Eventos')
     GetEventos()
     setEventoEnviado(false)
   }, [eventoEnviado])
