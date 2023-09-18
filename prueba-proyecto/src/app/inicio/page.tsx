@@ -1,12 +1,12 @@
 "use client"
 import React, { useContext, useState } from 'react'
-import Footer from '@/app/Inicio/components/start/Footer'
-import Contact from '@/app/Inicio/components/start/Contact'
-import Help from '@/app/Inicio/components/start/Help'
-import Participants from '@/app/Inicio/components/start/Participants'
-import Information from '@/app/Inicio/components/start/Information'
-import Carousel from '@/app/Inicio/components/carousel/Carousel'
-import Presentation from '@/app/Inicio/components/start/Presentation'
+import Footer from '@/app/inicio/components/start/Footer'
+import Contact from '@/app/inicio/components/start/Contact'
+import Help from '@/app/inicio/components/start/Help'
+import Participants from '@/app/inicio/components/start/Participants'
+import Information from '@/app/inicio/components/start/Information'
+import Carousel from '@/app/inicio/components/carousel/Carousel'
+import Presentation from '@/app/inicio/components/start/Presentation'
 
 
 
