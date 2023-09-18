@@ -12,11 +12,11 @@ const Presentation = () => {
 
 
   const handleEvents = () => {
-    router.push('/Eventos')
+    router.push('/eventos')
   }
 
   const handleCollections = () => {
-    router.push('/Colecciones')
+    router.push('/colecciones')
   }
 
 
