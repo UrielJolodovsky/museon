@@ -464,11 +464,6 @@ createInteractiveTorus(x, y, z) {
                 <button onClick={this.closePopup} className="w-full h-full">Cerrar</button>
               </div>
             </div>
-
-  {/* <audio controls src="#"></audio> */}
-
-  {/* <p className="creditosProyecto">Text</p> */}
-
           </div>
           </div>
     );
