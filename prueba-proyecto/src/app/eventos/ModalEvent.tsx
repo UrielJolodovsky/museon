@@ -65,7 +65,6 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         console.log(res.data)
         setEvents(res.data)
         const id_public = res.data
-        toastEventoSuccess()
         setContent('')
         setDescription('')
         const formData = new FormData()
@@ -75,6 +74,7 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         axios.post('https://api.cloudinary.com/v1_1/dxt2lvdt3/image/upload', formData)
         setEventoEnviado(true)
         onClose();
+        toastEventoSuccess()
         delaySend()
       }).catch((err) => {
         toast.error(err.response.data)
