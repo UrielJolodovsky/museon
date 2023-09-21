@@ -5,7 +5,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Session } from "next-auth";
 import { metadata } from "../metadata";
-import NavLanding from "./Inicio/components/start/NavLanding";
+import NavLanding from "./inicio/components/start/NavLanding";
 
 const inter = Poppins({
   subsets: ["latin-ext"],

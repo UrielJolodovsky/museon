@@ -3,6 +3,8 @@ import "./App.css";
 import * as THREE from "three";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import axios from "axios";
+import dir_url from "@/lib/url";
 
 
 // import axios from 'axios'
@@ -13,6 +15,7 @@ const objectsWithTeleportID = [];
 const target = new THREE.Vector2();
 let isDragging
 let previousMousePosition
+let info = ''
 
 class Scene extends Component {
   constructor(props) {
@@ -286,7 +289,6 @@ createInteractiveTorus(x, y, z) {
     }
   }  
 
-
   // Detectar si se clickeó el canvas para mostrar el popup con la información de una obra
   onCanvasClick(event) {
     const rect = this.canvasRef.current.getBoundingClientRect();
@@ -305,7 +307,21 @@ createInteractiveTorus(x, y, z) {
     // Hiciste clic en un popup, muestra el contenido del popup
     const popup = popups.find((p) => p.mesh === intersects[0].object);
     if (popup) {
-      this.showPopup(popup.id);
+      console.log(popup.id);
+      const GetInfo = async () => {
+        try {
+          await axios.post(`${dir_url}/api/infoobras`, {
+            id: popup.id
+          }).then((res) => {
+            console.log(res.data)
+            info = res.data['description']
+            this.showPopup(popup.id);
+          })
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      GetInfo();
     }
   } else {
     // Hiciste clic en otro lugar de la escena, cierra el popup si está abierto
@@ -354,10 +370,6 @@ createInteractiveTorus(x, y, z) {
         
         animateTeleport();
   
-        // id = this.getObjectById();
-        // axios.post("direccion", {
-        //   id: id
-        // })
       }
     }
   }
@@ -458,7 +470,7 @@ createInteractiveTorus(x, y, z) {
                 allowfullscreen
               ></iframe>
   
-              <p id="UItext">Cuadro en el pasillo de TIC sobre Impacto Social</p>
+              <p id="UItext">{info}</p>
               </div>
               <div className="w-full h-full flex justify-center items-center mb-15 pb-10 ">
                 <button onClick={this.closePopup} className="w-20 h-12 text-white bg-black rounded-full hover:scale-95">Cerrar</button>
