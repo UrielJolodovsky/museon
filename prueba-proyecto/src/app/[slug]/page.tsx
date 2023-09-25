@@ -74,6 +74,7 @@ export default function Museo() {
         getMessages()
         setMessageEnviado(false)
         verifyUrl()
+        getLikes()
     }, [messageEnviado])
 
 
@@ -195,7 +196,7 @@ export default function Museo() {
                                     <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
                                         <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
                                         <h1 className='text-center text-black'>{museo["content"]}</h1>
-                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={() => { }}>Like</button>
+                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={(event: MouseEvent<HTMLButtonElement>) => {AddDeleteLike(event, museo['id'])}}>Like</button>
                                     </div>
                                 ) : ""}
                             </div>
