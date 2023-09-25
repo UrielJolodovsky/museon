@@ -22,6 +22,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             }
             },
             select: {
+                id: true,
                 author: {
                     select: {
                         name: true,

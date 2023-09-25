@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useState, MouseEvent } from "react"
 import { toast } from "react-hot-toast"
-import { CommentsProps, MuseosProps } from '@/types'
+import { CommentsProps, LikesProps, MuseosProps } from '@/types'
 import dir_url from '@/lib/url'
 import Comp3d from '@/3dComps/Comp3d'
 import internet from '@../../public/assets/icons/internet.png'
@@ -19,6 +19,7 @@ export default function Museo() {
     const [message, setMessage] = useState('')
     const [museos, setMuseos] = useState<MuseosProps[]>([])
     const [messages, setMessages] = useState<CommentsProps[]>([])
+    const [likes, setLikes] = useState<LikesProps[]>([])
     const params = useParams()
     const MuseoName = params.slug.toString().replace('-', ' ')
     const [isUrl, setIsUrl] = useState<Boolean>(false)
@@ -37,7 +38,20 @@ export default function Museo() {
             // Puedes agregar más opciones según tus necesidades
         });
     }
-
+    const toastSuccess = (text: string) => {
+        toast(`${text}`, {
+            icon: "✔️",
+            style: {
+                background: 'white', // Cambia el color de fondo
+                color: 'black',
+                fontWeight: '600',
+                padding: '10px'// Cambia el color del texto
+            },
+            duration: 2000, // Establece la duración en milisegundos
+            position: 'bottom-right', // Cambia la posición de la notificación
+            // Puedes agregar más opciones según tus necesidades
+    })
+    }
     const toastComentarioEnviado = () => {
         toast('Comentario enviado con éxito', {
             icon: "✔️",
@@ -89,6 +103,32 @@ export default function Museo() {
                 toastComentarioEnviado()
                 setMessageEnviado(true)
                 setMessages(res.data)
+            }).catch((err) => {
+                toastComentarioError()
+            })
+        } catch (err) {
+            toastComentarioError()
+        }
+    }
+    const AddDeleteLike = async (event: MouseEvent<HTMLButtonElement>, id_comment: string) => {
+        event.preventDefault()
+        try {
+            await axios.post(`${dir_url}/api/comments/likes/add`, {
+                id_comment: id_comment
+            }).then((res) => {
+                toastSuccess(res.data)
+            }).catch((err) => {
+                toastComentarioError()
+            })
+        } catch (err) {
+            toastComentarioError()
+        }
+    }
+
+    const getLikes = async () => {
+        try {
+            await axios.post(`${dir_url}/api/likes/get`).then((res) => {
+                setLikes(res.data)
             }).catch((err) => {
                 toastComentarioError()
             })
@@ -155,6 +195,7 @@ export default function Museo() {
                                     <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
                                         <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
                                         <h1 className='text-center text-black'>{museo["content"]}</h1>
+                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={() => { }}>Like</button>
                                     </div>
                                 ) : ""}
                             </div>

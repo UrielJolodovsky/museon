@@ -291,6 +291,23 @@ createInteractiveTorus(x, y, z) {
 
   // Detectar si se clickeó el canvas para mostrar el popup con la información de una obra
   onCanvasClick(event) {
+
+
+    const GetInfo = async (idpopup) => {
+      try {
+        await axios.post(`${dir_url}/api/infoobras`, {
+          id: idpopup
+        }).then((res) => {
+          console.log(res.data)
+          info = res.data['description']
+          this.showPopup(idpopup);
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+
     const rect = this.canvasRef.current.getBoundingClientRect();
   const mouse = {
     x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -308,20 +325,7 @@ createInteractiveTorus(x, y, z) {
     const popup = popups.find((p) => p.mesh === intersects[0].object);
     if (popup) {
       console.log(popup.id);
-      const GetInfo = async () => {
-        try {
-          await axios.post(`${dir_url}/api/infoobras`, {
-            id: popup.id
-          }).then((res) => {
-            console.log(res.data)
-            info = res.data['description']
-            this.showPopup(popup.id);
-          })
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      GetInfo();
+      GetInfo(popup.id);
     }
   } else {
     // Hiciste clic en otro lugar de la escena, cierra el popup si está abierto
