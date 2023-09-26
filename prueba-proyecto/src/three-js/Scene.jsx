@@ -260,7 +260,7 @@ class Scene extends Component {
 
 createInteractiveTorus(x, y, z) {
   const torusGeometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
-  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff, shininess: 100, });
+  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff });
   const torus = new THREE.Mesh(torusGeometry, torusMaterial);
   torus.rotation.x = Math.PI / 2;
 

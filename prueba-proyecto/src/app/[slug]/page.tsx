@@ -128,7 +128,7 @@ export default function Museo() {
 
     const getLikes = async () => {
         try {
-            await axios.post(`${dir_url}/api/likes/get`).then((res) => {
+            await axios.get(`${dir_url}/api/likes/get`).then((res) => {
                 setLikes(res.data)
             }).catch((err) => {
                 toastComentarioError()
