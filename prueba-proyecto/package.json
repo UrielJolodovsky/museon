@@ -24,6 +24,7 @@
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.37.1",
     "cloudinary-react": "^1.8.1",
+    "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.0",
     "next": "13.4.5",
     "next-auth": "^4.22.1",

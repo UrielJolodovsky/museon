@@ -9,6 +9,15 @@
   box-sizing: border-box;
 }
 
+.piramid-image {
+  width: 400px;
+  height: 300px;
+}
+
+.part-texts {
+  margin-right: 30px;
+}
+
 @media screen and (max-width: 924px) {
   .login-container {
     width: 100%;

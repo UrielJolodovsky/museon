@@ -1,10 +1,13 @@
 export interface MuseosProps {
     id: string
+    subimage: string
+    subname: string
     name: string
     role: string
 }
 
 export interface CommentsProps {
+    id: string
     author: {
         name: string
     }
@@ -12,13 +15,19 @@ export interface CommentsProps {
     createdAt: string
 }
 
-export interface EventsProps{
+export interface LikesProps {
+    commentId: string
+}
+
+export interface EventsProps {
     author: {
         name: string
         image: string
     }
     id: string
     content: string
+    description: string
+    createdAt: string
 }
 
 export interface PortfolioProps {

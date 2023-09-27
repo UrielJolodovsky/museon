@@ -10,10 +10,40 @@ const Contacto = () => {
 
   const [message, setMessage] = useState('')
 
+  const toastNotLogged = () => {
+    toast('Aún no estás loggeado', {
+      icon: "❌",
+      style: {
+        background: 'white', // Cambia el color de fondo
+        color: 'black',
+        fontWeight: '600',
+        padding: '10px'// Cambia el color del texto
+      },
+      duration: 2000, // Establece la duración en milisegundos
+      position: 'bottom-right', // Cambia la posición de la notificación
+      // Puedes agregar más opciones según tus necesidades
+    });
+  }
+
+  const toastMessageSuccess = () => {
+    toast('Mensaje enviado', {
+      icon: "✔️",
+      style: {
+        background: 'white', // Cambia el color de fondo
+        color: 'black',
+        fontWeight: '600',
+        padding: '10px'// Cambia el color del texto
+      },
+      duration: 2000, // Establece la duración en milisegundos
+      position: 'bottom-right', // Cambia la posición de la notificación
+      // Puedes agregar más opciones según tus necesidades
+    });
+  }
+
   const SendForm = async (e: any) => {
     e.preventDefault()
     if (sessionData?.user.id === undefined) {
-      toast.error("You are not logged in")
+      toastNotLogged()
     }
     else if (message.length === 0) {
       toast.error("Your message is empty")
@@ -25,7 +55,7 @@ const Contacto = () => {
           user: sessionData.user.name,
           email: sessionData.user.email
         }).then((response) => {
-          toast.success(response.data)
+          toastMessageSuccess()
           setMessage('')
         }).catch((err) => {
           toast.error(err.response.data)

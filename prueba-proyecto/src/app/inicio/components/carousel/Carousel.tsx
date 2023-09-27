@@ -13,47 +13,39 @@ import Paisaje5 from '@/../public/assets/Carousel/Paisaje5.png'
 import { MuseosProps } from '@/types'
 import SlideNext from './SlideNext'
 import SlidePrev from './SlidePrev'
+import { CldImage } from 'next-cloudinary'
 
 const Carousel = () => {
   const [museos, setMuseos] = useState<MuseosProps[]>([])
 
   const dataCarousel = [
     {
-      id: 1,
-      title: 'Museo de Arte Moderno',
-      image: Paisaje1
+      id: "MOMA",
     },
     {
-      id: 2,
-      title: 'Museo de Arte Contemporáneo',
-      image: Paisaje2
+      id: "ORT",
     },
     {
-      id: 3,
-      title: 'Museo de Arte Antiguo',
-      image: Paisaje3
+      id: "LOUVRE",
     },
     {
-      id: 4,
-      title: 'HolaHolaHola',
-      image: Paisaje4
+      id: "MET",
     },
     {
-      id: 5,
-      title: 'vato',
-      image: Paisaje5
+      id: "BELLASARTES",
     }
   ]
 
 
   return (
 
-    <section className='w-full h-[800px] lg:h-[400px] flex justify-center items-center flex-row'>
-      <div className='w-full h-full flex flex-row justify-center items-center'>
-        <div className='w-4/5 h-[20rem] lg:h-[15rem] flex flex-row justify-center items-center rounded-3xl '>
+    <section className='w-full h-[600px] lg:h-[400px] flex justify-center items-center flex-row pb-20'>
+      <div className='w-full h-full flex flex-col justify-center items-center gap-14 '>
+        <h1 className='text-center text-4xl font-semibold'>Museos Disponibles</h1>
+        <div className='w-[1000px] h-[20rem] lg:h-[15rem] flex flex-row justify-center items-center rounded-3xl p-12'>
           <Swiper
             effect={"coverflow"}
-            spaceBetween={150}
+            spaceBetween={200}
             centeredSlides={true}
             slidesPerView={1.5}
             allowTouchMove={false}
@@ -69,13 +61,13 @@ const Carousel = () => {
 
             loop={true}
             modules={[Autoplay, EffectCoverflow]}
-            className="w-full flex flex-row justify-center items-center "
+            className="w-[600px] h-[350px] bg-transparent mx-0 m-0"
           >
-            {dataCarousel.map(({ id, title, image }) => {
+            {dataCarousel.map(({ id }) => {
               return (
-                <SwiperSlide className=''>
-                  <div key={id} className='w-full h-full flex justify-center items-center '>
-                    <Image className='w-full h-full justify-center items-center' src={image} alt='Carousel Image'></Image>
+                <SwiperSlide className='w-full h-full flex justify-center items-center '>
+                  <div key={id} className='w-full h-full flex justify-center items-center rounded-3xl border-2 '>
+                    <CldImage alt={''} src={id} width={350} height={350} className='w-full h-full bg-cover object-cover rounded-3xl' ></CldImage>
                   </div>
                 </SwiperSlide>
               )

@@ -21,8 +21,13 @@ const Presentation = () => {
 
 
   return (
+<<<<<<< HEAD
     <section className='w-full h-[500px] flex justify-center items-center flex-row md:flex-col pt-24'>
       <div className='w-3/5 h-[400px] flex flex-col justify-center items-center gap-6 ml-10 container-pres'>
+=======
+    <section className='w-2/3 h-[500px] flex justify-center items-center flex-row md:flex-col'>
+      <div className='w-1/2 h-[400px] flex flex-col justify-center items-center gap-6 ml-10 container-pres'>
+>>>>>>> 74c709726c883405401950c1f3afcfa5b27825f9
         <div className='w-full h-[100px] justify-center items-center flex flex-col gap-3'>
           <h1 className=' w-full text-center font-semibold text-5xl lg:text-4xl title-pres'>¡Bienvenido a Museon!</h1>
           <h3 className='w-8/12 lg:w-full text-center text-lg font-medium leading-normal des-pres'>Disfruta de la experiencia de visitar museos desde la comodidad de tu casa</h3>
@@ -36,7 +41,7 @@ const Presentation = () => {
           </button>
         </div>
       </div>
-      <div className='w-2/5 h-full flex justify-center items-center mr-16 cont-pres-image'>
+      <div className='w-2/5 h-full flex justify-center items-center mr-28 cont-pres-image'>
         <CldImage src={'Logo_Negro'} width={0} height={0} alt='Tecnología' className='pres-image w-[275px] h-[300px]'></CldImage>
       </div>
     </section>

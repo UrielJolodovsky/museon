@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
-        const { content } = await req.json()
+        const { content, description } = await req.json()
         const session = await getServerSession(authOptions)
         const id = session?.user.id
         // if (id === undefined) {
@@ -29,7 +29,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const evento = await db.eventos.create({
             data: {
                 content: content,
+                description: description,
                 authorId: session?.user.id!,
+                // fecha: new Date()
             },
         })
         return new NextResponse(evento["id"], { status: 200 })

@@ -72,14 +72,18 @@ const Colecciones = () => {
 
 
   return (
-    <div className='w-full pt-8 px-8 flex flex-row gap-4  justify-center items-center'>
+    <div className='w-full h-screen pt-[100px] px-40 flex flex-col justify-center items-center  '>
+      <h1 className='text-2xl font-semibold text-center'>Colecciones</h1>
       <div className='w-full flex flex-row justify-center items-center gap-10 flex-wrap'>
-        {museos.map(({ id, name }) => {
+        {museos.map(({ id, subimage, name, subname }) => {
           return (
-            <div className='w-[300px] h-[200px] lg:w-[300px] gap-3 flex flex-col' key={id}>
-              <button onClick={() => router.push(`/${deleteSpace(name)}`)} className='w-full h-full flex flex-col gap-4 rounded-xl transition' >
-                <CldImage className='rounded-lg w-full h-full' width={300} height={300} src={id} alt="Imagen Museo" />
-                <h1 className='pl-2 font-semibold text-xl'>{name}</h1>
+            <div className='w-[300px] h-[375px] lg:w-[300px] flex flex-col ' key={id}>
+              <button onClick={() => router.push(`/${deleteSpace(subname)}`)} className='w-full h-full flex flex-col gap-6 justify-center items-center rounded-xl transition hover:scale-95' >
+                <CldImage className='h-3/6 rounded-lg w-full' width={300} height={300} src={id} alt="Imagen Museo" />
+                <div className='w-full h-1/6 flex justify-center items-center flex-col gap-2'>
+                  <CldImage alt={''} src={subimage} className='' width={150} height={60}></CldImage>
+                  <h1 className=' font-normal text-gray text-center text-base'>{name}</h1>
+                </div>
               </button>
             </div>
           )

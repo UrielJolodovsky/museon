@@ -5,8 +5,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Session } from "next-auth";
 import { metadata } from "../metadata";
-import { StateProvider } from "@/context/StateContext";
-import NavLanding from "./Inicio/components/start/NavLanding";
+import NavLanding from "./inicio/components/start/NavLanding";
 
 const inter = Poppins({
   subsets: ["latin-ext"],
@@ -18,10 +17,10 @@ type Props = {
 };
 
 export default function NextAuthProvider({ children }: Props) {
-  console.log('NextAuthProvider se está ejecutando'); //Confirmo que ande
 
   return (
     <SessionProvider>
+<<<<<<< HEAD
       <StateProvider>
         <html lang="en">
           <head>
@@ -38,6 +37,20 @@ export default function NextAuthProvider({ children }: Props) {
           </body>
         </html>
       </StateProvider>
+=======
+      <html lang="en">
+        <head>
+          <title>{metadata.title}</title>
+          <meta name="description" content={metadata.description} />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
+        <body className={inter.className}>
+          <ToasterContext />
+          <NavLanding />
+          {children}
+        </body>
+      </html>
+>>>>>>> 74c709726c883405401950c1f3afcfa5b27825f9
     </SessionProvider>
   );;
 };

@@ -6,7 +6,6 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
     const { message, nameMuseo } = await req.json()
-    const nombre = nameMuseo.replace( '-', ' ')
     const session = await getServerSession(authOptions)
     if (session?.user!.id === undefined) {
         return new NextResponse("You are not logged in", {status: 401})
@@ -20,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     const getMuseoId = await db.museos.findFirst({
         where: {
-            name: nombre
+            subname: nameMuseo
         },
         select: {
             id: true
