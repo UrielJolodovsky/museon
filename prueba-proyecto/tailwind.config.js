@@ -31,11 +31,11 @@ module.exports = {
       transparent: 'transparent',
     },
     screens:{
-      'xs': {"raw": "(max-width: 250px)"},
-      'sm': {"raw": "(max-width: 374px)"},
-      'md': {"raw": "(max-width: 760px)"},
-      'lg': {"raw": "(max-width: 1160px)"},
-      'xl': {"raw": "(max-width: 1390px)"},
+      'xs': {"raw": "(min-width: 250px)"},
+      'sm': {"raw": "(min-width: 374px)"},
+      'md': {"raw": "(min-width: 760px)"},
+      'lg': {"raw": "(min-width: 1160px)"},
+      'xl': {"raw": "(min-width: 1390px)"},
     },  
   }, plugins: [],
 }

@@ -51,9 +51,9 @@ const NavLanding = () => {
   }
 
   return (
-    <header className='w-full h-[80px] overflow-hidden flex justify-center relative header-layout '>
-      <nav className=' w-full h-[80px] navbar flex justify-center items-center p-6 flex-row bg-navColor fixed z-10'>
-        <ul className='w-full h-full flex flex-row items-center justify-evenly nav-ul '>
+    <header id='header' className='w-full h-[80px] justify-center items-center '>
+      <nav className=' w-full h-full flex justify-center items-center p-6 flex-row bg-navColor '>
+        <ul className='w-full h-full flex-row items-center justify-evenly hidden lg:flex '>
           <div>
             <CldImage src={'Logo_Blanco'} width={50} height={50} alt='logo'></CldImage>
           </div>
@@ -107,9 +107,12 @@ const NavLanding = () => {
               )}
             </div>
           ) : (
-            <button onClick={handleLogin} className='w-40 p-4 h-12 flex justify-center items-center rounded-full text-black hover:scale-95 bg-white  transition'>
-              <h1 className='text-[18px] font-bold navElements'>Iniciar sesión</h1>
-            </button>
+            <motion.button
+              onClick={handleLogin}
+              className='w-40 h-12 flex justify-center items-center rounded-full text-black bg-white  transition'
+            >
+              <h1 className='text-[18px] font-bold'>Iniciar sesión</h1>
+            </motion.button>
           )
           }
         </ul>

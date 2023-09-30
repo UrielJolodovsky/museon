@@ -72,7 +72,7 @@ const Colecciones = () => {
 
 
   return (
-    <div className='w-full h-screen pt-[100px] px-40 flex flex-col justify-center items-center  '>
+    <div className='w-full h-full pt-20 px-40 flex flex-col justify-center items-center  '>
       <h1 className='text-center text-2xl font-medium'>Colecciones</h1>
       <div className='w-full flex flex-row justify-center items-center gap-10 flex-wrap'>
         {museos.map(({ id, subimage, name, subname }) => {

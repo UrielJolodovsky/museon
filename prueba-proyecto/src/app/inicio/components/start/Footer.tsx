@@ -52,7 +52,7 @@ const Footer = () => {
   ]
 
   return (
-    <div className='w-full h-full bg-footerColor flex justify-start items-center'>
+    <div className='w-full h-full bg-footerColor flex justify-start items-center '>
       <div className='w-2/6 flex flex-col gap-4 justify-center items-center'>
         <h1 className='text-footerTitle font-semibold text-3xl'>Museon</h1>
         <div className='w-full h-full flex justify-center items-center flex-row gap-12'>
@@ -80,7 +80,7 @@ const Footer = () => {
           return (
             <ul className='flex justify-center items-center w-full' key={id}>
               <li className='flex justify-center items-center w-full '>
-                <button className='text-2xl xl:text-xl font-normal text-footerTitle hover:underline transition'
+                <button className='text-xl font-normal text-footerTitle hover:underline transition'
                   onClick={() => { id === 3 ? router.push(`/${title}`) : router.push(`/${title.toLowerCase()}`) }}
                 >
                   {title}

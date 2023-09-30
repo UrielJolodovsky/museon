@@ -6,14 +6,14 @@ import { CldImage } from 'next-cloudinary'
 
 const Information = () => {
   return (
-    <section className='w-full h-[300px] lg:h-[450px] md:h-[450px] flex justify-center items-center flex-row lg:flex-col'>
-      <div className='flex justify-center items-center w-full h-full lg:flex-col'>
-        <div className='w-1/3 lg:w-full md:w-full lg:h-1/3 h-full flex flex-col justify-center items-center gap-2'>
-          <h1 className='w-full text-center lg:text-2xl text-4xl font-extrabold'>¿De que se trata?</h1>
-          <p className='w-11/12 text-center lg:text-base lg:w-3/4 text-xl '>Es una plataforma web de accesibilidad universal donde usuarios van a poder visitar museos y/o galerias artisticas de todo el mundo desde la comodidad de su hogar</p>
+    <section className='w-full h-[500px] md:h-[400px] lg:h-[300px] flex justify-center items-center lg:flex-row flex-col overflow-hidden '>
+      <div className='flex justify-center items-center w-full md:w-2/3 h-full flex-col lg:flex-row gap-4 md:gap-10 '>
+        <div className='w-full h-1/2 flex lg:w-1/2 flex-col justify-center items-center gap-2'>
+          <h1 className='w-full text-center lg:text-2xl text-2xl font-extrabold'>¿De que se trata?</h1>
+          <p className='w-10/12 text-center text-sm '>Es una plataforma web de accesibilidad universal donde usuarios van a poder visitar museos y/o galerias artisticas de todo el mundo desde la comodidad de su hogar</p>
         </div>
-        <div className='w-1/3 h-full flex justify-center items-center info-image-cont'>
-          <CldImage src={'Foto1_Landing'} width={0} height={0} alt='Tecnología' className='w-[400px] h-[300px] '></CldImage>
+        <div className='w-full md:w-1/2 h-1/3 flex justify-center items-center ml-6'>
+          <CldImage src={'Foto1_Landing'} width={0} height={0} alt='Tecnología' className='w-[250px] h-[200px] '></CldImage>
         </div>
       </div>
     </section>
