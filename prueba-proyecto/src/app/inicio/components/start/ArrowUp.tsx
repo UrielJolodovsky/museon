@@ -10,7 +10,7 @@ const ArrowUp = () => {
     <motion.div
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className="contenedor-btn transition-all cursor-pointer">
+      className="contenedor-btn transition-all cursor-pointer hidden md:flex">
       <Link className="boton scroll-smooth" href="#header" >
         <Image src={arrow} alt='arrow' className='w-full h-full ' />
       </Link >

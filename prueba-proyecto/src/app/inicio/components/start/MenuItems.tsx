@@ -1,10 +1,12 @@
 import { signOut, useSession } from 'next-auth/react'
 import { CldImage } from 'next-cloudinary'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
-import LogOut from '../../../../../../public/assets/icons/LogOut.png'
+import React, { useContext, useState } from 'react'
+import LogOut from '../../../../../public/assets/icons/LogOut.png'
 import { motion } from 'framer-motion';
 import Image from 'next/image'
+import { title } from 'process'
+import { MenuContext } from '@/context/MenuContext'
 
 
 
@@ -54,18 +56,27 @@ const MenuItems = () => {
   const [activeHover, setActiveHover] = useState(false)
   const router = useRouter()
 
+  const clickMenu = (title: string) => {
+    if (title === 'Ayuda') {
+      router.push(`/${title}`);
+    } else {
+      router.push(`/${title.toLowerCase()}`);
+    }
+  };
+
   const setValuesEvent = () => {
     setActive(!active);
     setActiveHover(false)
+
   }
 
   const handleLogin = () => {
     router.push('/login')
+
   }
   return (
-
-    <ul className='w-full h-full flex-row items-center justify-evenly hidden lg:flex '>
-      <div>
+    <ul className='pl-44 pt-20 md:p-0 w-full h-full md:flex-row flex-col items-start md:items-center justify-start space-y-5 md:space-y-0 md:justify-evenly flex  '>
+      <div className='hidden md:flex'>
         <CldImage src={'Logo_Blanco'} width={50} height={50} alt='logo'></CldImage>
       </div>
       {DataNav.map(({ id, title }) =>
@@ -78,7 +89,7 @@ const MenuItems = () => {
           <button
             id='MyLink'
             className='navElements font-normal text-white link '
-            onClick={() => { title === 'Ayuda' ? router.push(`/${title}`) : router.push(`/${title.toLowerCase()}`) }}
+            onClick={() => clickMenu(title)}
           >
             {title}
           </button>
@@ -125,7 +136,7 @@ const MenuItems = () => {
       ) : (
         <motion.button
           onClick={handleLogin}
-          className='w-40 h-12 flex justify-center items-center rounded-full text-black bg-white  transition'
+          className='w-40 h-12 hidden md:flex justify-center items-center rounded-full text-black bg-white  transition'
         >
           <h1 className='text-[18px] font-bold'>Iniciar sesión</h1>
         </motion.button>
