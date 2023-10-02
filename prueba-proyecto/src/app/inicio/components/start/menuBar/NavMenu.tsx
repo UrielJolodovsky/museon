@@ -10,7 +10,7 @@ const NavMenu = () => {
 
 
   return (
-    <nav className='md:hidden w-4/5 h-[80px] sticky top-0 inset-0 flex justify-start items-center bg-navColor '>
+    <nav className='md:hidden w-4/5 h-[80px] sticky top-0 inset-0 flex justify-start items-center bg-navColor z-10'>
       <div className='px-4  flex items-center h-full w-full'>
         <div className={`container z-10 ${mobileNav ? 'open' : 'closed'} ${mobileNav ? 'fixed' : 'flex'}`}>
           <motion.button
@@ -54,7 +54,7 @@ const NavMenu = () => {
             exit="closed"
             initial="closed"
             animate="open"
-            className='fixed bg-navColor  -inset-x-32 inset-y-0 md:hidden flex flex-col items-center justify-center w-full h-full'>
+            className='fixed bg-navColor -inset-x-32 inset-y-0 md:hidden flex flex-col items-center justify-center w-full h-full'>
             <MenuItems />
           </motion.div>
         )}
