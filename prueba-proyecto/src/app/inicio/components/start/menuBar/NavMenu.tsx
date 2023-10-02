@@ -54,7 +54,7 @@ const NavMenu = () => {
             exit="closed"
             initial="closed"
             animate="open"
-            className='fixed bg-navColor -inset-x-32 inset-y-0 md:hidden flex flex-col items-center justify-center w-full h-full'>
+            className='fixed bg-navColor -inset-x-32 inset-y-0 md:hidden flex flex-col items-center justify-center w-full h-screen'>
             <MenuItems />
           </motion.div>
         )}
