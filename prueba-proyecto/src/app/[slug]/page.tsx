@@ -114,7 +114,7 @@ export default function Museo() {
     const AddDeleteLike = async (event: MouseEvent<HTMLButtonElement>, id_comment: string) => {
         event.preventDefault()
         try {
-            await axios.post(`${dir_url}/api/comments/likes/add`, {
+            await axios.post(`${dir_url}/api/likes/add`, {
                 id_comment: id_comment
             }).then((res) => {
                 toastSuccess(res.data)
