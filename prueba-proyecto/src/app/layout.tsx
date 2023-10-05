@@ -20,24 +20,6 @@ export default function NextAuthProvider({ children }: Props) {
 
   return (
     <SessionProvider>
-<<<<<<< HEAD
-      <StateProvider>
-        <html lang="en">
-          <head>
-            <title>{metadata.title}</title>
-            <meta name="description" content={metadata.description} />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-          </head>
-          <body className={inter.className}>
-            <ToasterContext />
-            <header className='w-full overflow-hidden flex justify-center relative header-layout '>
-              <NavLanding />
-            </header>
-            {children}
-          </body>
-        </html>
-      </StateProvider>
-=======
       <html lang="en">
         <head>
           <title>{metadata.title}</title>
@@ -50,7 +32,6 @@ export default function NextAuthProvider({ children }: Props) {
           {children}
         </body>
       </html>
->>>>>>> 74c709726c883405401950c1f3afcfa5b27825f9
     </SessionProvider>
   );;
 };
