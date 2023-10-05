@@ -67,7 +67,7 @@ export async function POST(req: Request, res: Response) {
         ...emailPayload(email),
         subject: 'Verification email',
         text: 'Prueba',
-        html: `<b>Please, click the link to verify your email</b> <a href="http://localhost:3000/token/${token}">Click here</a>`,
+        html: `<b>Please, click the link to verify your email</b> <a href="http://museon-proyecto.vercel.app/token/${token}">Click here</a>`,
     })
 
 

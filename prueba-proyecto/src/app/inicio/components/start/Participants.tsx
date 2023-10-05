@@ -1,6 +1,4 @@
-import Image from 'next/image'
 import React from 'react'
-import Piramid from '@/../../public/assets/Piramid.png'
 import { CldImage } from 'next-cloudinary'
 
 const Participants = () => {

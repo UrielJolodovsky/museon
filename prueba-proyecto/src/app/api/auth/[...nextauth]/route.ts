@@ -5,6 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { db } from '../../../../lib/db'
+import dir_url from '@/lib/url';
 
 
 declare module "next-auth" {
@@ -21,7 +22,7 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(db),
     pages: {
-        signIn: '/login',
+        signIn: `${dir_url}/login`,
     },
     providers: [
         GoogleProvider({

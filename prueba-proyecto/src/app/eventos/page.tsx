@@ -42,6 +42,7 @@ const eventos = () => {
   })
 
   useEffect(() => {
+    router.push('/eventos')
     GetEventos()
   }, [])
 

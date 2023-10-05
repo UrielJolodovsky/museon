@@ -1,4 +1,4 @@
 
-const dir_url = 'http://localhost:3000'
+const dir_url = 'https://museon-proyecto.vercel.app'
 
 export default dir_url

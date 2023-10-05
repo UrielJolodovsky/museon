@@ -14,7 +14,7 @@ const FirstLanding = () => {
 
   return (
     <>
-      <main className='w-full h-full flex justify-center items-center flex-col bg-landingBack gap-10 md:gap-5 '>
+      <main className='w-full h-full flex justify-center items-center flex-col bg-landingBack md:gap-5 '>
         <Presentation />
         <Carousel />
         <Information />
@@ -22,7 +22,7 @@ const FirstLanding = () => {
         <Help />
         <Contact />
       </main>
-      <footer className='w-full h-[250px] md:hidden'>
+      <footer className='w-full h-[250px] hidden md:flex'>
         <Footer />
       </footer>
     </>
