@@ -3,8 +3,6 @@ import "./App.css";
 import * as THREE from "three";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import axios from "axios";
-import dir_url from "@/lib/url";
 
 
 // import axios from 'axios'
@@ -15,7 +13,6 @@ const objectsWithTeleportID = [];
 const target = new THREE.Vector2();
 let isDragging
 let previousMousePosition
-let info = ''
 
 class Scene extends Component {
   constructor(props) {
@@ -260,7 +257,7 @@ class Scene extends Component {
 
 createInteractiveTorus(x, y, z) {
   const torusGeometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
-  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff, });
+  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff, shininess: 100, });
   const torus = new THREE.Mesh(torusGeometry, torusMaterial);
   torus.rotation.x = Math.PI / 2;
 
@@ -289,23 +286,9 @@ createInteractiveTorus(x, y, z) {
     }
   }  
 
+
   // Detectar si se clickeó el canvas para mostrar el popup con la información de una obra
   onCanvasClick(event) {
-
-    const GetInfo = async (idpopup) => {
-      try {
-        await axios.post(`${dir_url}/api/infoobras`, {
-          id: idpopup
-        }).then((res) => {
-          console.log(res.data)
-          info = res.data['description']
-          this.showPopup(idpopup);
-        })
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
     const rect = this.canvasRef.current.getBoundingClientRect();
   const mouse = {
     x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -322,9 +305,7 @@ createInteractiveTorus(x, y, z) {
     // Hiciste clic en un popup, muestra el contenido del popup
     const popup = popups.find((p) => p.mesh === intersects[0].object);
     if (popup) {
-
-      GetInfo(popup.id);
-
+      this.showPopup(popup.id);
     }
   } else {
     // Hiciste clic en otro lugar de la escena, cierra el popup si está abierto
@@ -373,6 +354,10 @@ createInteractiveTorus(x, y, z) {
         
         animateTeleport();
   
+        // id = this.getObjectById();
+        // axios.post("direccion", {
+        //   id: id
+        // })
       }
     }
   }
@@ -473,7 +458,7 @@ createInteractiveTorus(x, y, z) {
                 allowfullscreen
               ></iframe>
   
-              <p id="UItext">{info}</p>
+              <p id="UItext">Cuadro en el pasillo de TIC sobre Impacto Social</p>
               </div>
               <div className="w-12 h-12">
                 <button onClick={this.closePopup} className="w-full h-full">Cerrar</button>

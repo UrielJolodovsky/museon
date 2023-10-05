@@ -7,7 +7,6 @@ export interface MuseosProps {
 }
 
 export interface CommentsProps {
-    id: string
     author: {
         name: string
     }
@@ -24,10 +23,6 @@ export interface EventsProps {
     content: string
     description: string
     createdAt: string
-}
-
-export interface LikesProps {
-    commentId: string
 }
 
 export interface PortfolioProps {

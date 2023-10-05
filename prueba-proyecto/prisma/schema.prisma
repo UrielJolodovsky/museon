@@ -44,7 +44,6 @@ model User {
   hashedPassword String?
   image         String?
   tipo_usuario  String? @default("user")
-  likecomment LikeComment[]
   accounts      Account[]
   sessions      Session[]
   comments      Comments[]
@@ -67,7 +66,6 @@ model Comments {
   updatedAt DateTime? @updatedAt
   authorId  String
   museumId  String
-  likecomment LikeComment[]
   museos Museos @relation(fields: [museumId], references: [id])
   author  User @relation(fields: [authorId], references: [id])
 }
@@ -106,14 +104,6 @@ model InfoObras {
   description String
   image String @default(cuid())
   video String?
-}
-
-model LikeComment {
-  id String @id @default(cuid())
-  authorId String
-  commentId String
-  author User @relation(fields: [authorId], references: [id])
-  comment Comments @relation(fields: [commentId], references: [id])
 }
 
 enum Role {
