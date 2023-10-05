@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const session = await getServerSession(authOptions)
         const id = session?.user.id
         if (id === undefined) {
-            return new NextResponse("", {status: 200})
+            return new NextResponse("", {status: 401})
         }
         const getlikes = await db.likeComment.findMany({
             where: {
@@ -19,7 +19,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
                 commentId: true
             }
         })
+        return NextResponse.json(getlikes, {status: 200})
     } catch(error) {
-        return new NextResponse("Something went wrong", {status: 400})
+        return new NextResponse("Ha ocurrido un error", {status: 400})
     }
 }

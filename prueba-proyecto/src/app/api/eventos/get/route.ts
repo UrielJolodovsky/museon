@@ -21,6 +21,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
         })
         return NextResponse.json(getEventos, {status: 200})
     } catch(error) {
-        return new NextResponse("Something went wrong", {status: 400})
+        return new NextResponse("Ha ocurrido un error", {status: 400})
     }
 }

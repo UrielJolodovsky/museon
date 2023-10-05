@@ -12,6 +12,7 @@ import twitter from '@/../../public/assets/FooterIcon/twitter.png'
 import face from '@/../../public/assets/FooterIcon/face.png'
 import Image from 'next/image'
 import Scene from '@/three-js/Scene'
+import { toastSuccess, toastError, toastComentarioError } from '@/context/ToasterContext'
 
 
 export default function Museo() {
@@ -23,51 +24,6 @@ export default function Museo() {
     const params = useParams()
     const MuseoName = params.slug.toString().replace('-', ' ')
     const [isUrl, setIsUrl] = useState<Boolean>(false)
-
-    const toastComentarioError = () => {
-        toast('Ha ocurrido un error', {
-            icon: "❌",
-            style: {
-                background: 'white', // Cambia el color de fondo
-                color: 'black',
-                fontWeight: '600',
-                padding: '10px'// Cambia el color del texto
-            },
-            duration: 2000, // Establece la duración en milisegundos
-            position: 'bottom-right', // Cambia la posición de la notificación
-            // Puedes agregar más opciones según tus necesidades
-        });
-    }
-    const toastSuccess = (text: string) => {
-        toast(`${text}`, {
-            icon: "✔️",
-            style: {
-                background: 'white', // Cambia el color de fondo
-                color: 'black',
-                fontWeight: '600',
-                padding: '10px'// Cambia el color del texto
-            },
-            duration: 2000, // Establece la duración en milisegundos
-            position: 'bottom-right', // Cambia la posición de la notificación
-            // Puedes agregar más opciones según tus necesidades
-    })
-    }
-    const toastComentarioEnviado = () => {
-        toast('Comentario enviado con éxito', {
-            icon: "✔️",
-            style: {
-                background: 'white', // Cambia el color de fondo
-                color: 'black',
-                fontWeight: '600',
-                padding: '10px'// Cambia el color del texto
-            },
-            duration: 2000, // Establece la duración en milisegundos
-            position: 'bottom-right', // Cambia la posición de la notificación
-            // Puedes agregar más opciones según tus necesidades
-        });
-    }
-
-
     const [messageEnviado, setMessageEnviado] = useState(false)
 
     useEffect(() => {
@@ -84,9 +40,8 @@ export default function Museo() {
                 name_museo: MuseoName
             }).then((res) => {
                 setIsUrl(res.data)
-                console.log(res.data, 'res')
             }).catch((err) => {
-                toast.error(err.response.data)
+                toastError(err.response.data)
             })
         } catch (err) {
             console.log(err)
@@ -101,11 +56,11 @@ export default function Museo() {
                 nameMuseo: params.slug.toString()
             }).then((res) => {
                 setMessage('')
-                toastComentarioEnviado()
+                toastSuccess(res.data)
                 setMessageEnviado(true)
                 setMessages(res.data)
             }).catch((err) => {
-                toastComentarioError()
+                toastError(err.response.data)
             })
         } catch (err) {
             toastComentarioError()
@@ -119,7 +74,7 @@ export default function Museo() {
             }).then((res) => {
                 toastSuccess(res.data)
             }).catch((err) => {
-                toastComentarioError()
+                toastError(err.response.data)
             })
         } catch (err) {
             toastComentarioError()
@@ -131,7 +86,8 @@ export default function Museo() {
             await axios.get(`${dir_url}/api/likes/get`).then((res) => {
                 setLikes(res.data)
             }).catch((err) => {
-                toastComentarioError()
+                console.log(err.response.data)
+                toastError(err.response.data)
             })
         } catch (err) {
             toastComentarioError()
@@ -145,7 +101,7 @@ export default function Museo() {
             }).then((res) => {
                 setMessages(res.data)
             }).catch((err) => {
-                toastComentarioError()
+                toastError(err.response.data)
             })
         } catch (err) {
             toastComentarioError()

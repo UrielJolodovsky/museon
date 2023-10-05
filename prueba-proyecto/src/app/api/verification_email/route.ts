@@ -16,7 +16,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         }
     })
     if (!verification_token) {
-        return new NextResponse("This token does not exist", {status: 400})
+        return new NextResponse("No se ha podido verificar el mail!", {status: 400})
     }
     const decodeToken = jwt.decode(verification_token?.identifier!) as jwt.JwtPayload
     console.log(decodeToken)
@@ -31,5 +31,5 @@ export async function POST(req: NextRequest, res: NextResponse) {
         }
     })
 
-    return new NextResponse("Your email is now verified", {status: 200})
+    return new NextResponse("Tu mail ya está verificado!", {status: 200})
 }

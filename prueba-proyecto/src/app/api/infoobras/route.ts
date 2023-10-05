@@ -17,7 +17,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         }
     })
     if (!info) {
-        return new NextResponse("This info does not exist", {status: 400})
+        return new NextResponse("Esta obra no existe en la base de datos!", {status: 400})
     }
     return NextResponse.json(info, {status: 200})
 }

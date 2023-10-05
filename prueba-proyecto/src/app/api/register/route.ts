@@ -11,7 +11,7 @@ export async function POST(req: Request, res: Response) {
     try {
     const { email, name, password } = await req.json();
     if (email.length === 0 || name.length === 0 || password.length === 0) {
-        return new NextResponse("Missing fields", { status: 400 });
+        return new NextResponse("Rellena todos los campos", { status: 400 });
     }
     const existingUser = await db.user.findUnique({
         where: {
@@ -19,7 +19,7 @@ export async function POST(req: Request, res: Response) {
         }
     })
     if (existingUser) {
-        return new NextResponse("Email already in use", { status: 400 });
+        return new NextResponse("Este mail ya está en uso", { status: 400 });
     }
     const hashedPassword = await bcrypt.hash(password, 12)
     
@@ -72,7 +72,7 @@ export async function POST(req: Request, res: Response) {
 
 
     console.log(user)
-    return new NextResponse("You have already registered your account. Please verify your email", {status: 200})
+    return new NextResponse("Ya te has registrado en MuseON. Por favor verificate mediante tu Gmail!", {status: 200})
 
 
     } catch(error: any) {

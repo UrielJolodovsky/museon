@@ -17,6 +17,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
         })
         return NextResponse.json(getmuseos, { status: 200 })
     } catch (error) {
-        return new Response("Something went wrong with the museums", { status: 400 })
+        return new Response("Ha ocurrido un error con los museos!", { status: 400 })
     }
 }

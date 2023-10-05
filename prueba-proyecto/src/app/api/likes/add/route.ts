@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const id = session?.user.id
 
         if (id === undefined) {
-            return new NextResponse("You are not logged in", { status: 401 })
+            return new NextResponse("Aún no estás loggeado", { status: 401 })
         }
 
         const like = await db.likeComment.findFirst({
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                     authorId: id
                 }
             })
-            return NextResponse.json("Like added succesfully", { status: 200 })
+            return NextResponse.json("Like añadido con éxito!", { status: 200 })
         }
         else {
             const deleteLike = await db.likeComment.delete({
@@ -34,9 +34,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
                     id: like.id
                 }
             })
-            return NextResponse.json("Like deleted successfully", { status: 200 })
+            return NextResponse.json("Like eliminado con éxito!", { status: 200 })
         }
     } catch (error) {
-        return new NextResponse("Something went wrong", { status: 400 })
+        return new NextResponse("Ha ocurrido un error", { status: 400 })
     }
 }

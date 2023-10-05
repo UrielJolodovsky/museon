@@ -9,6 +9,7 @@ import GoogleButton from './components/GoogleButton';
 import toast from 'react-hot-toast';
 import dir_url from '@/lib/url';
 import '@/app/globals.css'
+import { toastError, toastSuccess } from '@/context/ToasterContext';
 
 export default function Login() {
   const [name, setName] = useState('')
@@ -30,51 +31,6 @@ export default function Login() {
     }
   }
 
-  const toastRegister = () => {
-    toast('Usuario creado correctamente, verifícate en tu mail!', {
-      icon: "✔️",
-      style: {
-        background: 'white', // Cambia el color de fondo
-        color: 'black',
-        fontWeight: '600',
-        padding: '10px'// Cambia el color del texto
-      },
-      duration: 2000, // Establece la duración en milisegundos
-      position: 'bottom-right', // Cambia la posición de la notificación
-      // Puedes agregar más opciones según tus necesidades
-    });
-  }
-
-  const toastLogin = () => {
-    toast('Bienvenido a MuseOn!', {
-      icon: "✔️",
-      style: {
-        background: 'white', // Cambia el color de fondo
-        color: 'black',
-        fontWeight: '600',
-        padding: '10px'// Cambia el color del texto
-      },
-      duration: 2000, // Establece la duración en milisegundos
-      position: 'bottom-right', // Cambia la posición de la notificación
-      // Puedes agregar más opciones según tus necesidades
-    });
-  }
-
-  const toastIncorrect = () => {
-    toast('Usuario o contraseña incorrectos', {
-      icon: "❌",
-      style: {
-        background: 'white', // Cambia el color de fondo
-        color: 'black',
-        fontWeight: '600',
-        padding: '10px'// Cambia el color del texto
-      },
-      duration: 2000, // Establece la duración en milisegundos
-      position: 'bottom-right', // Cambia la posición de la notificación
-      // Puedes agregar más opciones según tus necesidades
-    });
-  }
-
   const router = useRouter()
 
   async function LogInCredentials(event: MouseEvent<HTMLButtonElement>) {
@@ -87,7 +43,7 @@ export default function Login() {
           redirect: false,
         }).then((callback) => {
           if (callback?.error) {
-            toastIncorrect()
+            toastError(callback.error)
             if (callback.error === 'Wrong password') {
               setPassword('')
             }
@@ -95,7 +51,7 @@ export default function Login() {
           if (callback?.ok && !callback?.error) {
             setLoggeado(true)
             router.push('/')
-            toastLogin()
+            toastSuccess('Bienvenido a MuseON!')
             setName('')
             setPassword('')
             setEmail('')
@@ -117,7 +73,7 @@ export default function Login() {
           password: password
         }).then((res) => {
           console.log(res.data)
-          toastRegister()
+          toastSuccess('Usuario creado correctamente, verifícate en tu mail!')
           setEmail('')
           setPassword('')
           setName('')

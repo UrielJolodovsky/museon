@@ -1,3 +1,4 @@
+import { toastComentarioError, toastError, toastSuccess } from '@/context/ToasterContext'
 import dir_url from '@/lib/url'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
@@ -10,42 +11,13 @@ const Contacto = () => {
 
   const [message, setMessage] = useState('')
 
-  const toastNotLogged = () => {
-    toast('Aún no estás loggeado', {
-      icon: "❌",
-      style: {
-        background: 'white',
-        color: 'black',
-        fontWeight: '600',
-        padding: '10px'
-      },
-      duration: 2000,
-      position: 'bottom-right',
-
-    });
-  }
-
-  const toastMessageSuccess = () => {
-    toast('Mensaje enviado', {
-      icon: "✔️",
-      style: {
-        background: 'white',
-        color: 'black',
-        fontWeight: '600',
-        padding: '10px'
-      },
-      duration: 2000,
-      position: 'bottom-right',
-    });
-  }
-
   const SendForm = async (e: any) => {
     e.preventDefault()
     if (sessionData?.user.id === undefined) {
-      toastNotLogged()
+       toastError('Aún no estás loggeado')
     }
     else if (message.length === 0) {
-      toast.error("Your message is empty")
+      toastError('El mensaje no puede estar vacío')
     }
     else {
       try {
@@ -54,13 +26,13 @@ const Contacto = () => {
           user: sessionData.user.name,
           email: sessionData.user.email
         }).then((response) => {
-          toastMessageSuccess()
+          toastSuccess(response.data)
           setMessage('')
         }).catch((err) => {
-          toast.error(err.response.data)
+          toastError(err.response.data)
         })
       } catch (error) {
-        toast.error("Something went wrong")
+        toastComentarioError()
       }
     }
 
