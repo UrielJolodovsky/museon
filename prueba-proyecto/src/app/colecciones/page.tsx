@@ -5,6 +5,7 @@ import { MuseosProps } from '@/types'
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
 import dir_url from '@/lib/url';
+import useMuseos from '@/hooks/useMuseos';
 
 const Colecciones = () => {
   const [museos, setMuseos] = useState<MuseosProps[]>([])
@@ -41,16 +42,19 @@ const Colecciones = () => {
   }
 
   useEffect(() => {
-    viewMuseos()
+    useMuseos().then((res) => {
+      setMuseos(res) 
+      setFiltered(res)
+    })
   }, [])
 
-  const viewMuseos = async () => {
-    await axios.get(`${dir_url}/api/museos`)
-      .then((response) => {
-        setMuseos(response.data)
-        setFiltered(response.data)
-      })
-  }
+  // const viewMuseos = async () => {
+  //   await axios.get(`${dir_url}/api/museos`)
+  //     .then((response) => {
+  //       setMuseos(response.data)
+  //       setFiltered(response.data)
+  //     })
+  // }
 
   const changeSelect = (ev: any) => {
     setTipoMuseo(ev.target.value)

@@ -14,6 +14,7 @@ import { EventContext, EventProvider } from '@/context/EventContext'
 import { time } from 'console'
 import { useRouter } from 'next/navigation'
 import { toastComentarioError, toastError } from '@/context/ToasterContext'
+import useGetEvents from '@/hooks/useGetEvents'
 
 
 const eventos = () => {
@@ -29,7 +30,7 @@ const eventos = () => {
 
   useEffect(() => {
     router.push('/eventos')
-    GetEventos()
+    useGetEvents().then((res) => setEvents(res))
   }, [])
 
   const openModal = () => {
@@ -42,18 +43,18 @@ const eventos = () => {
 
 
 
-  const GetEventos = async () => {
-    try {
-      await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
-        setEvents(res.data)
-        console.log(res.data)
-      }).catch((err) => {
-        toastError(err.response.data)
-      })
-    } catch (error) {
-      toastComentarioError()
-    }
-  }
+  // const GetEventos = async () => {
+  //   try {
+  //     await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
+  //       setEvents(res.data)
+  //       console.log(res.data)
+  //     }).catch((err) => {
+  //       toastError(err.response.data)
+  //     })
+  //   } catch (error) {
+  //     toastComentarioError()
+  //   }
+  // }
 
   return (
     <EventProvider>

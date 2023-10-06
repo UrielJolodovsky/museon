@@ -13,6 +13,9 @@ import face from '@/../../public/assets/FooterIcon/face.png'
 import Image from 'next/image'
 import Scene from '@/three-js/Scene'
 import { toastSuccess, toastError, toastComentarioError } from '@/context/ToasterContext'
+import useGetLikes from '@/hooks/useGetLikes'
+import useGetMessages from '@/hooks/useGetMessages'
+import useVerifyUrl from '@/hooks/useVerifyUrl'
 
 
 export default function Museo() {
@@ -27,26 +30,26 @@ export default function Museo() {
     const [messageEnviado, setMessageEnviado] = useState(false)
 
     useEffect(() => {
-        getMessages()
+        useGetMessages().then((res) => setMessages(res))
         setMessageEnviado(false)
-        verifyUrl()
-        getLikes()
+        useVerifyUrl().then((res) => setIsUrl(res))
+        useGetLikes().then((res) => setLikes(res))
     }, [messageEnviado])
 
 
-    const verifyUrl = async () => {
-        try {
-            await axios.post(`${dir_url}/api/verifyMuseoName`, {
-                name_museo: MuseoName
-            }).then((res) => {
-                setIsUrl(res.data)
-            }).catch((err) => {
-                toastError(err.response.data)
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    // const verifyUrl = async () => {
+    //     try {
+    //         await axios.post(`${dir_url}/api/verifyMuseoName`, {
+    //             name_museo: MuseoName
+    //         }).then((res) => {
+    //             setIsUrl(res.data)
+    //         }).catch((err) => {
+    //             toastError(err.response.data)
+    //         })
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
     const addMessage = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
@@ -81,32 +84,32 @@ export default function Museo() {
         }
     }
 
-    const getLikes = async () => {
-        try {
-            await axios.get(`${dir_url}/api/likes/get`).then((res) => {
-                setLikes(res.data)
-            }).catch((err) => {
-                console.log(err.response.data)
-                toastError(err.response.data)
-            })
-        } catch (err) {
-            toastComentarioError()
-        }
-    }
+    // const getLikes = async () => {
+    //     try {
+    //         await axios.get(`${dir_url}/api/likes/get`).then((res) => {
+    //             setLikes(res.data)
+    //         }).catch((err) => {
+    //             console.log(err.response.data)
+    //             toastError(err.response.data)
+    //         })
+    //     } catch (err) {
+    //         toastComentarioError()
+    //     }
+    // }
 
-    const getMessages = async () => {
-        try {
-            await axios.post(`${dir_url}/api/comments/get`, {
-                parametros: params.slug.toString()
-            }).then((res) => {
-                setMessages(res.data)
-            }).catch((err) => {
-                toastError(err.response.data)
-            })
-        } catch (err) {
-            toastComentarioError()
-        }
-    }
+    // const getMessages = async () => {
+    //     try {
+    //         await axios.post(`${dir_url}/api/comments/get`, {
+    //             parametros: params.slug.toString()
+    //         }).then((res) => {
+    //             setMessages(res.data)
+    //         }).catch((err) => {
+    //             toastError(err.response.data)
+    //         })
+    //     } catch (err) {
+    //         toastComentarioError()
+    //     }
+    // }
 
     const CompIcon = [
         {
