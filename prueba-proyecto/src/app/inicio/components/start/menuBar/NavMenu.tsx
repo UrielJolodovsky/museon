@@ -1,16 +1,23 @@
+
 import React from 'react'
 import { motion, useCycle, AnimatePresence } from 'framer-motion'
 import MenuItems from '../MenuItems'
 
+
 const NavMenu = () => {
+
 
   const [mobileNav, toggleMobileNav] = useCycle(false, true)
 
 
 
 
+
+
+
+
   return (
-    <nav className='md:hidden w-4/5 h-[80px] sticky top-0 inset-0 flex justify-start items-center bg-navColor z-10'>
+    <nav className='md:hidden w-4/5 h-[80px] sticky  flex justify-start items-center bg-navColor z-10'>
       <div className='px-4  flex items-center h-full w-full'>
         <div className={`container z-10 ${mobileNav ? 'open' : 'closed'} ${mobileNav ? 'fixed' : 'flex'}`}>
           <motion.button
@@ -45,9 +52,11 @@ const NavMenu = () => {
               open: {
                 x: '0%'
 
+
               },
               closed: {
                 x: '-100%',
+
 
               }
             }}
@@ -63,4 +72,7 @@ const NavMenu = () => {
   )
 }
 
+
 export default NavMenu
+
+

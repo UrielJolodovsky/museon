@@ -91,8 +91,8 @@ export default function Login() {
       {sessionData?.user.name ?
         (router.push(`${dir_url}`))
         :
-        (<div className='w-full h-screen bg-dashBack flex flex-row md:flex-col gap-8 overflow-hidden justify-center items-center login-container'>
-          <div className="w-1/4 rounded-lg self-center py-10 bg-black shadow-2xl flex flex-col gap-4 login-div">
+        (<div className='w-full p-5 h-screen bg-dashBack flex flex-col lg:flex-row justify-center items-center gap-10'>
+          <div className="w-full md:w-2/3 lg:w-1/3 h-auto rounded-lg self-center py-10 bg-black shadow-2xl flex flex-col gap-4 order-2 lg:order-1">
             <h2 className="text-white h-1/5 text-4xl font-bold flex justify-start px-12">
               {variant === 'login' ? 'Inicia Sesión' : 'Registro'}
             </h2>
@@ -104,7 +104,7 @@ export default function Login() {
                 </span>
               </p>
             </div>
-            <form className="w-full h-2/3 flex flex-col gap-4 justify-start items-start px-12">
+            <form className="w-full h-full flex flex-col gap-4 justify-start items-start px-12">
               {variant === 'register' && (
                 <InputVariants
                   label='Username'
@@ -139,7 +139,7 @@ export default function Login() {
               <GoogleButton />
             </div>
           </div>
-          <div className='w-1/3 h-screen flex justify-center items-center login-video-div'>
+          <div className='w-full lg:w-1/3 h-1/3 md:h-2/5 flex justify-center items-center order-1 lg:order-2'>
             <div className='h-[246px] w-[610px] rounded-2xl'>
               <video
                 className='h-full w-[610px] rounded-xl border-0'
