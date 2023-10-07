@@ -1,3 +1,4 @@
+'use client'
 import dir_url from "@/lib/url"
 import axios from "axios"
 import { useSession } from "next-auth/react"

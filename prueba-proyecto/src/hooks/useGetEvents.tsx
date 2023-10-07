@@ -6,17 +6,13 @@ import { SetStateAction, useState } from "react"
 
 
 const useGetEvents = async() => {
-    
-    const [info, setInfo] = useState<EventsProps[]>([])
-    try{
 
-        const eventos = await axios.get(`${dir_url}/api/eventos/get`)
-        .then((res) => setInfo(res.data))
-        .catch((err) => toastError(err.response.data))
+        const eventos = await axios.get(`${dir_url}/api/eventos/get`).catch((err) => {
+            toastError(err)
+        })
 
-    } catch(err) {
-        toastComentarioError()
-    }
+        const info = eventos.data as EventsProps[]
+
     
     return info
 }
