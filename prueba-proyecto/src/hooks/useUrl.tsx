@@ -1,10 +1,8 @@
-'use client'
-import dir_url from "@/lib/url"
-import axios from "axios"
 import { useParams } from "next/navigation"
+import axios from "axios"
+import dir_url from "@/lib/url"
 
-
-const useVerifyUrl = async() => {
+const useUrl = async() => {
     
     const params = useParams()
     const MuseoName = params.slug.toString().replace('-', ' ')
@@ -15,4 +13,4 @@ const useVerifyUrl = async() => {
     return verifyurl.data as boolean
 }
 
-export default useVerifyUrl
+export default useUrl

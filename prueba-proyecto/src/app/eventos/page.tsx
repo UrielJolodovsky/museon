@@ -14,7 +14,7 @@ import { EventContext, EventProvider } from '@/context/EventContext'
 import { time } from 'console'
 import { useRouter } from 'next/navigation'
 import { toastComentarioError, toastError } from '@/context/ToasterContext'
-import useGetEvents from '@/hooks/useGetEvents'
+import useEvents from '@/hooks/useEvents'
 
 
 const eventos = () => {
@@ -30,7 +30,7 @@ const eventos = () => {
 
   useEffect(() => {
     router.push('/eventos')
-    useGetEvents().then((res) => setEvents(res))
+    useEvents().then((res) => setEvents(res))
   }, [])
 
   const openModal = () => {

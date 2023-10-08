@@ -13,9 +13,10 @@ import face from '@/../../public/assets/FooterIcon/face.png'
 import Image from 'next/image'
 import Scene from '@/three-js/Scene'
 import { toastSuccess, toastError, toastComentarioError } from '@/context/ToasterContext'
-import useGetLikes from '@/hooks/useGetLikes'
-import useGetMessages from '@/hooks/useGetMessages'
-import useVerifyUrl from '@/hooks/useVerifyUrl'
+import useMessages from '@/hooks/useMessages'
+import useUrl from '@/hooks/useUrl'
+import useLikes from '@/hooks/useLikes'
+
 
 
 export default function Museo() {
@@ -30,10 +31,10 @@ export default function Museo() {
     const [messageEnviado, setMessageEnviado] = useState(false)
 
     useEffect(() => {
-        useGetMessages().then((res) => setMessages(res))
+        useMessages().then((res) => setMessages(res))
         setMessageEnviado(false)
-        useVerifyUrl().then((res) => setIsUrl(res))
-        useGetLikes().then((res) => setLikes(res))
+        useUrl().then((res) => setIsUrl(res))
+        useLikes().then((res) => setLikes(res))
     }, [messageEnviado])
 
 
