@@ -147,8 +147,10 @@ export default function Museo() {
                         </div>
                     </div>
                     <div className='flex justify-center items-center flex-col '>
-                        <h1 className='h-1/6 text-black font-medium '>{messages.length} Comentarios</h1>
-                        <div className=' w-[1000px] h-5/6 flex justify-center items-center gap-10 flex-col'>
+                        <div className='w-full h-1/12 flex justify-center items-center'>
+                            <h1 className='text-black font-medium '>{messages.length} Comentarios</h1>
+                        </div>
+                        <div className=' w-[1000px] h-11/12 flex justify-center items-center gap-10 flex-col'>
                             <form className='flex w-full flex-row gap-5'>
                                 <input value={message} className="w-11/12 border-b-2 focus:border-0 p-4" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
                                 <button type='submit' className="bg-dashHover w-1/12 h-12 rounded-lg font-bold" onClick={addMessage}>Add</button>
@@ -158,7 +160,7 @@ export default function Museo() {
                                     <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
                                         <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
                                         <h1 className='text-center text-black'>{museo["content"]}</h1>
-                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={(event: MouseEvent<HTMLButtonElement>) => {AddDeleteLike(event, museo['id'])}}>Like</button>
+                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}>Like</button>
                                     </div>
                                 ) : ""}
                             </div>
