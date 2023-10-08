@@ -31,26 +31,28 @@ export default function Museo() {
     const [messageEnviado, setMessageEnviado] = useState(false)
 
     useEffect(() => {
-        useMessages().then((res) => setMessages(res))
+        // useMessages().then((res) => setMessages(res))
+        getMessages()
         setMessageEnviado(false)
-        useUrl().then((res) => setIsUrl(res))
-        useLikes().then((res) => setLikes(res))
+        verifyUrl()
+        // useUrl().then((res) => setIsUrl(res))
+        // useLikes().then((res) => setLikes(res))
     }, [messageEnviado])
 
 
-    // const verifyUrl = async () => {
-    //     try {
-    //         await axios.post(`${dir_url}/api/verifyMuseoName`, {
-    //             name_museo: MuseoName
-    //         }).then((res) => {
-    //             setIsUrl(res.data)
-    //         }).catch((err) => {
-    //             toastError(err.response.data)
-    //         })
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
+    const verifyUrl = async () => {
+        try {
+            await axios.post(`${dir_url}/api/verifyMuseoName`, {
+                name_museo: MuseoName
+            }).then((res) => {
+                setIsUrl(res.data)
+            }).catch((err) => {
+                toastError(err.response.data)
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const addMessage = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
@@ -98,19 +100,19 @@ export default function Museo() {
     //     }
     // }
 
-    // const getMessages = async () => {
-    //     try {
-    //         await axios.post(`${dir_url}/api/comments/get`, {
-    //             parametros: params.slug.toString()
-    //         }).then((res) => {
-    //             setMessages(res.data)
-    //         }).catch((err) => {
-    //             toastError(err.response.data)
-    //         })
-    //     } catch (err) {
-    //         toastComentarioError()
-    //     }
-    // }
+    const getMessages = async () => {
+        try {
+            await axios.post(`${dir_url}/api/comments/get`, {
+                parametros: params.slug.toString()
+            }).then((res) => {
+                setMessages(res.data)
+            }).catch((err) => {
+                toastError(err.response.data)
+            })
+        } catch (err) {
+            toastComentarioError()
+        }
+    }
 
     const CompIcon = [
         {
