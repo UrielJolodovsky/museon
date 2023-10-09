@@ -1,3 +1,4 @@
+
 'use client';
 import { CldImage } from 'next-cloudinary'
 import React, { useState, useEffect } from 'react'
@@ -7,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import dir_url from '@/lib/url';
 import useMuseos from '@/hooks/useMuseos';
 
+
 const Colecciones = () => {
   const [museos, setMuseos] = useState<MuseosProps[]>([])
   const [tipoMuseo, setTipoMuseo] = useState('')
@@ -14,6 +16,7 @@ const Colecciones = () => {
   const router = useRouter()
   const filtro = ['Deporte', 'Arte', 'Historia', 'Galerias']
   const [filtered, setFiltered] = useState<MuseosProps[]>([]);
+
 
   const FilterMuseums = (search: String) => {
     // if (search === '' || type === '') {
@@ -41,12 +44,14 @@ const Colecciones = () => {
     }
   }
 
+
   useEffect(() => {
     useMuseos().then((res) => {
-      setMuseos(res) 
+      setMuseos(res)
       setFiltered(res)
     })
   }, [])
+
 
   // const viewMuseos = async () => {
   //   await axios.get(`${dir_url}/api/museos`)
@@ -56,15 +61,20 @@ const Colecciones = () => {
   //     })
   // }
 
+
   const changeSelect = (ev: any) => {
     setTipoMuseo(ev.target.value)
   }
+
 
   const changeSearch = (ev: any) => {
     FilterMuseums(ev.target.value)
     setNomMuseo(ev.target.value)
     console.log(nomMuseo)
   }
+
+
+
 
 
 
@@ -75,10 +85,13 @@ const Colecciones = () => {
 
 
 
+
+
+
   return (
-    <div className='w-full h-full pt-20 px-40 flex flex-col justify-center items-center  '>
+    <div className='w-full h-screen pt-20 md:px-40 flex flex-col justify-center items-center  '>
       <h1 className='text-center text-2xl font-medium'>Colecciones</h1>
-      <div className='w-full flex flex-row justify-center items-center gap-10 flex-wrap'>
+      <div className='w-full h-full flex justify-center items-center gap-x-10 flex-wrap'>
         {museos.map(({ id, subimage, name, subname }) => {
           return (
             <div className='w-[300px] h-[375px] lg:w-[300px] flex flex-col ' key={id}>
@@ -97,5 +110,6 @@ const Colecciones = () => {
     </div>
   )
 }
+
 
 export default Colecciones

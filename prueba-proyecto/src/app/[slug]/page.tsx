@@ -13,9 +13,10 @@ import face from '@/../../public/assets/FooterIcon/face.png'
 import Image from 'next/image'
 import Scene from '@/three-js/Scene'
 import { toastSuccess, toastError, toastComentarioError } from '@/context/ToasterContext'
-import useGetLikes from '@/hooks/useGetLikes'
-import useGetMessages from '@/hooks/useGetMessages'
-import useVerifyUrl from '@/hooks/useVerifyUrl'
+import useMessages from '@/hooks/useMessages'
+import useUrl from '@/hooks/useUrl'
+import useLikes from '@/hooks/useLikes'
+
 
 
 export default function Museo() {
@@ -30,26 +31,28 @@ export default function Museo() {
     const [messageEnviado, setMessageEnviado] = useState(false)
 
     useEffect(() => {
-        useGetMessages().then((res) => setMessages(res))
+        // useMessages().then((res) => setMessages(res))
+        getMessages()
         setMessageEnviado(false)
-        useVerifyUrl().then((res) => setIsUrl(res))
-        useGetLikes().then((res) => setLikes(res))
+        verifyUrl()
+        // useUrl().then((res) => setIsUrl(res))
+        // useLikes().then((res) => setLikes(res))
     }, [messageEnviado])
 
 
-    // const verifyUrl = async () => {
-    //     try {
-    //         await axios.post(`${dir_url}/api/verifyMuseoName`, {
-    //             name_museo: MuseoName
-    //         }).then((res) => {
-    //             setIsUrl(res.data)
-    //         }).catch((err) => {
-    //             toastError(err.response.data)
-    //         })
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
+    const verifyUrl = async () => {
+        try {
+            await axios.post(`${dir_url}/api/verifyMuseoName`, {
+                name_museo: MuseoName
+            }).then((res) => {
+                setIsUrl(res.data)
+            }).catch((err) => {
+                toastError(err.response.data)
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const addMessage = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
@@ -97,19 +100,19 @@ export default function Museo() {
     //     }
     // }
 
-    // const getMessages = async () => {
-    //     try {
-    //         await axios.post(`${dir_url}/api/comments/get`, {
-    //             parametros: params.slug.toString()
-    //         }).then((res) => {
-    //             setMessages(res.data)
-    //         }).catch((err) => {
-    //             toastError(err.response.data)
-    //         })
-    //     } catch (err) {
-    //         toastComentarioError()
-    //     }
-    // }
+    const getMessages = async () => {
+        try {
+            await axios.post(`${dir_url}/api/comments/get`, {
+                parametros: params.slug.toString()
+            }).then((res) => {
+                setMessages(res.data)
+            }).catch((err) => {
+                toastError(err.response.data)
+            })
+        } catch (err) {
+            toastComentarioError()
+        }
+    }
 
     const CompIcon = [
         {
@@ -144,8 +147,10 @@ export default function Museo() {
                         </div>
                     </div>
                     <div className='flex justify-center items-center flex-col '>
-                        <h1 className='h-1/6 text-black font-medium '>{messages.length} Comentarios</h1>
-                        <div className=' w-[1000px] h-5/6 flex justify-center items-center gap-10 flex-col'>
+                        <div className='w-full h-1/12 flex justify-center items-center'>
+                            <h1 className='text-black font-medium '>{messages.length} Comentarios</h1>
+                        </div>
+                        <div className=' w-[1000px] h-11/12 flex justify-center items-center gap-10 flex-col'>
                             <form className='flex w-full flex-row gap-5'>
                                 <input value={message} className="w-11/12 border-b-2 focus:border-0 p-4" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
                                 <button type='submit' className="bg-dashHover w-1/12 h-12 rounded-lg font-bold" onClick={addMessage}>Add</button>
@@ -155,7 +160,7 @@ export default function Museo() {
                                     <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
                                         <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
                                         <h1 className='text-center text-black'>{museo["content"]}</h1>
-                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={(event: MouseEvent<HTMLButtonElement>) => {AddDeleteLike(event, museo['id'])}}>Like</button>
+                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}>Like</button>
                                     </div>
                                 ) : ""}
                             </div>

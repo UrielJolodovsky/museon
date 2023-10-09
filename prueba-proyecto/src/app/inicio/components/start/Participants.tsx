@@ -3,7 +3,7 @@ import { CldImage } from 'next-cloudinary'
 
 const Participants = () => {
   return (
-    <section className='w-2/3 h-[200px] flex justify-start items-center flex-col md:flex-row gap-2 pt-5'>
+    <section className='w-2/3 h-[200px] flex justify-start items-center flex-col md:flex-row gap-2 '>
       <div className='w-full h-1/2 md:w-1/2 md:h-full flex justify-center items-center order-2 md:order-1'>
         <div className='w-full h-full flex justify-center items-center'>
           <CldImage src='PiramidIcon' alt='PiramidImage' width={0} height={0} className='w-[300px] h-[200px]' ></CldImage>
