@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postinstall": "prisma generate && git lfs pull",
+    "postinstall": "prisma generate",
+    "preinstall": "git lfs pull",
     "lint": "next lint"
   },
   "dependencies": {
