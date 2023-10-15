@@ -33,7 +33,8 @@ module.exports = {
     screens:{
       'xs': {"raw": "(min-width: 250px)"},
       'sm': {"raw": "(min-width: 374px)"},
-      'md': {"raw": "(min-width: 750px)"},
+      'log': {"raw": "(min-width: 500px)"},
+      'md': {"raw": "(min-width: 815px)"},
       'lg': {"raw": "(min-width: 1160px)"},
       'xl': {"raw": "(min-width: 1390px)"},
     },  

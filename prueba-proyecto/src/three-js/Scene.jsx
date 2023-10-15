@@ -194,13 +194,8 @@ class Scene extends Component {
 
     // Screen renderer    
     renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.current });
-    renderer.setSize(1200, 600);
-    window.addEventListener("resize", function () {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(window.devicePixelRatio)
-    });
+    renderer.setSize(1000, 500);
+   
 
     // Añadir Grid
     var grid = new THREE.GridHelper(100, 50);
