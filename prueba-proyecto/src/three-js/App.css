@@ -1,5 +1,5 @@
 .App:hover {
-  cursor: grabbing;
+  cursor: pointer;
 }
 
 .App:not(:hover) {
@@ -11,6 +11,7 @@
   height: 400px;
   position: absolute;
 }
+
 
 #popup {
   position: absolute;
