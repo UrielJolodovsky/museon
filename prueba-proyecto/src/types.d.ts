@@ -17,6 +17,8 @@ export interface CommentsProps {
 
 export interface LikesProps {
     commentId: string
+    btnLike: boolean
+
 }
 
 export interface EventsProps {

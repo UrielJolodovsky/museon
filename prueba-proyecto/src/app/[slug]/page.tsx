@@ -16,6 +16,7 @@ import { toastSuccess, toastError, toastComentarioError } from '@/context/Toaste
 import useMessages from '@/hooks/useMessages'
 import useUrl from '@/hooks/useUrl'
 import useLikes from '@/hooks/useLikes'
+import { cn } from '@/lib/utils'
 
 
 
@@ -24,7 +25,8 @@ export default function Museo() {
     const [message, setMessage] = useState('')
     const [museos, setMuseos] = useState<MuseosProps[]>([])
     const [messages, setMessages] = useState<CommentsProps[]>([])
-    const [likes, setLikes] = useState<LikesProps[]>([])
+    const [liked, setLiked] = useState<LikesProps[]>([])
+
     const params = useParams()
     const MuseoName = params.slug.toString().replace('-', ' ')
     const [isUrl, setIsUrl] = useState<Boolean>(false)
@@ -73,6 +75,8 @@ export default function Museo() {
         }
     }
     const AddDeleteLike = async (event: MouseEvent<HTMLButtonElement>, id_comment: string) => {
+        setLiked([...liked, { commentId: id_comment, btnLike: !liked.find((like) => { return !like.btnLike }) }])
+
         event.preventDefault()
         try {
             await axios.post(`${dir_url}/api/likes/add`, {
@@ -85,6 +89,7 @@ export default function Museo() {
         } catch (err) {
             toastComentarioError()
         }
+
     }
 
     // const getLikes = async () => {
@@ -160,7 +165,10 @@ export default function Museo() {
                                     <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
                                         <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
                                         <h1 className='text-center text-black'>{museo["content"]}</h1>
-                                        <button className='bg-dashHover w-1/12 h-12 rounded-lg font-bold' onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}>Like</button>
+                                        <button id={index.toString()}
+                                            className={cn('bg-dashHover w-1/12 h-12 rounded-lg font-bold', {
+                                                'bg-red': liked.find((like) => like.commentId === museo['id'] && like.btnLike === true)
+                                            })} onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}>Like</button>
                                     </div>
                                 ) : ""}
                             </div>

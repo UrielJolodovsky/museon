@@ -72,7 +72,7 @@ const eventos = () => {
               document.getElementById('container-events') as HTMLElement
             )}
             {Array.isArray(events) ? events.map((evento, index) =>
-              <div className='h-[500px] md:h-[300px] w-full bg-dashHover p-8 rounded-md flex flex-col md:flex-row md:justify-start justify-center items-center md:gap-10 gap-5 ' key={index}>
+              <div className='h-[550px] md:h-[300px] w-full bg-dashHover p-8 rounded-md flex flex-col md:flex-row md:justify-start justify-center items-center md:gap-10 gap-5 ' key={index}>
                 <div className='w-[200px] h-[200px] bg-white flex md:justify-start justify-center md:items-start items-center rounded-lg'>
                   <CldImage width={0} height={0} className='w-full h-full' src={evento["id"]} alt='EventImage' />
                 </div>
