@@ -57,7 +57,7 @@ class Scene extends Component {
 
     this.teleportProgress = 0;
   }
-    
+  
   openMenu = () => {
     this.setState({ isMenuVisible: true, isCloseMenuButtonVisible: false });
 }
