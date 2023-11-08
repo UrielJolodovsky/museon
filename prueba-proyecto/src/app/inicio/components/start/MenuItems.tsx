@@ -1,3 +1,4 @@
+
 import { signOut, useSession } from 'next-auth/react'
 import { CldImage } from 'next-cloudinary'
 import { useRouter } from 'next/navigation'
@@ -10,6 +11,9 @@ import { MenuContext } from '@/context/MenuContext'
 
 
 
+
+
+
 const DataNav = [
   {
     id: 1,
@@ -19,10 +23,12 @@ const DataNav = [
     id: 2,
     title: 'Colecciones',
 
+
   },
   {
     id: 3,
     title: 'Eventos',
+
 
   },
   {
@@ -30,6 +36,8 @@ const DataNav = [
     title: 'Ayuda',
   },
 ]
+
+
 
 
 const variants = {
@@ -50,11 +58,14 @@ const variants = {
 };
 
 
+
+
 const MenuItems = () => {
   const { data: sessionData } = useSession()
   const [active, setActive] = useState(false)
   const [activeHover, setActiveHover] = useState(false)
   const router = useRouter()
+
 
   const clickMenu = (title: string) => {
     if (title === 'Ayuda') {
@@ -64,14 +75,18 @@ const MenuItems = () => {
     }
   };
 
+
   const setValuesEvent = () => {
     setActive(!active);
     setActiveHover(false)
 
+
   }
+
 
   const handleLogin = () => {
     router.push('/login')
+
 
   }
   return (
@@ -82,18 +97,18 @@ const MenuItems = () => {
       {DataNav.map(({ id, title }) =>
         <motion.li
           variants={variants}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+
+
           className=' list-none text-center flex flex-col justify-center items-center mt-1' key={id}
         >
           <button
             id='MyLink'
-            className='navElements font-normal text-white link '
+            className=' font-normal text-white link '
             onClick={() => clickMenu(title)}
           >
             {title}
           </button>
-          <div className='line'></div>
+          <div className='line md:flex hidden'></div>
         </motion.li>
       )}
       {sessionData?.user ? (
@@ -105,6 +120,7 @@ const MenuItems = () => {
             onMouseLeave={() => setActiveHover(false)}
             onClick={setValuesEvent}
           >
+
 
             <Image
               className='w-7 h-8'
@@ -136,14 +152,15 @@ const MenuItems = () => {
       ) : (
         <motion.button
           onClick={handleLogin}
-          className='w-40 h-12 hidden md:flex justify-center items-center rounded-full text-black bg-white  transition'
+          className='md:w-40 md:h-12 text-[18px] md:font-bold flex justify-center items-center rounded-full md:text-black text-white md:bg-white  transition'
         >
-          <h1 className='text-[18px] font-bold'>Iniciar sesión</h1>
+          Iniciar sesión
         </motion.button>
       )
       }
     </ul>
   )
 }
+
 
 export default MenuItems
