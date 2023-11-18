@@ -33,7 +33,7 @@ const Colecciones = () => {
         {museos.map(({ id, subimage, name, subname }) => {
           return (
             <div className='w-[300px] h-[375px] lg:w-[300px] flex flex-col ' key={id}>
-              <button onClick={() => router.push(`/${deleteSpace(subname)}`)} className='w-full h-full flex flex-col gap-6 justify-center items-center rounded-xl transition hover:scale-95' >
+              <button onClick={() => router.push(`/colecciones/${deleteSpace(subname)}`)} className='w-full h-full flex flex-col gap-6 justify-center items-center rounded-xl transition hover:scale-95' >
                 <CldImage className='h-3/6 rounded-lg w-full' width={300} height={300} src={id} alt="Imagen Museo" />
                 <div className='w-full h-1/6 flex justify-center items-center flex-col gap-2'>
                   <CldImage alt={''} src={subimage} className='' width={150} height={60}></CldImage>
