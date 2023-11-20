@@ -43,7 +43,7 @@ const toastSuccess = (message: string) => {
 }
 
 const toastComentarioError = () => {
-    toast('Ha ocurrido un error', {
+    toast('Debe iniciar sesión', {
         icon: "❌",
         style: {
             background: 'white', // Cambia el color de fondo

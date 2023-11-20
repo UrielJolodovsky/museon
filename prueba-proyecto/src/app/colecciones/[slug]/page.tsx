@@ -18,6 +18,8 @@ import useUrl from '@/hooks/useUrl'
 import useLikes from '@/hooks/useLikes'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
+import ModalComentario from '../ModalComentario'
+import ReactDOM from 'react-dom'
 
 
 
@@ -32,6 +34,17 @@ export default function Museo() {
     const MuseoName = params.slug.toString().replace('-', ' ')
     const [isUrl, setIsUrl] = useState<Boolean>(false)
     const [messageEnviado, setMessageEnviado] = useState(false)
+
+
+    const [modalStates, setModalStates] = useState<Record<string, boolean>>({});
+
+    const openModal = (commentId: string) => {
+        setModalStates((prev) => ({ ...prev, [commentId]: true }));
+    };
+
+    const closeModal = (commentId: string) => {
+        setModalStates((prev) => ({ ...prev, [commentId]: false }));
+    };
 
     const { data: sessionData } = useSession()
 
@@ -148,13 +161,13 @@ export default function Museo() {
                         </div>
                         <div className=' w-[1000px] h-11/12 flex justify-center items-center gap-10 flex-col'>
                             <form className='flex w-full flex-row gap-5'>
-                                <input value={message} className="w-11/12 border-b-2 focus:border-0 p-4" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
+                                <input value={message} className="w-11/12 border-b-2 focus:outline-none p-4" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
                                 <button type='submit' className="bg-dashHover w-1/12 h-12 rounded-lg font-bold" onClick={addMessage}>Add</button>
                             </form>
                             <div className='w-full  flex justify-center items-start flex-col gap-4 '>
                                 {sessionData?.user ? (
                                     messages.map((museo, index) =>
-                                        <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
+                                        <div id='container-addComments' className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
                                             <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
                                             <h1 className='text-center text-black'>{museo["content"]}</h1>
                                             <div className='flex w-full h-10 justify-start items-center flex-row gap-5'>
@@ -169,37 +182,42 @@ export default function Museo() {
                                                         <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
                                                     </svg>
                                                 </button>
-                                                <button className=''>
-                                                    <span className='font-bold'>Responder</span>
+                                                <button id='addComment' onClick={() => openModal(index.toString())} className=''>
+                                                    <h2 className='font-bold'>Responder</h2>
                                                 </button>
+                                                {modalStates[index.toString()] && ReactDOM.createPortal(
+                                                    <ModalComentario isOpen={modalStates[index.toString()]} onClose={() => closeModal(index.toString())} />,
+                                                    document.getElementById('container-addComments') as HTMLElement
+                                                )}
                                             </div>
-
                                         </div>
                                     )) : (
                                     messages.map((museo, index) =>
                                         <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
                                             <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
                                             <h1 className='text-center text-black'>{museo["content"]}</h1>
-                                            <button id={index.toString()}
-                                                className={cn('love')} onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-8 h-8">
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-
-                                                    />
-                                                </svg>
-                                            </button>
+                                            <div className='flex w-full h-10 justify-start items-center flex-row gap-5'>
+                                                <button
+                                                    id={index.toString()}
+                                                    onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="contentColor" stroke='black' className="w-6 h-6 stroke-2">
+                                                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                                                    </svg>
+                                                </button>
+                                                <button id='addComment' className=''>
+                                                    <h2 className='font-bold'>Responder</h2>
+                                                </button>
+                                            </div>
                                         </div>
                                     )
                                 )}
                             </div>
                         </div>
                     </div>
-                </section>
-            ) : ''}
+                </section >
+            ) : ''
+            }
 
         </>
     )

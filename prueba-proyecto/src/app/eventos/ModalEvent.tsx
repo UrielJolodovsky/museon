@@ -107,14 +107,6 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             )}
           </label>
           <div className='w-2/3 h-1/3 flex justify-center items-start flex-col gap-4'>
-            {/* <motion.input
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              type="date"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setFecha(e.target.value)}
-              value={fecha}
-              className='outline-none h-8 cursor-pointer p-4 rounded-lg border-[1px]'
-            /> */}
             <motion.input
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
