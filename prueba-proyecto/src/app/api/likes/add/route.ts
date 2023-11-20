@@ -4,13 +4,13 @@ import { authOptions } from '../../auth/[...nextauth]/route'
 import { db } from '@/lib/db'
 
 export async function POST(req: NextRequest, res: NextResponse) {
-    try{
+    try {
         const { id_comment } = await req.json()
         const session = await getServerSession(authOptions)
         const id = session?.user.id
 
         if (id === undefined) {
-            return new NextResponse("You are not logged in", { status: 401 })
+            return new NextResponse("Debes iniciar sesión", { status: 401 })
         }
 
         const like = await db.likeComment.findFirst({
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                     authorId: id
                 }
             })
-            return NextResponse.json("Like added succesfully", { status: 200 })
+            return NextResponse.json("Se agregó con éxito", { status: 200 })
         }
         else {
             const deleteLike = await db.likeComment.delete({
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                     id: like.id
                 }
             })
-            return NextResponse.json("Like deleted successfully", { status: 200 })
+            return NextResponse.json("Se eliminó con éxito", { status: 200 })
         }
     } catch (error) {
         return new NextResponse("Something went wrong", { status: 400 })

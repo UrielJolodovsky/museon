@@ -17,6 +17,7 @@ import useMessages from '@/hooks/useMessages'
 import useUrl from '@/hooks/useUrl'
 import useLikes from '@/hooks/useLikes'
 import { cn } from '@/lib/utils'
+import { useSession } from 'next-auth/react'
 
 
 
@@ -32,11 +33,14 @@ export default function Museo() {
     const [isUrl, setIsUrl] = useState<Boolean>(false)
     const [messageEnviado, setMessageEnviado] = useState(false)
 
+    const { data: sessionData } = useSession()
+
     useEffect(() => {
         // useMessages().then((res) => setMessages(res))
         getMessages()
         setMessageEnviado(false)
         verifyUrl()
+        getLikes()
         // useUrl().then((res) => setIsUrl(res))
         // useLikes().then((res) => setLikes(res))
     }, [messageEnviado])
@@ -75,35 +79,41 @@ export default function Museo() {
         }
     }
     const AddDeleteLike = async (event: MouseEvent<HTMLButtonElement>, id_comment: string) => {
-        setLiked([...liked, { commentId: id_comment, btnLike: !liked.find((like) => { return !like.btnLike }) }])
 
         event.preventDefault()
         try {
+            let updatedLikes;
+            const isAlreadyLiked = liked.find((like) => like.commentId === id_comment && like.btnLike);
+
+            if (isAlreadyLiked) {
+                updatedLikes = liked.filter((like) => like.commentId !== id_comment);
+            } else {
+                updatedLikes = [...liked, { commentId: id_comment, btnLike: true }];
+            }
+            setLiked(updatedLikes);
             await axios.post(`${dir_url}/api/likes/add`, {
-                id_comment: id_comment
-            }).then((res) => {
-                toastSuccess(res.data)
-            }).catch((err) => {
-                toastError(err.response.data)
-            })
+                id_comment: id_comment,
+                userId: sessionData?.user.id,
+            });
+            toastSuccess(isAlreadyLiked ? "Se eliminó con éxito" : "Se agregó con éxito");
         } catch (err) {
             toastComentarioError()
         }
 
     }
 
-    // const getLikes = async () => {
-    //     try {
-    //         await axios.get(`${dir_url}/api/likes/get`).then((res) => {
-    //             setLikes(res.data)
-    //         }).catch((err) => {
-    //             console.log(err.response.data)
-    //             toastError(err.response.data)
-    //         })
-    //     } catch (err) {
-    //         toastComentarioError()
-    //     }
-    // }
+    const getLikes = async () => {
+        try {
+            await axios.get(`${dir_url}/api/likes/get`).then((res) => {
+                setLiked(res.data)
+            }).catch((err) => {
+                console.log(err.response.data)
+                toastError(err.response.data)
+            })
+        } catch (err) {
+            toastComentarioError()
+        }
+    }
 
     const getMessages = async () => {
         try {
@@ -118,26 +128,6 @@ export default function Museo() {
             toastComentarioError()
         }
     }
-
-    const CompIcon = [
-        {
-            id: 1,
-            icon: internet,
-        },
-        {
-            id: 2,
-            icon: instagram,
-        },
-        {
-            id: 3,
-            icon: twitter,
-        },
-        {
-            id: 4,
-            icon: face,
-        }
-
-    ]
 
     return (
         <>
@@ -161,16 +151,26 @@ export default function Museo() {
                                 <button type='submit' className="bg-dashHover w-1/12 h-12 rounded-lg font-bold" onClick={addMessage}>Add</button>
                             </form>
                             <div className='w-full  flex justify-center items-start flex-col gap-4 '>
-                                {Array.isArray(messages) ? messages.map((museo, index) =>
-                                    <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
-                                        <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
-                                        <h1 className='text-center text-black'>{museo["content"]}</h1>
-                                        <button id={index.toString()}
-                                            className={cn('bg-dashHover w-1/12 h-12 rounded-lg font-bold', {
-                                                'bg-red': liked.find((like) => like.commentId === museo['id'] && like.btnLike === true)
-                                            })} onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}>Like</button>
-                                    </div>
-                                ) : ""}
+                                {sessionData?.user ? (
+                                    messages.map((museo, index) =>
+                                        <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
+                                            <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
+                                            <h1 className='text-center text-black'>{museo["content"]}</h1>
+                                            <button id={index.toString()}
+                                                className={cn('bg-dashHover w-1/12 h-12 rounded-lg font-bold', {
+                                                    'bg-red': liked.find((like) => like.commentId === museo['id'] && like.btnLike === true)
+                                                })} onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}>Like</button>
+                                        </div>
+                                    )) : (
+                                    messages.map((museo, index) =>
+                                        <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
+                                            <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
+                                            <h1 className='text-center text-black'>{museo["content"]}</h1>
+                                            <button id={index.toString()}
+                                                className={cn('bg-dashHover w-1/12 h-12 rounded-lg font-bold')} onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}>Like</button>
+                                        </div>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>
