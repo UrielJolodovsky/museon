@@ -16,6 +16,7 @@ const target = new THREE.Vector2();
 let isDragging
 let previousMousePosition
 let info = ''
+const distanciaMaxima = 10;
 
 class Scene extends Component {
   constructor(props) {
@@ -49,15 +50,14 @@ class Scene extends Component {
       isPopupVisible: false,
       isCloseMenuButtonVisible: false,
       isDragging: false,
+      isMouseOverCube: false,
     };
 
     this.cube = null;
 
     this.teleportProgress = 0;
-    const teleportSpeed = 0.02;
   }
-
-
+  
   openMenu = () => {
     this.setState({ isMenuVisible: true, isCloseMenuButtonVisible: false });
 }
@@ -65,8 +65,6 @@ class Scene extends Component {
   closeMenu = () => {
     this.setState({ isMenuVisible: false, isCloseMenuButtonVisible: true });
 }
-
-  // loader.load('/models/poly.gltf',
 
   loadModel(modelPath, position, scale, rotation) {
     const loader = new GLTFLoader();
@@ -78,7 +76,7 @@ class Scene extends Component {
       const model = gltf.scene;
       model.scale.set(scale.x, scale.y, scale.z);
       model.position.set(position.x, position.y, position.z);
-      model.rotation.set(rotation.x, rotation.y, rotation.z); // Aplica la rotación aquí
+      model.rotation.set(rotation.x, rotation.y, rotation.z);
       scene.add(model);
     });
   }
@@ -98,6 +96,7 @@ class Scene extends Component {
     // Forma de añadir: UBICACIÓN ARCHIVO - UBICACIÓN EN ESCENA - TAMAÑO - ROTACIÓN
     this.loadModel('/models/poly.gltf', new THREE.Vector3(0, 7.5, 0), new THREE.Vector3(10, 10, 10), new THREE.Vector3(0, 0, 0));
     this.loadModel('/models/ortDesk.gltf', new THREE.Vector3(-15, 0, 8), new THREE.Vector3(2, 2, 2), new THREE.Vector3(0, Math.PI / 2, 0));
+    this.loadModel('/models/DiseñoPopup.gltf', new THREE.Vector3(-13, 4.5, 6), new THREE.Vector3(0.5, 0.5, 1), new THREE.Vector3(0, 0, -Math.PI / 2));
 
 
     // Instanciar popups
@@ -105,6 +104,10 @@ class Scene extends Component {
     this.createPopup(-14, 3.75, 7, "Popup 1");
     this.createPopup(15, 5, 3, "Popup 2");
     this.createPopup(0, 0, -2, "Popup 3");
+    this.createPopup(-14, 3, 10, "PopupTest");
+
+    this.createImagePopup(0, 0, 0, 'Image 1', '/models/eyeImg.png', new THREE.Vector3(0, 0, 0), new THREE.Vector3(1, 1, 1));
+    this.createImagePopup(-14, 3.75, 4, 'Image 1', '/models/eyeImg.png', new THREE.Vector3(0, Math.PI / 2, 0), new THREE.Vector3(0.5, 0.5, 0.5));
   }
   
   componentWillUnmount() {
@@ -194,13 +197,8 @@ class Scene extends Component {
 
     // Screen renderer    
     renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef.current });
-    renderer.setSize(1200, 600);
-    window.addEventListener("resize", function () {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(window.devicePixelRatio)
-    });
+    renderer.setSize(1000, 500);
+   
 
     // Añadir Grid
     var grid = new THREE.GridHelper(100, 50);
@@ -257,37 +255,64 @@ class Scene extends Component {
     popups.push({ mesh: popup, id });
   }
 
+  createImagePopup(x, y, z, id, imagePath, rotation, scale) {
+    const geometry = new THREE.PlaneGeometry(1, 1);
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load(imagePath);
+    const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: 0.1, roughness: 1 });
+    const popup = new THREE.Mesh(geometry, material);
 
-createInteractiveTorus(x, y, z) {
-  const torusGeometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
-  const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff });
-  const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-  torus.rotation.x = Math.PI / 2;
-
-  // Collider encima de la geometría del TP para poder tener un mayor radio para clickear y teletransportarse
-  const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-  const boxMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
-  const interactiveMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-
-  const interactiveTorus = new THREE.Group();
-  interactiveTorus.add(torus);
-  interactiveTorus.add(interactiveMesh);
-
-  interactiveTorus.position.set(x, y, z);
-  return interactiveTorus;
-}
-
-  animate() {
-    if (!this.state.isPopupVisible) {
-      // Suavizar el movimiento de la cámara
-      const lerpAmount = 0.5; // Suavidad del movimiento
+    popup.rotation.set(rotation.x, rotation.y, rotation.z);
+    popup.scale.set(scale.x, scale.y, scale.z);
   
+    popup.position.set(x, y, z);
+    scene.add(popup);
+    popups.push({ mesh: popup, id });
+  }
+
+  createInteractiveTorus(x, y, z) {
+    const torusGeometry = new THREE.TorusGeometry(0.5, 0.1, 2, 64);
+    const torusMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff, wireframe: false, emissive: 0xffffff });
+    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+    torus.rotation.x = Math.PI / 2;
+
+    // Collider encima de la geometría del TP para poder tener un mayor radio para clickear y teletransportarse
+    const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const boxMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
+    const interactiveMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+
+    const interactiveTorus = new THREE.Group();
+    interactiveTorus.add(torus);
+    interactiveTorus.add(interactiveMesh);
+
+    interactiveTorus.position.set(x, y, z);
+    return interactiveTorus;
+  }
+
+
+
+
+  updatePopupVisibility() {
+    for (const popup of popups) {
+      const distancia = camera.position.distanceTo(popup.mesh.position);
+  
+      if (distancia <= distanciaMaxima) {
+        popup.mesh.visible = true;
+      } else {
+        popup.mesh.visible = false;
+      }
+    }
+  }
+
+    animate() {
+    if (!this.state.isPopupVisible) {  
       requestAnimationFrame(this.animate);
       renderer.render(scene, camera);
+      this.updatePopupVisibility();
     } else {
       requestAnimationFrame(this.animate);
     }
-  }  
+  }
 
   // Detectar si se clickeó el canvas para mostrar el popup con la información de una obra
   onCanvasClick(event) {
@@ -308,7 +333,7 @@ createInteractiveTorus(x, y, z) {
     }
 
 
-    const rect = this.canvasRef.current.getBoundingClientRect();
+  const rect = this.canvasRef.current.getBoundingClientRect();
   const mouse = {
     x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
     y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
@@ -317,18 +342,20 @@ createInteractiveTorus(x, y, z) {
   const raycaster = new THREE.Raycaster();
   raycaster.setFromCamera(mouse, camera);
 
-  // Verificar si el rayo intersecta con algún popup
   const intersects = raycaster.intersectObjects(popups.map((popup) => popup.mesh));
 
   if (intersects.length > 0) {
-    // Hiciste clic en un popup, muestra el contenido del popup
+    // Se se hizo clic en un popup, muestra el contenido del popup
     const popup = popups.find((p) => p.mesh === intersects[0].object);
-    if (popup) {
+    const distancia = camera.position.distanceTo(popup.mesh.position);
+
+    // Solo muestra el contenido del popup si estás a una distancia adecuada (Distancia delimitada en la función "distanciaMaxima")
+    if (distancia <= distanciaMaxima) {
       console.log(popup.id);
       GetInfo(popup.id);
     }
   } else {
-    // Hiciste clic en otro lugar de la escena, cierra el popup si está abierto
+    // Si se hizo clic en otro lugar de la escena, cierra el popup si está abierto
     if (this.state.isPopupVisible) {
       this.closePopup();
     }
@@ -367,7 +394,7 @@ createInteractiveTorus(x, y, z) {
             requestAnimationFrame(animateTeleport);
           } else {
             camera.position.copy(targetPosition);
-            camera.position.y = startPosition.y; // Restaura la altura de la cámara
+            camera.position.y = startPosition.y;
             camera.rotation.copy(targetRotation);
           }
         };
@@ -382,16 +409,16 @@ createInteractiveTorus(x, y, z) {
 
 
   moveCameraToPosition(position) {
-    const cameraY = camera.position.y; // Guardar posición Z
+    const cameraY = camera.position.y;
     camera.position.copy(position);
-    camera.position.z = cameraY; // Igualar altura de la cámara a la posición de la cámara
+    camera.position.z = cameraY;
     camera.lookAt(position);
   }
 
   // Mostrar el popup
   showPopup() {
-    const popup = this.popupRef.current; //Añadir popup a la escena 3D (DOM)
-    popup.style.display = "block"; //Cambia la propiedad "display" de "popup" con el fin de mostrarlo en la escena
+    const popup = this.popupRef.current;
+    popup.style.display = "inline-block";
     this.setState({ isPopupVisible: true });
   }
 
@@ -428,7 +455,7 @@ createInteractiveTorus(x, y, z) {
   render() {
     return (
 
-          <div  className="w-full h-full flex justify-center items-center">
+      <div className={`w-full h-full flex justify-center items-center ${this.state.isMouseOverCube ? 'pointer-cursor' : ''}`}>
            <div id="darkOverlay" className={this.state.isTeleporting ? 'dark-overlay active' : 'dark-overlay'}></div>
 
             <canvas ref={this.canvasRef} className="App" />
