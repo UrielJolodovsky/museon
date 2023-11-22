@@ -31,6 +31,7 @@ const eventos = () => {
   useEffect(() => {
     router.push('/eventos')
     useEvents().then((res) => setEvents(res))
+    GetEventos()
   }, [])
 
   const openModal = () => {
@@ -43,18 +44,18 @@ const eventos = () => {
 
 
 
-  // const GetEventos = async () => {
-  //   try {
-  //     await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
-  //       setEvents(res.data)
-  //       console.log(res.data)
-  //     }).catch((err) => {
-  //       toastError(err.response.data)
-  //     })
-  //   } catch (error) {
-  //     toastComentarioError()
-  //   }
-  // }
+  const GetEventos = async () => {
+    try {
+      await axios.get(`${dir_url}/api/eventos/get`).then((res) => {
+        setEvents(res.data)
+        console.log(res.data)
+      }).catch((err) => {
+        toastError(err.response.data)
+      })
+    } catch (error) {
+      toastComentarioError()
+    }
+  }
 
   return (
     <EventProvider>
