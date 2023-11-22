@@ -30,8 +30,8 @@ const eventos = () => {
 
   useEffect(() => {
     router.push('/eventos')
-    useEvents().then((res) => setEvents(res))
     GetEventos()
+    //useEvents().then((res) => setEvents(res))
   }, [])
 
   const openModal = () => {
