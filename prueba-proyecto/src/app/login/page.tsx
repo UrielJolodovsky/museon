@@ -17,7 +17,7 @@ export default function Login() {
       {sessionData?.user.name ?
         (router.push(`${dir_url}`))
         :
-        (<div className='w-full p-5 h-full bg-dashBack flex flex-col lg:flex-row justify-center items-center gap-5'>
+        (<div className='w-full p-5 h-screen bg-dashBack flex flex-col lg:flex-row justify-center items-center gap-5'>
           <Form />
           <VideoPlay />
         </div>
