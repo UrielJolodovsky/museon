@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 
 
 const useUsuario = async () => {
-    const {data: sessionData} = useSession()
+    const { data: sessionData } = useSession()
     const username_email = sessionData?.user ? sessionData.user.email : ''
     if (username_email === '') {
         return username_email as string

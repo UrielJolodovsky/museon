@@ -1,4 +1,5 @@
 import { EventContext, EventProvider } from '@/context/EventContext'
+import { toastSuccess } from '@/context/ToasterContext'
 import useUsuario from '@/hooks/useUsuario'
 import dir_url from '@/lib/url'
 import { EventsProps } from '@/types'
@@ -38,21 +39,6 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     }, 500);
   }
 
-  const toastEventoSuccess = () => {
-    toast('Evento enviado', {
-      icon: "✔️",
-      style: {
-        background: 'white', // Cambia el color de fondo
-        color: 'black',
-        fontWeight: '600',
-        padding: '10px'// Cambia el color del texto
-      },
-      duration: 2000, // Establece la duración en milisegundos
-      position: 'bottom-right', // Cambia la posición de la notificación
-      // Puedes agregar más opciones según tus necesidades
-    });
-  }
-
   const AddEvent = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     try {
@@ -74,7 +60,7 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         axios.post('https://api.cloudinary.com/v1_1/dxt2lvdt3/image/upload', formData)
         setEventoEnviado(true)
         onClose();
-        toastEventoSuccess()
+        toastSuccess('Evento creado con éxito')
         delaySend()
       }).catch((err) => {
         toast.error(err.response.data)
@@ -121,14 +107,6 @@ const ModalEvent: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             )}
           </label>
           <div className='w-2/3 h-1/3 flex justify-center items-start flex-col gap-4'>
-            {/* <motion.input
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              type="date"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setFecha(e.target.value)}
-              value={fecha}
-              className='outline-none h-8 cursor-pointer p-4 rounded-lg border-[1px]'
-            /> */}
             <motion.input
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}

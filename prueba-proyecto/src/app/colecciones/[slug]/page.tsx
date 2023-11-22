@@ -3,14 +3,24 @@ import axios from 'axios'
 import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useState, MouseEvent } from "react"
 import { toast } from "react-hot-toast"
-import { CommentsProps, MuseosProps } from '@/types'
+import { CommentsProps, LikesProps, MuseosProps } from '@/types'
 import dir_url from '@/lib/url'
+import Comp3d from '@/3dComps/Comp3d'
 import internet from '@../../public/assets/icons/internet.png'
 import instagram from '@/../../public/assets/FooterIcon/insta.png'
 import twitter from '@/../../public/assets/FooterIcon/twitter.png'
 import face from '@/../../public/assets/FooterIcon/face.png'
 import Image from 'next/image'
 import Scene from '@/three-js/Scene'
+import { toastSuccess, toastError, toastComentarioError } from '@/context/ToasterContext'
+import useMessages from '@/hooks/useMessages'
+import useUrl from '@/hooks/useUrl'
+import useLikes from '@/hooks/useLikes'
+import { cn } from '@/lib/utils'
+import { useSession } from 'next-auth/react'
+import ModalComentario from '../ModalComentario'
+import ReactDOM from 'react-dom'
+
 
 
 export default function Museo() {
@@ -18,18 +28,38 @@ export default function Museo() {
     const [message, setMessage] = useState('')
     const [museos, setMuseos] = useState<MuseosProps[]>([])
     const [messages, setMessages] = useState<CommentsProps[]>([])
+    const [liked, setLiked] = useState<LikesProps[]>([])
+
     const params = useParams()
     const MuseoName = params.slug.toString().replace('-', ' ')
     const [isUrl, setIsUrl] = useState<Boolean>(false)
-
     const [messageEnviado, setMessageEnviado] = useState(false)
 
+
+    const [modalStates, setModalStates] = useState<Record<string, boolean>>({});
+
+    const openModal = (commentId: string) => {
+        setModalStates((prev) => ({ ...prev, [commentId]: true }));
+    };
+
+    const closeModal = (commentId: string) => {
+        setModalStates((prev) => ({ ...prev, [commentId]: false }));
+    };
+
+    const { data: sessionData } = useSession()
+
     useEffect(() => {
+        // useMessages().then((res) => setMessages(res))
         getMessages()
         setMessageEnviado(false)
         verifyUrl()
+        // useUrl().then((res) => setIsUrl(res))
+        // useLikes().then((res) => setLikes(res))
     }, [messageEnviado])
 
+    useEffect(() => {
+        getLikes()
+    }, [])
 
     const verifyUrl = async () => {
         try {
@@ -37,9 +67,8 @@ export default function Museo() {
                 name_museo: MuseoName
             }).then((res) => {
                 setIsUrl(res.data)
-                console.log(res.data)
             }).catch((err) => {
-                toast.error(err.response.data)
+                toastError(err.response.data)
             })
         } catch (err) {
             console.log(err)
@@ -54,15 +83,49 @@ export default function Museo() {
                 nameMuseo: params.slug.toString()
             }).then((res) => {
                 setMessage('')
-                toast.success(res.data)
+                toastSuccess(res.data)
                 setMessageEnviado(true)
                 setMessages(res.data)
             }).catch((err) => {
-                console.log(err)
-                toast.error(err.response.data)
+                toastError(err.response.data)
             })
         } catch (err) {
-            console.log(err)
+            toastComentarioError()
+        }
+    }
+    const AddDeleteLike = async (event: MouseEvent<HTMLButtonElement>, id_comment: string) => {
+        event.preventDefault()
+        try {
+            let updatedLikes;
+            const isAlreadyLiked = liked.find((like) => like.commentId === id_comment);
+            if (isAlreadyLiked) {
+                updatedLikes = liked.filter((like) => like.commentId !== id_comment);
+            } else {
+                updatedLikes = [...liked, { commentId: id_comment }];
+            }
+            setLiked(updatedLikes);
+            await axios.post(`${dir_url}/api/likes/add`, {
+                id_comment: id_comment,
+                userId: sessionData?.user.id,
+            });
+            toastSuccess(isAlreadyLiked ? "Se eliminó con éxito" : "Se agregó con éxito");
+        } catch (err) {
+            toastComentarioError()
+        }
+        console.log(liked)
+
+    }
+
+    const getLikes = async () => {
+        try {
+            await axios.get(`${dir_url}/api/likes/get`).then((res) => {
+                setLiked(res.data)
+            }).catch((err) => {
+                console.log(err.response.data)
+                toastError(err.response.data)
+            })
+        } catch (err) {
+            toastComentarioError()
         }
     }
 
@@ -72,80 +135,89 @@ export default function Museo() {
                 parametros: params.slug.toString()
             }).then((res) => {
                 setMessages(res.data)
-                console.log(res.data)
             }).catch((err) => {
-                toast.error(err.response.data)
+                toastError(err.response.data)
             })
         } catch (err) {
-            console.log(err)
+            toastComentarioError()
         }
     }
-
-    const CompIcon = [
-        {
-            id: 1,
-            icon: internet,
-        },
-        {
-            id: 2,
-            icon: instagram,
-        },
-        {
-            id: 3,
-            icon: twitter,
-        },
-        {
-            id: 4,
-            icon: face,
-        }
-
-    ]
 
     return (
         <>
             {isUrl === true ? (
-                <section className="w-full h-screen flex justify-center items-center flex-col">
-                    <div className='w-full h-full flex justify-center items-center flex-col gap-5'>
-                        <div className='w-full h-full flex justify-center items-center flex-col'>
-                            <h1 className='text-4xl font-bold text-center'>Museos</h1>
-                            <div className='w-full h-1/5 flex justify-center items-center'>
-                                {CompIcon.map(({ id, icon }) => {
-                                    return (
-                                        <Image
-                                            key={id}
-                                            src={icon}
-                                            alt='icon'
-                                            className='w-[30px] h-[30px]'
-                                        >
-                                        </Image>
-                                    )
-                                })}
-                            </div>
+                <section className='w-full h-[1200px] flex flex-col gap-20'>
+                    <div className='w-full h-4/6 flex flex-col gap-6 pt-10'>
+                        <div className='h-4/6 flex justify-center items-center pb-20'>
+                            <h1 className=' text-4xl font-bold text-center'>Museos</h1>
                         </div>
-                        <Scene />
-                        <div className='w-[800px] h-4/5 flex justify-center items-center flex-col gap-5'>
-                            <div className='w-full h-1/3 flex justify-center items-start flex-col'>
-                                <h1>{messages.length} Comentarios</h1>
-                                <div className='w-full h-full flex flex-col gap-5'>
-                                    <form className='flex flex-row gap-2'>
-                                        <input value={message} className="w-full border-b-2 focus:border-none" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
-                                        <button type='submit' className="bg-dashBack w-28 h-8 rounded-lg font-bold" onClick={addMessage}>Add</button>
-                                    </form>
-                                    <div className='w-full h-full flex flex-col gap-4 '>
-                                        {Array.isArray(messages) ? messages.map((museo, index) =>
-                                            <div className='bg-dashBack w-full h-auto flex justify-start items-center flex-row gap-10 p-10' key={index}>
-                                                <h2 className='text-center font-bold text-black'>Name: {museo["author"]["name"]}</h2>
-                                                <div className=''>
-                                                    <h1 className='text-center text-black'>Contenido del mensaje: {museo["content"]}</h1>
-                                                </div>
+                        <div className='w-full h-[500px] flex justify-center items-center'>
+                            <Scene />
+                        </div>
+                    </div>
+                    <div className='flex justify-center items-center flex-col '>
+                        <div className='w-full h-1/12 flex justify-center items-center'>
+                            <h1 className='text-black font-medium '>{messages.length} Comentarios</h1>
+                        </div>
+                        <div className=' w-[1000px] h-11/12 flex justify-center items-center gap-10 flex-col'>
+                            <form className='flex w-full flex-row gap-5'>
+                                <input value={message} className="w-11/12 border-b-2 focus:outline-none p-4" type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)} />
+                                <button type='submit' className="bg-dashHover w-1/12 h-12 rounded-lg font-bold" onClick={addMessage}>Add</button>
+                            </form>
+                            <div className='w-full  flex justify-center items-start flex-col gap-4 '>
+                                {sessionData?.user ? (
+                                    messages.map((museo, index) =>
+                                        <div id='container-addComments' className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
+                                            <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
+                                            <h1 className='text-center text-black'>{museo["content"]}</h1>
+                                            <div className='flex w-full h-10 justify-start items-center flex-row gap-5'>
+                                                <button
+                                                    id={index.toString()}
+                                                    onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}
+                                                    className={cn({
+                                                        'fill-red': liked.find((like) => like.commentId === museo['id'])
+                                                    })}
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="contentColor" stroke='black' className="w-6 h-6 stroke-2">
+                                                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                                                    </svg>
+                                                </button>
+                                                {/* <button id='addComment' onClick={() => openModal(index.toString())} className=''>
+                                                    <h2 className='font-bold'>Responder</h2>
+                                                </button> */}
+                                                {modalStates[index.toString()] && ReactDOM.createPortal(
+                                                    <ModalComentario isOpen={modalStates[index.toString()]} onClose={() => closeModal(index.toString())} />,
+                                                    document.getElementById('container-addComments') as HTMLElement
+                                                )}
                                             </div>
-                                        ) : ""}
-                                    </div>
-                                </div>
+                                        </div>
+                                    )) : (
+                                    messages.map((museo, index) =>
+                                        <div className=' w-full h-auto flex justify-center items-start flex-col gap-2 p-10 rounded-lg' key={index}>
+                                            <h2 className='text-center font-bold text-black'>@{museo["author"]["name"]}</h2>
+                                            <h1 className='text-center text-black'>{museo["content"]}</h1>
+                                            <div className='flex w-full h-10 justify-start items-center flex-row gap-5'>
+                                                <button
+                                                    id={index.toString()}
+                                                    onClick={(event: MouseEvent<HTMLButtonElement>) => { AddDeleteLike(event, museo['id']) }}
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="contentColor" stroke='black' className="w-6 h-6 stroke-2">
+                                                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                                                    </svg>
+                                                </button>
+                                                {/* <button id='addComment' className=''>
+                                                    <h2 className='font-bold'>Responder</h2>
+                                                </button> */}
+                                            </div>
+                                        </div>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>
-                </section>) : ''}
+                </section >
+            ) : ''
+            }
 
         </>
     )
