@@ -36,6 +36,7 @@ export default function Museo() {
     const [messageEnviado, setMessageEnviado] = useState(false)
 
 
+
     const [modalStates, setModalStates] = useState<Record<string, boolean>>({});
 
     const openModal = (commentId: string) => {
@@ -134,7 +135,8 @@ export default function Museo() {
             await axios.post(`${dir_url}/api/comments/get`, {
                 parametros: params.slug.toString()
             }).then((res) => {
-                setMessages(res.data)
+                setMessages(res.data.reverse())
+
             }).catch((err) => {
                 toastError(err.response.data)
             })
