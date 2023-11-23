@@ -56,6 +56,21 @@ class Scene extends Component {
     this.cube = null;
 
     this.teleportProgress = 0;
+
+    this.teleportDestinations = {
+      teleportLink1: {
+        position: new THREE.Vector3(-5, 0, -5),
+        rotation: new THREE.Euler(0, Math.PI / 2, 0),
+      },
+      teleportLink2: {
+        position: new THREE.Vector3(5, 0, 5),
+        rotation: new THREE.Euler(0, -Math.PI / 2, 0),
+      },
+      teleportLink3: {
+        position: new THREE.Vector3(-11, 0, 5),
+        rotation: new THREE.Euler(0, -Math.PI / -2, 0),
+      },
+    };
   }
   
   openMenu = () => {
@@ -431,23 +446,13 @@ class Scene extends Component {
 
   // Detectar si se clickeó sobre el menu para transportarse por la escena (Diferentes pisos)
   onLinkClick(event) {
-    if (event.target.id === 'linkTP') {
-      event.preventDefault();
-
-      this.setState({ isTeleporting: true });
-
-      setTimeout(() => {
-        const position = this.cube1.position;
-        const cameraY = camera.position.y;
-        camera.position.copy(position);
-        camera.position.y = cameraY;
-        camera.lookAt(position);
-
-        setTimeout(() => {
-          // Desactiva la pantalla negra
-          this.setState({ isTeleporting: false });
-        }, 1000); // Tiempo de animación de teletransportación
-      }, 500);
+    event.preventDefault();
+    const destination = event.target.getAttribute('data-destination');
+  
+    if (destination) {
+      this.teleportTo(destination);
+    } else {
+      console.log('No se ha especificado ningún destino para el enlace.');
     }
   }
 
@@ -467,13 +472,13 @@ class Scene extends Component {
             <div className="w-[250px] h-[300px] absolute top-1/2 bg-white appMenu opacity-75">
                 <div className="w-full h-full flex items-center justify-center flex-col gap-5">
                   <li className="list-none w-full h-14 text-black hover:scale-95 transition flex justify-center items-center">
-                    <span  id="linkTP" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 1</span>
+                    <span  id="linkTP" data-destination="teleportLink1" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 1</span>
                   </li>
                   <li className="list-none w-full h-14 text-black hover:scale-95 transition flex justify-center items-center">
-                    <span  id="linkTP" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 2</span>
+                    <span  id="linkTP" data-destination="teleportLink2" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 2</span>
                   </li>
                   <li className="list-none w-full h-14 text-black hover:scale-95 transition flex justify-center items-center">
-                    <span  id="linkTP" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 3</span>
+                    <span  id="linkTP" data-destination="teleportLink3" onClick={this.onLinkClick} className=" text-2xl text-start cursor-pointer">Ubicación 3</span>
                   </li>
                 </div>
               </div>
