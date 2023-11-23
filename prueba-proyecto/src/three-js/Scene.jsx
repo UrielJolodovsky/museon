@@ -455,7 +455,6 @@ class Scene extends Component {
       console.log('No se ha especificado ningún destino para el enlace.');
     }
   }
- // Hola
 
   render() {
     return (
